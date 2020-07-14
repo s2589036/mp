@@ -1,7 +1,8 @@
 library(plyr)
 
 #read data from file
-idioms=read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\all_idioms.csv")
+idioms=read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms.csv")
+
 
 #remove empty columns
 idioms <- idioms[c(1,2,3,4,5,6,7,8,32)]
@@ -28,15 +29,16 @@ idioms <- idioms[,c(10,11,12,1,2,3,4,5,6,7,8,9)]
 
 idioms$idiom_lemma <- tolower(idioms$idiom_lemma)
 
+write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms_for_python.csv", row.names = FALSE)
 
+library(reticulate)
 
-write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\all_idioms_for_python.csv", row.names = FALSE)
+#The python-script makes an id-list with all idiom ids by checking the nouns, verbs and preps of the idiom lemma 
 
-#idioms2 is made in python from csv file above
-idioms2 <- read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\all_idioms+idiom_id.csv",sep=";")
+py <- py_run_file("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\add_ids.py")
+idioms$idiom_id <- py$idlist
 
-
-
+write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms_plus_idiom_id.csv", row.names = FALSE)
 
 counts_per_collection <- ddply(idioms, .(idioms$doc_type_name), nrow)
 counts_per_idiom_collection <- ddply(idioms, .(idioms$idiom_lemma, idioms$doc_type_name), nrow)

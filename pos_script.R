@@ -75,6 +75,9 @@ calcform <- function(formal,informal,name){
 }
 
 calcform(c(2,4,5,8),c(3,6,7),"original") #original
-calcform(c(2,4,5,8,11),c(3,6,7,9),"orig+specialformal") #original + special formal (less deixis)
-calcform(c(2,4,5,8),c(3,6,7,9,10),"orig+punctinformal") #original + punctuation informal
-calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig+punctinformal+specialformal") #original + punctuation informal + special formal (less deixis)
+calcform(c(4,5,8),c(2,3,6,7),"renkema") #renkema: adjectives informal
+formalitydf$renkemaplus10 <- formalitydf$renkema + 10 #to show that renkema does not change a lot in order from the original, 
+#but is just slightly lower because adjectives are now considered informal --> formality score drops
+calcform(c(2,4,5,8,11),c(3,6,7,9),"original but with special as formal") #original + special formal (less deixis)
+calcform(c(2,4,5,8),c(3,6,7,9,10),"original but with punctuation as informal") #original + punctuation informal
+calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig but with punctuation as informal AND special as formal") #original + punctuation informal + special formal (less deixis)
