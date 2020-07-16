@@ -33,7 +33,7 @@ with open("G:\Mijn Drive\Studie informatiekunde\master\master project\project\\a
             else:
                 idiom_id = idiom_id + 1
                 for permutationtuple in permutations:
-                    print(permutationtuple)
+                    #print(permutationtuple)
                     permutation = " ".join(permutationtuple)
                     lemma_dict[permutation] = idiom_id
                 idlist.append(idiom_id)
