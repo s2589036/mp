@@ -41,7 +41,9 @@ idioms$idiom_id <- c(py$idlist)
 write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms_plus_idiom_id.csv", row.names = FALSE)
 
 counts_per_collection <- ddply(idioms, .(idioms$doc_type_name), nrow)
-counts_per_idiom_collection <- ddply(idioms, .(idioms$idiom_lemma, idioms$doc_type_name), nrow)
+counts_per_idiom_collection <- ddply(idioms, .(idioms$idiom_id, idioms$doc_type_name), nrow)
+#TODO: show per idiom_id but give the most frequent idiom_lemma as idiom_lemma
+
 counts_per_idiom <- ddply(idioms, .(idioms$idiom_lemma), nrow)
 counts_per_doctype <- ddply(idioms, .(idioms$doc_type), nrow)
 
