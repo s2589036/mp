@@ -44,8 +44,11 @@ counts_per_collection <- ddply(idioms, .(idioms$doc_type_name), nrow)
 counts_per_idiom_collection <- ddply(idioms, .(idioms$idiom_id, idioms$doc_type_name), nrow)
 #TODO: show per idiom_id but give the most frequent idiom_lemma as idiom_lemma
 
-counts_per_idiom <- ddply(idioms, .(idioms$idiom_lemma), nrow)
-counts_per_doctype <- ddply(idioms, .(idioms$doc_type), nrow)
+counts_per_idiom <- ddply(idioms, .(idioms$idiom_lemma, idioms$idiom_id), nrow)
+
+
+m1 <- merge(counts_per_idiom_collection, counts_per_idiom, by.x = "idioms$idiom_id", by.y = "idioms$idiom_id")
+m1$V1.x <- c()
 
 #WR-P-E-A - discussion lists
 #WR-P-E-C - e-magazines
