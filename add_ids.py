@@ -7,7 +7,7 @@ with open("G:\Mijn Drive\Studie informatiekunde\master\master project\project\\a
     csv_reader = csv.DictReader(csv_file, delimiter=',', quotechar= '"')
     lemma_dict = {}
     idlist = []
-    idiom_id = 1
+    idiom_id = 0
     while idiom_id < 10:
         for row in csv_reader:
             #print(row["id"],row["idiom_lemma"],row["pos_head"])
