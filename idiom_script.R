@@ -35,7 +35,7 @@ library(reticulate)
 
 #The python-script makes an id-list with all idiom ids by checking the nouns, verbs and preps of the idiom lemma 
 
-py <- py_run_file("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\add_ids_with_permutations_work_on_this.py")
+py <- py_run_file("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\add_ids.py")
 idioms$idiom_id <- c(py$idlist)
 
 write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms_plus_idiom_id.csv", row.names = FALSE)
