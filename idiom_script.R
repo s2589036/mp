@@ -40,15 +40,22 @@ idioms$idiom_id <- c(py$idlist)
 
 write.csv(idioms,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\all_idioms_plus_idiom_id.csv", row.names = FALSE)
 
-counts_per_collection <- ddply(idioms, .(idioms$doc_type_name), nrow)
-counts_per_idiom_collection <- ddply(idioms, .(idioms$idiom_id, idioms$doc_type_name), nrow)
+counts_per_collection <- ddply(idioms, .(doc_type_name), nrow)
+
+counts_per_idiom <- ddply(idioms, .(idiom_lemma, idiom_id), nrow)
+
+counts_per_idiom_collection <- ddply(idioms, .(idiom_id, doc_type_name), nrow)
+
 #TODO: show per idiom_id but give the most frequent idiom_lemma as idiom_lemma
 
-counts_per_idiom <- ddply(idioms, .(idioms$idiom_lemma, idioms$idiom_id), nrow)
+
+counts_per_collection_with_lemmas <- merge(counts_per_idiom_collection, counts_per_idiom, by = "idiom_id")
+names(counts_per_collection_with_lemmas) <- c("idiom_id","doc_type_name","idiom_id_in_doctype","idiom_lemma","idiom_lemma_in_doctype (per doc type in order)")
+#this one gives one row for each version of the idiom for each collection for each id
+#GOAL is to include only the most frequent lemma per idiom_id from counts_per_idiom
 
 
-m1 <- merge(counts_per_idiom_collection, counts_per_idiom, by.x = "idioms$idiom_id", by.y = "idioms$idiom_id")
-m1$V1.x <- c()
+
 
 #WR-P-E-A - discussion lists
 #WR-P-E-C - e-magazines
