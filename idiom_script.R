@@ -50,9 +50,19 @@ counts_per_idiom_collection <- ddply(idioms, .(idiom_id, doc_type_name), nrow)
 
 
 counts_per_collection_with_lemmas <- merge(counts_per_idiom_collection, counts_per_idiom, by = "idiom_id")
-names(counts_per_collection_with_lemmas) <- c("idiom_id","doc_type_name","idiom_id_in_doctype","idiom_lemma","idiom_lemma_in_doctype (per doc type in order)")
-#this one gives one row for each version of the idiom for each collection for each id
-#GOAL is to include only the most frequent lemma per idiom_id from counts_per_idiom
+
+library(dplyr)
+
+#dat2 <- counts_per_collection_with_lemmas %>% group_by(idiom_id) %>% summarise(val=paste(unique(idiom_lemma), collapse=","))
+
+dat2 <- counts_per_collection_with_lemmas %>% group_by(idiom_id) %>% summarise(val=paste(unique(idiom_lemma), collapse=","))
+
+good <- merge(counts_per_idiom_collection, dat2, by="idiom_id")
+
+
+#dat2 <-  aggregate(.~idiom_id, counts_per_collection_with_lemmas, paste, collapse=",")
+
+names(good) <- c("idiom_id","doc_type_name","idiom_id_in_doctype","idiom")
 
 
 
