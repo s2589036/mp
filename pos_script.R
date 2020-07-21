@@ -41,7 +41,7 @@ for(i in 1:20){
   png(file=mypath)
   
   #original colours: red, blue, grey
-   barplot(barplotprop[i,],ylim=range(pretty(c(0, barplotprop[i,]))),col=c(rep("black",4), rep("white",4), rep("grey",4)), 
+   barplot(barplotprop[i,],ylim=range(pretty(c(0, 30))),col=c(rep("black",4), rep("white",4), rep("grey",4)), 
           main=barplotdata$X[i],las=2)
   legend("topright", legend=c("Formal", "Informal","Unknown"),fill=c("black", "white","grey")) 
   
