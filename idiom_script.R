@@ -45,21 +45,20 @@ counts_per_idiom <- ddply(idioms, .(idiom_lemma, idiom_id), nrow)
 
 counts_per_idiom_collection <- ddply(idioms, .(idiom_id, doc_type_name), nrow)
 
-#TODO: show per idiom_id but give the most frequent idiom_lemma as idiom_lemma
 
+Mode0 <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
 
-counts_per_collection_with_lemmas <- merge(counts_per_idiom_collection, counts_per_idiom, by = "idiom_id")
+Mode <- function(x) {
+  f <- Mode0(subset(idioms,idiom_id==x)$idiom_lemma)
+  f
+}
 
+#This works but pc blows up
+idioms$idiom_lemma_common<-Vectorize(Mode)(idioms$idiom_id)
 
-#dat2 <- counts_per_collection_with_lemmas %>% group_by(idiom_id) %>% summarise(val=paste(unique(idiom_lemma), collapse=","))
+cross_table <- as.data.frame.matrix(addmargins(table(idioms$idiom_lemma_common,idioms$doc_type_name),))
 
-dat2 <- counts_per_collection_with_lemmas %>% group_by(idiom_id) %>% summarise(val=paste(unique(idiom_lemma), collapse=","))
-
-good <- merge(counts_per_idiom_collection, dat2, by="idiom_id")
-
-
-#dat2 <-  aggregate(.~idiom_id, counts_per_collection_with_lemmas, paste, collapse=",")
-
-cross_table_for_exact_idioms <- as.data.frame.matrix(addmargins(table(idioms$idiom_lemma,idioms$doc_type_name),))
-cross_table_for_idiom_ids <- as.data.frame.matrix(addmargins(table(idioms$idiom_id,idioms$doc_type_name),))
 
