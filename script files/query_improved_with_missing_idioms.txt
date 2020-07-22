@@ -1,188 +1,188 @@
-([ lemma= "regen" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "drup" ])|	
-([ lemma= "wal" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "sloot" ])|	
-([ lemma= "hol" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "leeuw" ])|	
-([ lemma= "beide" ] [ pos_head = "adj" ]? [ word= "benen" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "grond" ])|	
-(([ lemma= "blijven" ][]?[ lemma= "op" ] [ lemma= "de" ] [ lemma= "achtergrond" ])|([ lemma= "op" ] [ lemma= "de" ] [ lemma= "achtergrond"] [lemma="blijven"]))|	
-([ lemma= "kat" ] [ lemma= "op" ] [  ] [ pos_head = "adj" ]? [ lemma= "spek" ])|	
-([ lemma= "hoofd" ] [ lemma= "op" ] [ lemma= "hol" ])|	
-([ lemma= "van" ] [ lemma= "de" ] [ lemma= "wijs" ])|	
-([ lemma= "leven" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "brouwerij" ])|	
-([ lemma= "boter" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "vis" ])|	
-([  lemma = "duit"  ] [  word = "in"  ] [   ] [ pos_head = "adj" ]? [  lemma = "zak"  ] )|	
-([ lemma= "het" ] [ lemma= "in" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "broek" ])|	
-(([ lemma= "doen" ] [  ]?[ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hand" ])|	([ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hand" ] [ lemma= "doen" ]))|
-([ lemma= "voor" ] [ lemma= "spek" ] [ lemma= "en" ] [ word= "bonen" ])|	
-([ lemma= "water" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wijn" ])|	
-(([lemma="draaien"][]{0,2}[word="duimen"])|	([lemma="duimen"][]?[lemma="draaien"]))|
-([ lemma= "water" ] [ lemma= "naar" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "zee" ])|	
-([ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "duivel" ] [ lemma= "te" ] [ lemma= "biecht" ])|	
-([ lemma= "door" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "bocht" ])|	
-([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "kippen" ] [ lemma= "op" ] [ lemma= "stok" ])|	
-([ lemma= "op" ] [ lemma= "de" ] [ lemma= "vuist" ])|	
-([ lemma= "maas" ] [ lemma= "van" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "net" ])|	
-([ lemma= "handdoek" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "ring" ])|	
-([ lemma= "kont" ] [ lemma= "tegen" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "krib" ])|	
-([ lemma= "geld" ] [ lemma= "over" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "balk" ])|	
-([ lemma= "kind" ] [ lemma= "met" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "badwater" ])|	
-([ lemma= "olie" ] [ lemma= "op" ] [  ] [ pos_head = "adj" ]? [ lemma= "vuur" ])|	
-([ lemma= "parels" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "zwijn" ])|	
-([ lemma = "roet" ] [ lemma = "in" ] [ ] [ pos_head = "adj" ]? [ lemma = "eten" ])|	
-([ lemma= "kop" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wind" ])|	
-(([lemma="grijpen"][ lemma= "naar" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "zwaard" ])|([ lemma= "naar" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "zwaard" ][lemma="grijpen"]))|	
-([ lemma= "druk" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "ketel" ])|	
-([ lemma= "boven" ] [ lemma= "water" ])|	
-([ lemma= "onderste" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kan" ])|	
-([ lemma= "boter" ] [ lemma= "op" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ])|	
-([ word = "aal" ] [ word = "bij" ] [] [ pos_head = "adj" ]? [ word = "staart" ])|	
-([ lemma= "appel" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "dorst" ])|	
-([ lemma= "bord" ] [ lemma= "voor" ] [  ] [ pos_head = "adj" ]? [ lemma= "kop" ])|	
-([ lemma= "gat" ] [ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "hoofd" ])|	
-([ lemma= "gat" ] [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "hand" ])|	
-([ lemma= "stok" ] [ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ])|	
-([ lemma= "stuk" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kraag" ])|	
-([ lemma= "vinger" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pap" ])|	
-([ lemma= "brood" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plank" ])|	
-([ lemma= "geld" ] [ lemma= "op" ] [ lemma= "zak" ])|	
-([ lemma= "haar" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "tand" ])|	
-([lemma="hebben"][pos_head = "vnw"][lemma="in"][pos_head = "vnw"][ pos_head = "adj" ]?[lemma="broekzak"])|	
-([ lemma= "heft" ] [ lemma= "in" ] [ pos_head = "adj" ]? [ lemma= "handen" ])|	
-([ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ word= "vingers" ])|	
-([ lemma= "pap" ] [ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "been" ])|	
-([ lemma= "schaap" ] [ lemma= "op" ] [ lemma= "het" ] [ lemma= "droog" ])|	
-([ lemma= "hand" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "knip" ])|	
-([ lemma= "vinger" ] [ lemma= "aan" ] [ lemma= "de" ] [ lemma= "pols" ])|	
-([ lemma= "oog" ] [ lemma= "in" ] [  ] [ pos_head = "adj" ]? [ lemma= "zeil" ])|	
-([ lemma= "slag" ] [ lemma= "om" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ])|	
-(([ lemma= "houden" ] [  ]{1,2}[ lemma= "aan" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "woord" ])|	([ lemma= "aan" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "woord" ] [ lemma= "houden" ]))|
-([ lemma= "buiten" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ])|	
-([ lemma= "achter" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "hand" ])|	
-([ lemma= "hoofd" ] [ lemma= "boven" ] []? [ pos_head = "adj" ]? [ lemma= "water" ])|	
-([ lemma= "in" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "achterhoofd" ])|	
-(([ lemma= "onder" ] [] [ pos_head = "adj" ]? [ lemma= "pet" ][lemma="houden"]) | ([lemma="houden"] []{1,2}[ lemma= "onder" ] [] [ pos_head = "adj" ]? [ lemma= "pet" ]))|	
-([ lemma= "voet" ] [ lemma= "bij" ] [ lemma= "stuk" ])|	
-([ lemma= "gezicht" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plooi" ])|	
-(([lemma="helpen"] [pos_head = "vnw"] [ lemma= "op" ] []? [ pos_head = "adj" ]? [ lemma= "weg" ] )|([pos_head = "vnw"] [ lemma= "op" ] []? [ pos_head = "adj" ]? [ lemma= "weg" ] []? [lemma="helpen"]))|	
-([ lemma = "de" ] [ lemma = "kat" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boom" ])|	
-([ lemma= "eten" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mond" ])|	
-([ lemma= "op" ] [] [ pos_head = "adj" ]? [ word= "duimpje" ])|	
-([ lemma= "oor" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ])|	
-(([lemma="kloppen"][]?[ lemma= "zich" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "borst" ])|	([ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "borst" ][lemma="kloppen"]))|
-([ lemma= "hart" ] [ lemma= "in" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "keel" ])|	
-(([lemma="knopen"][]{2,4} [ pos_head = "adj" ]?[lemma="oor"])|([lemma="in"][]? [ pos_head = "adj" ]? [lemma="oor"][lemma="knopen"]))|	
-([ lemma= "kat" ] [ lemma= "in" ] [ lemma= "de" ] [ lemma= "zak" ])|	
-([ lemma= "voor" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "appel" ] [ lemma= "en" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "ei" ])|	
-([  lemma = "ei"  ] [  lemma = "voor"  ] [  lemma = "zijn"  ] [ pos_head = "adj" ]? [  lemma = "geld"  ] )|	
-([ lemma= "baard" ] [ lemma= "in" ] [ ] [ lemma= "keel" ])|	
-([ lemma= "kous" ] [ lemma= "op" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "kop" ])|	
-([ lemma= "als" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "boei" ])|	
-([ lemma= "veeg" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pan" ])|	
-([ lemma= "poot" ] [ lemma= "aan" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "grond" ])|	
-([ lemma= "deksel" ] [ lemma= "op" ] [ ] [ pos_head = "adj" ]? [ lemma= "neus" ])|	
-(([lemma="krijgen"] []{1,2}[ lemma= "onder" ] [ lemma= "de" ] [ lemma= "knie" ])|([ lemma= "onder" ] [ lemma= "de" ] [ lemma= "knie" ][lemma="krijgen"]))|	
-([ lemma= "voor" ] [ lemma= "zijn" ] [pos_head = "adj"]? [word = "kiezen" ])|	
-([ lemma= "waar" ] [ lemma= "voor" ] [ pos_head = "vnw" ] [ pos_head = "adj" ]? [ lemma= "geld" ])|	
-([ lemma= "door" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "oog" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "naald" ])|	
-([ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wol" ])|	
-([ lemma= "aap" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mouw" ])|	
-([ lemma= "kink" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kabel" ])|	
-(([lemma = "komen"] [pos_head = "vnw"] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kast" ])|([lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kast" ][lemma="komen"]))|	
-([ lemma= "voor" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "voetlicht" ])|	
-([ lemma= "boer" ] [ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "kiespijn" ])|	
-([ lemma= "god" ] [ lemma= "in" ] []? [ pos_head = "adj" ]? [ lemma= "frankrijk" ])|	
-(([lemma="leven"] ([lemma="met"]|[lemma="bij"]) [lemma="de"] [ pos_head = "adj" ]? [lemma="dag"])|(([lemma="met"]|[lemma="bij"])[lemma="de"][ pos_head = "adj" ]? [lemma="dag"][lemma="leven"]))|	
-([ lemma= "hand" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "tand" ])|	
-(([ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ] [lemma="leren"])|	([lemma="leren"] []{1,2} [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ] ))|
-([ lemma= "vinger" ] [ lemma= "op" ] [ lemma= "de" ] [ lemma= "zeer" ] [ lemma= "plek" ])|	
-([ lemma= "vuur" ] [ lemma= "aan" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "scheen" ])|	
-([ lemma= "op" ] [ lemma= "alle" ] [ pos_head = "adj" ]? [ lemma= "slak" ] [ pos_head = "adj" ]? [ lemma= "zout" ])|	
-(([lemma="van"][pos_head = "vnw"][pos_head = "adj"]?[lemma="bed"][lemma="lichten"])|	([lemma="lichten"][]{0,2}[lemma="van"][pos_head = "vnw"][pos_head = "adj"]?[lemma="bed"]))|
-([ lemma= "water" ] [lemma="lopen"] []? [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "mond" ])|([ lemma= "water" ] []? [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "mond" ][lemma="lopen"] )	
-([lemma = "lopen"] []? [ lemma= "in" ] [ lemma= "het" ] ([ lemma= "honderd" ]|[lemma="100"]))	
-(([lemma = "lopen" ] []? [ pos_head = "adj" ]? [lemma = "zool"] [word="van"] [] [ pos_head = "adj" ]? [lemma="schoen"])|( [ pos_head = "adj" ]? [lemma = "zool"] [word="van"] [] [ pos_head = "adj" ]? [lemma="schoen"][lemma = "lopen" ] ))|	
-(([lemma="lopen"][ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "val" ])|([ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "val" ] [lemma="lopen"]))|	
-([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wind" ])|	
-([ lemma= "ziel" ] [ lemma= "onder" ] [ ] [ pos_head = "adj" ]? [ lemma= "arm" ])|	
-([ lemma= "vuur" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word = "sloffen" ])|	
-([ lemma= "been" ] [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|	
-(([ lemma= "kaas" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma= "brood" ]))|	
-([ lemma= "pas" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plaats" ])|	
-([ lemma= "van" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "mug" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "olifant" ])|	
-([lemma="maken"][]?[lemma="zich"][ lemma= "uit" ] [ lemma= "de" ] [pos_head = "adj"]? [ word= "voeten" ])|	
-([ lemma= "blad" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mond" ])|	
-([ lemma= "wind" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "zeilen" ])|	
-(([ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ] [lemma="nemen"])|([lemma="nemen"][]{1,3}[ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ]))|	
-([ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "korrel" ])|	
-([ lemma= "op" ] [pos_head = "adj"]? [ lemma= "sleeptouw" ])|	
-([ lemma= "over" ] [pos_head = "adj"]? [ lemma= "koe" ] [ lemma= "en" ] [pos_head = "adj"]? [ lemma= "kalf" ])|	
-(([lemma="roeien"][]?[ lemma= "tegen" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "stroom" ] [ lemma= "op" ])|	([ lemma= "tegen" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "stroom" ] [ lemma= "op" ][lemma="roeien"]))|
-([ lemma= "bok" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "schaap" ])|	
-(([ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "daken" ][lemma="schreeuwen"]) | ([lemma="schreeuwen"] []{1,2}[ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "daken" ]))|	
-([ lemma= "de" ] [ lemma= "long" ] [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|	
-([ lemma = "adder" ] [ lemma = "onder" ] [  ] [ pos_head = "adj" ]? [ lemma= "gras" ])|	
-([ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "vlag" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "wimpel" ])|	
-([ lemma= "schrik" ][]? []? [ lemma= "om" ] [ ] [ pos_head = "adj" ]? [ lemma= "hart" ])|	
-([ lemma= "spijker" ] [ lemma= "op" ] [ ] [ pos_head = "adj" ]? [ lemma= "kop" ])|	
-([ lemma= "spijker" ] [ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "kop" ])|	
-([ lemma= "twee" ] [ lemma= "vliegen" ] [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "klap" ])|	
-(([lemma="zich"][ lemma = "in" ] ([ lemma = "de" ]|[pos_head="vnw"]) [ pos_head = "adj" ]? [ word = "vingers" ] [ lemma = "snijden" ])|([ lemma = "snijden" ][pos_head="vnw"]?[lemma="zich"][ lemma = "in" ] ([ lemma = "de" ]|[pos_head="vnw"]) [ pos_head = "adj" ]? [ word = "vingers" ]))|	
-([ lemma= "paard" ] [ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wagen" ])|	
-([  word = "advocaat"  ] [  word = "van"  ] [  word = "de"  ] [ pos_head = "adj" ]? [  word = "duivel"  ] )|	
-([ word= "sterren" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hemel" ])|	
-(([ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kaart" ] [ lemma= "spelen" ])|	([ lemma= "spelen" ] [  ]{1,2}[ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kaart" ]))|
-(([lemma="spelen"][]?[lemma="met"][ pos_head = "adj" ]?[lemma="vuur"]) | ([lemma="met"][ pos_head = "adj" ]?[lemma="vuur"][lemma="spelen"]))|	
-([ lemma= "gat" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lucht" ])|	
-([ lemma= "hak" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "tak" ])|	
-(([ lemma = "op" ] [ lemma = "zijn" ] [ pos_head = "adj" ]? [ word = "vestje" ] ([ lemma = "spugen" ]|[ lemma = "spuwen" ]))|(([ lemma = "spugen" ]|[ lemma = "spuwen" ])[ lemma = "op" ] [ lemma = "zijn" ] [ pos_head = "adj" ]? [ word = "vestje" ]))|	
-([ lemma= "hart" ] [ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "riem" ])|	
-([ lemma= "kop" ] [ lemma= "in" ] [  ] [ pos_head = "adj" ]? [ lemma= "zand" ])|	
-([lemma="tot"][]?[lemma="de"][lemma="lip"])|	
-([ lemma= "in" ] [ pos_head = "adj" ]? [ lemma= "vuur" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "vlam" ])|	
-(([ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "hemd" ] [lemma="staan"])|	([lemma="staan"] []? [ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "hemd" ]))|
-([ lemma= "rug" ] [ lemma= "tegen" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "muur" ])|	
-([ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lat" ])|	
-([ lemma= "brood" ] [ lemma= "uit" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "mond" ])|	
-(([ lemma= "strijken" ] [  ]?[ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "eer" ])|	([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "eer" ] [  ]?[ lemma= "strijken" ]))|
-([ lemma= "zout" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wond" ])|	
-(([lemma="toveren"][]?[lemma= "iets" ] [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoed" ])|	([ lemma= "iets" ] [ lemma= "uit" ] [  ] [ pos_head = "adj" ]? [ lemma= "hoed" ][lemma="toveren"]))|
-([ lemma= "op" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "ziel" ])|	
-(([lemma="trekken"][]?[lemma="aan"][lemma="de"][pos_head = "adj"]?[lemma="bel"])|	([lemma="aan"][lemma="de"][pos_head = "adj"]?[lemma="bel"][lemma="trekken"]))|
-(([lemma="trekken"][][ lemma= "aan" ] [pos_head = "vnw"] [ lemma= "jas" ])|([ lemma= "aan" ] [pos_head = "vnw"] [ lemma= "jas" ][lemma="trekken"]))|	
-([ word = "met" ] [ word = "de" ] [ pos_head = "adj" ]? [ word = "handschoen" ])|	
-([ lemma= "koe" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hoorn" ])|	
-([ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "kraag" ])|	
-([ lemma= "knol" ] [ lemma= "voor" ] [ pos_head = "adj" ]? [ lemma= "citroen" ])|	
-(([ word = "aan" ] [ word = "de" ] [ pos_head = "adj" ]? [ word = "aarde" ] [ lemma = "toevertrouwen" ])|([ lemma = "vertrouwen" ] [ word = "aan" ] [ word = "de" ] [ pos_head = "adj" ]? [ word = "aarde" ] [word = "toe"]))|	
-([ lemma = "als" ] [ lemma = "een" ] [ pos_head = "adj" ]? [ lemma= "blok" ] [ lemma= "in" ] [ lemma= "slaap" ])|	
-(([ lemma= "vallen" ] [  ]?[ lemma= "in" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "gat" ])|	([ lemma= "in" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "gat" ] [ lemma= "vallen" ]))|
-([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ] [ lemma= "in" ] [ lemma= "huis" ])|	
-([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boter" ])|	
-([ lemma= "tussen" ] []? [ pos_head = "adj" ]? [ lemma= "wal" ] [ lemma= "en" ] []? [ pos_head = "adj" ]? [ lemma= "schip" ])|	
-(([lemma = "vallen"] []? [ lemma= "uit" ] [pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "rol" ])|([ lemma= "uit" ] [pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "rol" ] [lemma = "vallen"]))|	
-(([lemma="vechten"][]?[lemma="tegen"][pos_head = "adj"]?[lemma="windmolen"])|	([lemma="tegen"][pos_head = "adj"]?[lemma="windmolen"][lemma="vechten"]))|
-([ lemma= "daad" ] [ lemma= "bij" ] [ lemma= "het" ] [pos_head = "adj"]? [ lemma= "woord" ])|	
-([ lemma= "hond" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pot" ])|	
-([ lemma= "hemd" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|	
-([  lemma = "kogel"  ] [  lemma = "zijn"  ]? [  word = "door"  ] [  word = "de"  ] [ pos_head = "adj" ]? [  lemma = "kerk"  ])|	
-([ lemma= "hek" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "dam" ])|	
-([ lemma= "held" ] [ lemma= "op" ] []? [ pos_head = "adj" ]? [ word = "sokken" ])|	
-([ lemma= "vogel" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kat" ])|	
-([ lemma= "gesprek" ] [ lemma= "van" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "dag" ])	
-([ lemma= "kind" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "rekening" ])|	
-([ lemma= "hoofd" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wolk" ])|	
-([  word = "vel"  ] [  word = "over"  ] [ pos_head = "adj" ]? [  word = "been"  ])|	
-([ lemma= "neus" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "feiten" ])|	
-(([lemma="wippen"] []{1,3} [lemma="zadel"])|([lemma="zadel"] []{1,3} [lemma="wippen"]))|	
-([ lemma= "zout" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wond" ])|	
-([ lemma= "door" ] [ lemma= "de" ] [ lemma= "boom" ] [ lemma= "het" ] [ lemma= "bos" ])|	
-([ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "geranium" ])|	
-([ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lappenmand" ])|	
-([ lemma= "in" ] [ lemma= "zak" ] [ lemma= "en" ] [pos_head = "adj"]? [ lemma= "as" ])|	
-(([lemma = "zitten"] []{1,3} [ pos_head = "adj" ]? [ lemma= "hand" ] [ lemma= "in" ] [  ]? [ pos_head = "adj" ]? [ lemma= "haar" ]) | ([ lemma= "hand" ] [ lemma= "in" ] [  ] [ pos_head = "adj" ]? [ lemma= "haar" ] [lemma="zitten"]))|	
-([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boek" ])|	
-(([lemma="zitten"][]?[lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "rozen" ])|	([lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "rozen" ][lemma="zitten"]))|
-([ lemma= "op" ] [ lemma= "water" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "brood" ])|	
-([ lemma= "boel" ] [ lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "stelt" ])|	
-([ lemma= "deur" ] [ lemma= "op" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "kier" ])|	
-([ lemma= "luis" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pels" ])|	
-(([ lemma= "op" ] [ lemma= "straat" ] [ lemma= "zetten" ])|	([ lemma= "zetten" ] [pos_head = "spec" | pos_head = "vnw"]{0,2}[ lemma= "op" ] []? [ lemma= "straat" ]))|
-(([ lemma= "zweten" ] [ pos_head = "adj" ]? [ lemma= "bloed" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "water" ])|([ lemma= "bloed" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "water" ][ lemma= "zweten" ]))
+([ lemma= "regen" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "drup" ])|
+([ lemma= "wal" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "sloot" ])|
+([ lemma= "hol" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "leeuw" ])|
+([ lemma= "beide" ] [ pos_head = "adj" ]? [ word= "benen" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "grond" ])|
+(([ lemma= "blijven" ][]?[ lemma= "op" ] [ lemma= "de" ] [ lemma= "achtergrond" ])|([ lemma= "op" ] [ lemma= "de" ] [ lemma= "achtergrond"] [lemma="blijven"]))|
+([ lemma= "kat" ] [ lemma= "op" ] [  ] [ pos_head = "adj" ]? [ lemma= "spek" ])|
+([ lemma= "hoofd" ] [ lemma= "op" ] [ lemma= "hol" ])|
+([ lemma= "van" ] [ lemma= "de" ] [ lemma= "wijs" ])|
+([ lemma= "leven" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "brouwerij" ])|
+([ lemma= "boter" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "vis" ])|
+([  lemma = "duit"  ] [ lemma = "in"  ] [   ] [ pos_head = "adj" ]? [  lemma = "zak"  ] )|
+([ lemma= "het" ] [ lemma= "in" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "broek" ])|
+(([ lemma= "doen" ] [  ]?[ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hand" ])|([ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hand" ] [ lemma= "doen" ]))|
+([ lemma= "voor" ] [ lemma= "spek" ] [ lemma= "en" ] [ word= "bonen" ])|
+([ lemma= "water" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wijn" ])|
+(([lemma="draaien"][]{0,2}[word="duimen"])|([lemma="duimen"][]?[lemma="draaien"]))|
+([ lemma= "water" ] [ lemma= "naar" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "zee" ])|
+([ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "duivel" ] [ lemma= "te" ] [ lemma= "biecht" ])|
+([ lemma= "door" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "bocht" ])|
+([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "kippen" ] [ lemma= "op" ] [ lemma= "stok" ])|
+([ lemma= "op" ] [ lemma= "de" ] [ lemma= "vuist" ])|
+([ lemma= "maas" ] [ lemma= "van" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "net" ])|
+([ lemma= "handdoek" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "ring" ])|
+([ lemma= "kont" ] [ lemma= "tegen" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "krib" ])|
+([ lemma= "geld" ] [ lemma= "over" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "balk" ])|
+([ lemma= "kind" ] [ lemma= "met" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "badwater" ])|
+([ lemma= "olie" ] [ lemma= "op" ] [  ] [ pos_head = "adj" ]? [ lemma= "vuur" ])|
+([ lemma= "parel" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "zwijn" ])|
+([ lemma = "roet" ] [ lemma = "in" ] [ ] [ pos_head = "adj" ]? [ lemma = "eten" ])|
+([ lemma= "kop" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wind" ])|
+(([lemma="grijpen"][ lemma= "naar" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "zwaard" ])|([ lemma= "naar" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "zwaard" ][lemma="grijpen"]))|
+([ lemma= "druk" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "ketel" ])|
+([ lemma= "boven" ] [ lemma= "water" ])|
+([ lemma= "onderste" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kan" ])|
+([ lemma= "boter" ] [ lemma= "op" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ])|
+([ word = "aal" ] [ word = "bij" ] [] [ pos_head = "adj" ]? [ word = "staart" ])|
+([ lemma= "appel" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "dorst" ])|
+([ lemma= "bord" ] [ lemma= "voor" ] [  ] [ pos_head = "adj" ]? [ lemma= "kop" ])|
+([ lemma= "gat" ] [ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "hoofd" ])|
+([ lemma= "gat" ] [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "hand" ])|
+([ lemma= "stok" ] [ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ])|
+([ lemma= "stuk" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kraag" ])|
+([ lemma= "vinger" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pap" ])|
+([ lemma= "brood" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plank" ])|
+([ lemma= "geld" ] [ lemma= "op" ] [ lemma= "zak" ])|
+([ lemma= "haar" ] [ lemma= "op" ] [ lemma= "de" | pos_head="vnw"] [ pos_head = "adj" ]? [ lemma= "tand" ])|
+([lemma="hebben"][pos_head = "vnw"][lemma="in"][pos_head = "vnw"][ pos_head = "adj" ]?[lemma="broekzak"])|
+([ lemma= "heft" ] [ lemma= "in" ] [ pos_head = "adj" ]? [ lemma= "handen" ])|
+([ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ word= "vingers" ])|
+([ lemma= "pap" ] [ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "been" ])|
+([ lemma= "schaap" ] [ lemma= "op" ] [ lemma= "het" ] [ lemma= "droog" ])|
+([ lemma= "hand" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "knip" ])|
+([ lemma= "vinger" ] [ lemma= "aan" ] [ lemma= "de" ] [ lemma= "pols" ])|
+([ lemma= "oog" ] [ lemma= "in" ] [  ] [ pos_head = "adj" ]? [ lemma= "zeil" ])|
+([ lemma= "slag" ] [ lemma= "om" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ])|
+(([ lemma= "houden" ] [  ]{1,2}[ lemma= "aan" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "woord" ])|([ lemma= "aan" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "woord" ] [ lemma= "houden" ]))|
+([ lemma= "buiten" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ])|
+([ lemma= "achter" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "hand" ])|
+([ lemma= "hoofd" ] [ lemma= "boven" ] []? [ pos_head = "adj" ]? [ lemma= "water" ])|
+([ lemma= "in" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "achterhoofd" ])|
+(([ lemma= "onder" ] [] [ pos_head = "adj" ]? [ lemma= "pet" ][lemma="houden"]) | ([lemma="houden"] []{1,2}[ lemma= "onder" ] [] [ pos_head = "adj" ]? [ lemma= "pet" ]))|
+([ lemma= "voet" ] [ lemma= "bij" ] [ lemma= "stuk" ])|
+([ lemma= "gezicht" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plooi" ])|
+(([lemma="helpen"] [pos_head = "vnw"] [ lemma= "op" ] []? [ pos_head = "adj" ]? [ lemma= "weg" ] )|([pos_head = "vnw"] [ lemma= "op" ] []? [ pos_head = "adj" ]? [ lemma= "weg" ] []? [lemma="helpen"]))|
+([ pos_head = "lw" ] [ lemma = "kat" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boom" ])|
+([ lemma= "eten" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mond" ])|
+([ lemma= "op" ] [] [ pos_head = "adj" ]? [ word= "duimpje" ])|
+([ lemma= "oor" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma = "hoofd" ])|
+(([lemma="kloppen"][]?[ lemma= "zich" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "borst" ])|([ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "borst" ][lemma="kloppen"]))|
+([ lemma= "hart" ] [ lemma= "in" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "keel" ])|
+(([lemma="knopen"][]{2,4} [ pos_head = "adj" ]?[lemma="oor"])|([lemma="in"][]? [ pos_head = "adj" ]? [lemma="oor"][lemma="knopen"]))|
+([ lemma= "kat" ] [ lemma= "in" ] [ lemma= "de" ] [ lemma= "zak" ])|
+([ lemma= "voor" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "appel" ] [ lemma= "en" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "ei" ])|
+([  lemma = "ei"  ] [  lemma = "voor"  ] [  lemma = "zijn"  ] [ pos_head = "adj" ]? [  lemma = "geld"  ] )|
+([ lemma= "baard" ] [ lemma= "in" ] [ ] [ lemma= "keel" ])|
+([ lemma= "kous" ] [ lemma= "op" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "kop" ])|
+([ lemma= "als" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "boei" ])|
+([ lemma= "veeg" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pan" ])|
+([ lemma= "poot" ] [ lemma= "aan" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "grond" ])|
+([ lemma= "deksel" ] [ lemma= "op" ] [ ] [ pos_head = "adj" ]? [ lemma= "neus" ])|
+([ lemma= "onder" ] [ lemma= "de" ] [ lemma= "knie" ])|
+([ lemma= "voor" ] [ lemma= "zijn" ] [pos_head = "adj"]? [word = "kiezen" ])|
+([ lemma= "waar" ] [ lemma= "voor" ] [ pos_head = "vnw" ] [ pos_head = "adj" ]? [ lemma= "geld" ])|
+([ lemma= "door" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "oog" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "naald" ])|
+([ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wol" ])|
+([ lemma= "aap" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mouw" ])|
+([ lemma= "kink" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kabel" ])|
+(([lemma = "komen"] [pos_head = "vnw"]? [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kast" ])|([lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kast" ][lemma="komen"]))|
+([ lemma= "voor" ] [ lemma= "het" ] [ pos_head = "adj" ]? [ lemma= "voetlicht" ])|
+([ lemma= "boer" ] [ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "kiespijn" ])|
+([ lemma= "god" ] [ lemma= "in" ] []? [ pos_head = "adj" ]? [ lemma= "frankrijk" ])|
+(([lemma="leven"] ([lemma="met"]|[lemma="bij"]) [lemma="de"] [ pos_head = "adj" ]? [lemma="dag"])|(([lemma="met"]|[lemma="bij"])[lemma="de"][ pos_head = "adj" ]? [lemma="dag"][lemma="leven"]))|
+([ lemma= "hand" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "tand" ])|
+(([ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ] [lemma="leren"])|([lemma="leren"] []{1,2} [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "hoofd" ] ))|
+([ lemma= "vinger" ] [ lemma= "op" ] [ lemma= "de" ] [ lemma= "zeer" ] [ lemma= "plek" ])|
+([ lemma= "vuur" ] [ lemma= "aan" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "scheen" ])|
+([ lemma= "op" ] [ lemma= "alle" ] [ pos_head = "adj" ]? [ lemma= "slak" ] [ pos_head = "adj" ]? [ lemma= "zout" ])|
+(([lemma="van"][pos_head = "vnw"|"lw"][pos_head = "adj"]?[lemma="bed"][lemma="lichten"])|([lemma="lichten"][]{0,2}[lemma="van"][pos_head = "vnw"|"lw"][pos_head = "adj"]?[lemma="bed"]))|
+(([ lemma= "water" ] [lemma="lopen"] [pos_head = "vnw"]? [ lemma= "in" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [ lemma= "mond" ])|([ lemma= "water" ] [pos_head = "vnw"]? [ lemma= "in" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [ lemma= "mond" ][lemma="lopen"]))|
+([lemma = "lopen"] []? [ lemma= "in" ] [ lemma= "het" ] ([ lemma= "honderd" ]|[lemma="100"]))
+(([lemma = "lopen" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [lemma = "zool"] [lemma="van"] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [lemma="schoen"])|([lemma = "zool"] [lemma="van"] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [lemma="schoen"][lemma = "lopen" ] ))|
+(([lemma="lopen"][ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "val" ])|([ lemma= "in" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "val" ] [lemma="lopen"]))|
+([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wind" ])|
+([ lemma= "ziel" ] [ lemma= "onder" ] [ ] [ pos_head = "adj" ]? [ lemma= "arm" ])|
+([ lemma= "vuur" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word = "sloffen" ])|
+([ lemma= "been" ] [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|
+(([ lemma= "kaas" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma= "brood" ]))|
+([ lemma= "pas" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "plaats" ])|
+([ lemma= "van" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "mug" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "olifant" ])|
+([lemma="zich"][ lemma= "uit" ] [ lemma= "de" ] [pos_head = "adj"]? [ word= "voeten" ])|
+([ lemma= "blad" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "mond" ])|
+([ lemma= "wind" ] [ lemma= "uit" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "zeilen" ])|
+(([ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ] [lemma="nemen"])|([lemma="nemen"][]{1,3}[ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "arm" ]))|
+([ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "korrel" ])|
+([ lemma= "op" ] [pos_head = "adj"]? [ lemma= "sleeptouw" ])|
+([ lemma= "over" ] [pos_head = "adj"]? [ lemma= "koe" ] [ lemma= "en" ] [pos_head = "adj"]? [ lemma= "kalf" ])|
+(([lemma="roeien"][]{0,4}[ lemma= "tegen" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "stroom" ] [ lemma= "op" ])|([ lemma= "tegen" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "stroom" ] [ lemma= "op" ][lemma="roeien"]))|
+([ lemma= "bok" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "schaap" ])|
+(([ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "daken" ][lemma="schreeuwen"])|([lemma="schreeuwen"] []{1,2}[ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ word= "daken" ]))|
+([ lemma= "de" ] [ lemma= "long" ] [ lemma= "uit" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|
+([ lemma = "adder" ] [ lemma = "onder" ] [  ] [ pos_head = "adj" ]? [ lemma= "gras" ])|
+([ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "vlag" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "wimpel" ])|
+([ lemma= "schrik" ][]{0,4} [ lemma= "om" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [ lemma= "hart" ])|
+([ lemma= "spijker" ] [ lemma= "op" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [ lemma= "kop" ])|
+([ lemma= "spijker" ] [ lemma= "met" ] [ pos_head = "adj" ]? [ lemma= "kop" ])|
+([ lemma= "twee" ] [ lemma= "vliegen" ] [ lemma= "in" ] [ ] [ pos_head = "adj" ]? [ lemma= "klap" ])|
+(([lemma="zich"][ lemma = "in" ] [pos_head = "vnw"|"lw"] [ pos_head = "adj" ]? [ word = "vingers" ] [ lemma = "snijden" ])|([ lemma = "snijden" ][pos_head="vnw"]?[lemma="zich"][ lemma = "in" ] ([ pos_head = "lw" ]|[pos_head="vnw"]) [ pos_head = "adj" ]? [ word = "vingers" ]))|
+([ lemma= "paard" ] [ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wagen" ])|
+([  word = "advocaat"  ] [  word = "van"  ] [  pos_head = "lw"  ] [ pos_head = "adj" ]? [  word = "duivel"  ] )|
+([ word= "sterren" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hemel" ])|
+(([ lemma= "in" ] [ pos_head = "lw" | pos_head = "vnw" ] [ pos_head = "adj" ]? [ lemma= "kaart" ] [ lemma= "spelen" ])|([ lemma= "spelen" ] [  ]{1,4}[ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kaart" ]))|
+(([lemma="spelen"][]{0,4}[lemma="met"][ pos_head = "adj" ]?[lemma="vuur"]) | ([lemma="met"][ pos_head = "adj" ]?[lemma="vuur"][lemma="spelen"]))|
+([ lemma= "gat" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lucht" ])|
+([ lemma= "hak" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "tak" ])|
+(([ lemma = "op" ] [ pos_head = "vnw"|"lw" ] [ pos_head = "adj" ]? [ word = "vestje" ] ([ lemma = "spugen" ]|[ lemma = "spuwen" ]))|(([ lemma = "spugen" ]|[ lemma = "spuwen" ])[ lemma = "op" ] [ lemma = "zijn" ] [ pos_head = "adj" ]? [ word = "vestje" ]))|
+([ lemma= "hart" ] [ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "riem" ])|
+([ lemma= "kop" ] [ lemma= "in" ] [ pos_head="lw" ] [ pos_head = "adj" ]? [ lemma= "zand" ])|
+([lemma="tot"][ lemma= "aan"]?[lemma="de"][ pos_head = "adj" ]?[lemma="lip"])|
+([ lemma= "in" ] [ pos_head = "adj" ]? [ lemma= "vuur" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "vlam" ])|
+(([ lemma= "in" ] [pos_head = "vnw" | pos_head = "lw"] [ pos_head = "adj" ]? [ lemma= "hemd" ] [lemma="staan"])|([lemma="staan"] []? [ lemma= "in" ] [] [ pos_head = "adj" ]? [ lemma= "hemd" ]))|
+([ lemma= "rug" ] [ lemma= "tegen" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "muur" ])|
+([ lemma= "onder" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lat" ])|
+([ lemma= "brood" ] [ lemma= "uit" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "mond" ])|
+(([ lemma= "strijken" ] [  ]{0,4} [ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "eer" ])|([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "eer" ] []{0,3} [ lemma= "strijken" ]))|
+([ lemma= "zout" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wond" ])|
+(([lemma="toveren"][]?[lemma= "iets" ] [ lemma= "uit" ] [pos_head = "vnw" | pos_head = "lw"] [ pos_head = "adj" ]? [ lemma= "hoed" ])|([ lemma= "iets" ] [ lemma= "uit" ] [pos_head = "vnw" | pos_head = "lw"] [ pos_head = "adj" ]? [ lemma= "hoed" ][lemma="toveren"]))|
+([ lemma= "op" ] [ lemma= "zijn" ] [ pos_head = "adj" ]? [ lemma= "ziel" ])|
+(([lemma="trekken"][]?[lemma="aan"][lemma="de"][pos_head = "adj"]?[lemma="bel"])|([lemma="aan"][lemma="de"][pos_head = "adj"]?[lemma="bel"][lemma="trekken"]))|
+(([lemma="trekken"][]{0,4} [ lemma= "aan" ] [pos_head = "vnw"] [pos_head = "adj"]? [ lemma= "jas" ])|([ lemma= "aan" ] [pos_head = "vnw"] [pos_head = "adj"]? [ lemma= "jas" ][lemma="trekken"]))|
+([ word = "met" ] [ pos_head = "lw" ] [ pos_head = "adj" ]? [ word = "handschoen" ])|
+([ lemma= "koe" ] [ lemma= "bij" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "hoorn" ])|
+([ lemma= "in" ] [pos_head = "vnw" | pos_head = "lw"] [ pos_head = "adj" ]? [ lemma= "kraag" ])|
+([ lemma= "knol" ] [ lemma= "voor" ] [ pos_head = "adj" ]? [ lemma= "citroen" ])|
+(([ word = "aan" ] [ pos_head = "lw" ] [ pos_head = "adj" ]? [ word = "aarde" ] [ lemma = "toevertrouwen" ])|([ lemma = "vertrouwen" ] [ word = "aan" ] [ pos_head = "lw" ] [ pos_head = "adj" ]? [ word = "aarde" ] [word = "toe"]))|
+([ lemma = "als" ] [ lemma = "een" ] [ pos_head = "adj" ]? [ lemma= "blok" ] [ lemma= "in" ] [ lemma= "slaap" ])|
+(([ lemma= "vallen" ] [  ]?[ lemma= "in" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "gat" ])|([ lemma= "in" ] [ lemma= "een" ] [ pos_head = "adj" ]? [ lemma= "gat" ] [ lemma= "vallen" ]))|
+([ lemma= "met" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "deur" ] [ lemma= "in" ] [ lemma= "huis" ])|
+([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boter" ])|
+([ lemma= "tussen" ] [pos_head="lw"]? [ pos_head = "adj" ]? [ lemma= "wal" ] [ lemma= "en" ] [pos_head="lw"]? [ pos_head = "adj" ]? [ lemma= "schip" ])|
+(([lemma = "vallen"] []? [ lemma= "uit" ] [pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "rol" ])|([ lemma= "uit" ] [pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "rol" ] [lemma = "vallen"]))|
+(([lemma="vechten"][]?[lemma="tegen"][pos_head = "adj"]?[lemma="windmolen"])|([lemma="tegen"][pos_head = "adj"]?[lemma="windmolen"][lemma="vechten"]))|
+([ lemma= "daad" ] [ lemma= "bij" ] [ lemma= "het" ] [pos_head = "adj"]? [ lemma= "woord" ])|
+([ lemma= "hond" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pot" ])|
+([ lemma= "hemd" ] [ lemma= "van" ] [ ] [ pos_head = "adj" ]? [ lemma= "lijf" ])|
+([  lemma = "kogel"  ] [  lemma = "zijn"  ]? [  word = "door"  ] [  pos_head = "lw"  ] [ pos_head = "adj" ]? [  lemma = "kerk"  ])|
+([ lemma= "hek" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "dam" ])|
+([ lemma= "held" ] [ lemma= "op" ] [ pos_head = "adj" ]? [ word = "sokken" ])|
+([ lemma= "vogel" ] [ lemma= "voor" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "kat" ])|
+([ lemma= "gesprek" ] [ lemma= "van" ] [ lemma= "de" ] [pos_head = "adj"]? [ lemma= "dag" ])
+([ lemma= "kind" ] [ lemma= "van" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "rekening" ])|
+([ lemma= "hoofd" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wolk" ])|
+([  word = "vel"  ] [  word = "over"  ] [ pos_head = "adj" ]? [  word = "been"  ])|
+([ lemma= "neus" ] [ lemma= "op" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "feiten" ])|
+(([lemma="wippen"] []{1,3} [lemma="uit"][pos_head="lw"] [lemma="zadel"])|([lemma="uit"][pos_head="lw"][lemma="zadel"][lemma="wippen"]))|
+([ lemma= "zout" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "wond" ])|
+([ lemma= "door" ] [ lemma= "de" ] [ lemma= "boom" ] [ lemma= "het" ] [ lemma= "bos" ])|
+([ lemma= "achter" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "geranium" ])|
+([ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "lappenmand" ])|
+([ lemma= "in" ] [ lemma= "zak" ] [ lemma= "en" ] [pos_head = "adj"]? [ lemma= "as" ])|
+(([lemma = "zitten"] [lemma= "met"] [pos_head = "lw" | pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "hand" ] [ lemma= "in" ] [pos_head = "lw" | pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "haar" ]) | ([ lemma= "hand" ] [ lemma= "in" ] [pos_head = "lw" | pos_head = "vnw"] [ pos_head = "adj" ]? [ lemma= "haar" ] [lemma="zitten"]))|
+([ lemma= "neus" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "boek" ])|
+(([lemma="zitten"][]{0,4}[lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "rozen" ])|([lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "rozen" ][lemma="zitten"]))|
+([ lemma= "op" ] [ lemma= "water" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "brood" ])|
+([ lemma= "boel" ] [ lemma= "op" ] [ pos_head = "adj" ]? [ lemma= "stelt" ])|
+([ lemma= "deur" ] [ lemma= "op" ] [ lemma= "een" ] [pos_head = "adj"]? [ lemma= "kier" ])|
+([ lemma= "luis" ] [ lemma= "in" ] [ lemma= "de" ] [ pos_head = "adj" ]? [ lemma= "pels" ])|
+(([ lemma= "op" ] [ lemma= "straat" ] [ lemma= "zetten" ])|([ lemma= "zetten" ] []{0,4}[ lemma= "op" ] [ lemma= "straat" ]))|
+(([ lemma= "zweten" ] []{0,4} [ pos_head = "adj" ]? [ lemma= "bloed" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "water" ])|([ lemma= "bloed" ] [ lemma= "en" ] [ pos_head = "adj" ]? [ lemma= "water" ][ lemma= "zweten" ]))
