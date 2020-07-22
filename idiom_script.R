@@ -60,5 +60,5 @@ Mode <- function(x) {
 idioms$idiom_lemma_common<-Vectorize(Mode)(idioms$idiom_id)
 
 cross_table <- as.data.frame.matrix(addmargins(table(idioms$idiom_lemma_common,idioms$doc_type_name),))
-
+write.csv(cross_table,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
 
