@@ -45,6 +45,30 @@ counts_per_idiom <- ddply(idioms, .(idiom_lemma, idiom_id), nrow)
 
 counts_per_idiom_collection <- ddply(idioms, .(idiom_id, doc_type_name), nrow)
 
+#FUNCTION OF JACOLIEN, MERG THIS ======================================
+
+mostfreq <- function(x){
+  tab <- sort(table(x))
+  return(names(tail(tab,1)))
+}
+
+mostfreq <- function(x){
+  tab <- sort(table(x))
+  return(paste(names(tab[tab==max(tab)]), collapse=";"))
+}
+
+findlemmas <- ddply(idioms, "idiom_id", summarise,
+                    most_common_lemma=mostfreq(idiom_lemma))
+
+#========================================================================
+
+
+
+
+idioms <- merge(idioms, findlemmas, by="idiom_id", all.x=TRUE)
+# maybe now order idioms:
+idioms <- idioms[order(idioms$id),]
+
 
 Mode0 <- function(x) {
   ux <- unique(x)
@@ -58,6 +82,9 @@ Mode <- function(x) {
 
 #This works but pc blows up
 idioms$idiom_lemma_common<-Vectorize(Mode)(idioms$idiom_id)
+
+
+
 
 cross_table <- as.data.frame.matrix(addmargins(table(idioms$idiom_lemma_common,idioms$doc_type_name),))
 write.csv(cross_table,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
