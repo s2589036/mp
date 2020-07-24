@@ -1,4 +1,5 @@
 library(plyr)
+library(stringr)
 
 #=====================================================================================================================================
 datalist = list()
@@ -33,6 +34,12 @@ for(i in 1:length(data)){
 }
 
 
+idiom_static = read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\with_verb\\onder_de_pet.csv")
+idiom_static <- idiom_static[c(1,2,3,4,5,6,7,8,32)]
+colnames(idiom_static) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id")
+idiom_static$sentenceid = paste(idiom_static$doc_id, word(idiom_static$xml_id,1,sep = ".w."),sep="-")
+
+idiom_true <- idiom_static[grepl("houd|houdt|gehouden|hield", idiom_static$right_context) || grepl("houd|houdt|gehouden|hield", idiom_static$left_context),]
 
 #======================================================================================================================================
 
@@ -58,6 +65,5 @@ idioms <- idioms[,c(10,11,12,1,2,3,4,5,6,7,8,9)]
 
 #remove CGN-annotations: IN NEW VERSION NOT IN THE CSV (EXCLUDED VIA OPENSONAR), SO THIS IS NOT NEEDED ANYMORE
 #idioms <- idioms[!grepl("CGN document", idioms$doc_name),]
-
 
 idioms$idiom_lemma <- tolower(idioms$idiom_lemma)
