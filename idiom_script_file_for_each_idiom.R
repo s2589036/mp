@@ -2,44 +2,45 @@ library(plyr)
 library(stringr)
 
 #=====================================================================================================================================
+#=============================================================ONLY ONE QUERY==========================================================
+#=====================================================================================================================================
 datalist = list()
 
-for (i in 1:2) {
-  filename = paste("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\",i,".csv",sep="")
-  
+for (i in 1:143) {
+  filename = paste("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\without_verb\\",i,".csv",sep="")
   dat <- read.csv(filename)
   dat$idiom_id <- i  # maybe you want to keep track of which iteration produced it?
   datalist[[i]] <- dat # add it to your list
 }
 idioms = do.call(rbind, datalist)
 
-#=====================combine two query files (one with verb, other with idiom part) MAKE FUNCTION FROM THIS==========================
-library(stringr)
-
-idiom1a = read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\1a.csv")
-idiom1a <- idiom1a[c(1,2,3,4,5,6,7,8,32)]
-colnames(idiom1a) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id")
-idiom1a$sentenceid = paste(idiom1a$doc_id, word(idiom1a$xml_id,1,sep = ".w."),sep="-")
-
-idiom1b = read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\1b.csv")
-idiom1b <- idiom1b[c(1,2,3,4,5,6,7,8,32)]
-colnames(idiom1b) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id")
-idiom1b$sentenceid = paste(idiom1b$doc_id, word(idiom1b$xml_id,1,sep = ".w."),sep="-")
-
-data <- intersect(idiom1a$sentenceid,idiom1b$sentenceid)
-
-idiom1a1b <- idiom1a[FALSE,]
-for(i in 1:length(data)){
-  idiom1a1b <- rbind(idiom1a1b,subset(idiom1a,idiom1a$sentenceid == data[i]))
-}
 
 
-idiom_static = read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\with_verb\\onder_de_pet.csv")
-idiom_static <- idiom_static[c(1,2,3,4,5,6,7,8,32)]
-colnames(idiom_static) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id")
-idiom_static$sentenceid = paste(idiom_static$doc_id, word(idiom_static$xml_id,1,sep = ".w."),sep="-")
+#=====================================================================================================================================
+#============================COMBINE QUERY FILE OF STATIC PART WITH A SEARCH FOR VERB FORM IN CONTEXTS================================
+#=====================================================================================================================================
 
-idiom_true <- idiom_static[grepl("houd|houdt|gehouden|hield", idiom_static$right_context) || grepl("houd|houdt|gehouden|hield", idiom_static$left_context),]
+
+
+findidioms <<- function(i,verbformspattern){
+  filename <- paste("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\with_verb\\",i,".csv",sep="")
+  idiomstatic <- read.csv(filename)
+  idiomstatic <- idiomstatic[c(1,2,3,4,5,6,7,8,32)]
+  colnames(idiomstatic) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id")
+  idiomstatic$sentenceid <- paste(idiomstatic$doc_id, word(idiomstatic$xml_id,1,sep = ".w."),sep="-")
+  correctidioms <<- rbind(idiomstatic[grep(verbformspattern, idiomstatic$right_context),],idiomstatic[grep(verbformspattern, idiomstatic$left_context),])
+  }
+
+onderdepethouden <- findidioms(144,"\\bhouden\\s|\\bgehouden\\s|\\bhoudt\\s|\\bhielden\\s")
+bovenwaterhalen <- findidioms(145,"\\bhalen\\s|\\bhalen\\s|\\bhalen\\s|\\bhalen\\s|\\bhalen\\s")
+
+
+
+lala <- rbind(idiomstatic[grep(verbformspattern, idiomstatic$right_context),])
+
+              grep(verbformspattern, idiomstatic$right_context,value=TRUE)
+
+
 
 #======================================================================================================================================
 
