@@ -1,0 +1,4 @@
+without verb: context size 5
+with verb: context size 10
+
+maybe change context size of without verb later by using one big query and join/merge
