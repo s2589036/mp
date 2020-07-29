@@ -1,6 +1,28 @@
-pos=read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\collection_pos_freq.csv",sep=";",stringsAsFactors = FALSE)
+pos=read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\collection_pos_freq.csv",sep=";",stringsAsFactors = TRUE)
+
+posprop <- as.data.frame(prop.table(as.matrix.data.frame(pos[-1]),1))
+
 pos$possum1 = pos$ZNW + pos$ADJ + pos$VZ + pos$LID + pos$VNW + pos$WW + pos$BW + pos$TSW
 pos$formality_orig = ((pos$ZNW/pos$possum1)*100 + (pos$ADJ/pos$possum1)*100 + (pos$VZ/pos$possum1)*100 + (pos$LID/pos$possum1)*100 - (pos$VNW/pos$possum1)*100 - (pos$WW/pos$possum1)*100 - (pos$BW/pos$possum1)*100 - (pos$TSW/pos$possum1)*100 +100)/2
+
+posprop$possum1 <- pos$possum1
+posprop$formality_orig <- pos$formality_orig
+
+
+library(ggplot2)
+ggplot(posprop,aes(x=formality_orig,y=ADJ)) + geom_point() + labs(title="Adjectives scatter plot", x="formality score", y = "adjectives")
+ggplot(posprop,aes(x=formality_orig,y=BW)) + geom_point() + labs(title="Adverbs scatter plot", x="formality score", y = "adverbs")
+ggplot(posprop,aes(x=formality_orig,y=LID)) + geom_point() + labs(title="Determiners scatter plot", x="formality score", y = "determiners")
+ggplot(posprop,aes(x=formality_orig,y=ZNW)) + geom_point() + labs(title="Nouns scatter plot", x="formality score", y = "nouns")
+ggplot(posprop,aes(x=formality_orig,y=TSW)) + geom_point() + labs(title="Interjections scatter plot", x="formality score", y = "interjections")
+ggplot(posprop,aes(x=formality_orig,y=VNW)) + geom_point() + labs(title="Proouns scatter plot", x="formality score", y = "pronouns")
+ggplot(posprop,aes(x=formality_orig,y=VZ)) + geom_point() + labs(title="Prepositions scatter plot", x="formality score", y = "prepositions")
+ggplot(posprop,aes(x=formality_orig,y=WW)) + geom_point() + labs(title="Verbs scatter plot", x="formality score", y = "verbs")
+ggplot(posprop,aes(x=formality_orig,y=LET)) + geom_point() + labs(title="Interpunction scatter plot", x="formality score", y = "interpunction")
+ggplot(posprop,aes(x=formality_orig,y=SPEC)) + geom_point() + labs(title="SPEC scatter plot", x="formality score", y = "spec")
+ggplot(posprop,aes(x=formality_orig,y=TW)) + geom_point() + labs(title="Numerals scatter plot", x="formality score", y = "numerals")
+ggplot(posprop,aes(x=formality_orig,y=VG)) + geom_point() + labs(title="Conjunctions scatter plot", x="formality score", y = "conjunctions")
+
 
 # 2"ADJ"              3"BW"               4"LID"              5"ZNW"              6"TSW"              7"VNW"             
 # 8"VZ"               9"WW"               10"LET"              11"SPEC"             12"TW"               13"VG"
@@ -47,6 +69,12 @@ for(i in 1:20){
   
   dev.off()
 }
+
+
+
+
+
+
 
 
 colnames <- c("adj","adv","det","noun","interj","pron","prep","verb","names","num","conj") #punctuation not taken into account
