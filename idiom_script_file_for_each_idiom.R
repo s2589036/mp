@@ -145,20 +145,24 @@ mostfreq <- function(x){
   return(names(tail(tab,1)))
 }
 
-mostfreq <- function(x){
-  tab <- sort(table(x))
-  return(paste(names(tab[tab==max(tab)]), collapse=";"))
-}
+#mostfreq <- function(x){
+#  tab <- sort(table(x))
+#  return(paste(names(tab[tab==max(tab)]), collapse=";"))
+#}
 
 findlemmas <- ddply(idioms, "idiom_id", summarise,
-                    most_common_lemma=mostfreq(idiom_lemma))
+                    most_common_lemma=mostfreq(idiom_found))
 
 #========================================================================
 
-
-
-
 idioms <- merge(idioms, findlemmas, by="idiom_id", all.x=TRUE)
+
+fixedness <- ddply(idioms, "idiom_id", summarize, fixedness=sum(idiom_found == most_common_lemma)/length(most_common_lemma))
+findlemmas <- merge(findlemmas, fixedness, by="idiom_id", all.y=TRUE)
+
+idioms <- merge(idioms, fixedness, by="idiom_id", all.y=TRUE)
+
+
 # maybe now order idioms:
 idioms <- idioms[order(idioms$id),]
 
