@@ -7,21 +7,23 @@ pos$formality_orig = ((pos$ZNW/pos$possum1)*100 + (pos$ADJ/pos$possum1)*100 + (p
 
 posprop$possum1 <- pos$possum1
 posprop$formality_orig <- pos$formality_orig
+posprop$collection <- pos$X
 
 
 library(ggplot2)
-ggplot(posprop,aes(x=formality_orig,y=ADJ)) + geom_point() + labs(title="Adjectives scatter plot", x="formality score", y = "adjectives")
-ggplot(posprop,aes(x=formality_orig,y=BW)) + geom_point() + labs(title="Adverbs scatter plot", x="formality score", y = "adverbs")
-ggplot(posprop,aes(x=formality_orig,y=LID)) + geom_point() + labs(title="Determiners scatter plot", x="formality score", y = "determiners")
-ggplot(posprop,aes(x=formality_orig,y=ZNW)) + geom_point() + labs(title="Nouns scatter plot", x="formality score", y = "nouns")
-ggplot(posprop,aes(x=formality_orig,y=TSW)) + geom_point() + labs(title="Interjections scatter plot", x="formality score", y = "interjections")
-ggplot(posprop,aes(x=formality_orig,y=VNW)) + geom_point() + labs(title="Proouns scatter plot", x="formality score", y = "pronouns")
-ggplot(posprop,aes(x=formality_orig,y=VZ)) + geom_point() + labs(title="Prepositions scatter plot", x="formality score", y = "prepositions")
-ggplot(posprop,aes(x=formality_orig,y=WW)) + geom_point() + labs(title="Verbs scatter plot", x="formality score", y = "verbs")
-ggplot(posprop,aes(x=formality_orig,y=LET)) + geom_point() + labs(title="Interpunction scatter plot", x="formality score", y = "interpunction")
-ggplot(posprop,aes(x=formality_orig,y=SPEC)) + geom_point() + labs(title="SPEC scatter plot", x="formality score", y = "spec")
-ggplot(posprop,aes(x=formality_orig,y=TW)) + geom_point() + labs(title="Numerals scatter plot", x="formality score", y = "numerals")
-ggplot(posprop,aes(x=formality_orig,y=VG)) + geom_point() + labs(title="Conjunctions scatter plot", x="formality score", y = "conjunctions")
+
+ggplot(posprop,aes(x=formality_orig,y=ADJ*100)) + geom_point() + labs(title="Adjectives", x="formality score", y = "% of adjectives in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=BW*100)) + geom_point() + labs(title="Adverbs", x="formality score", y = "% of adverbs in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=LID*100)) + geom_point() + labs(title="Determiners", x="formality score", y = "% of determiners in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=ZNW*100)) + geom_point() + labs(title="Nouns", x="formality score", y = "% of nouns in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=TSW*100)) + geom_point() + labs(title="Interjections", x="formality score", y = "% of interjections in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=VNW*100)) + geom_point() + labs(title="Pronouns", x="formality score", y = "% of pronouns in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=VZ*100)) + geom_point() + labs(title="Prepositions", x="formality score", y = "% of prepositions in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=WW*100)) + geom_point() + labs(title="Verbs", x="formality score", y = "% of verbs in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=LET*100)) + geom_point() + labs(title="Interpunction", x="formality score", y = "% of interpunction in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=SPEC*100)) + geom_point() + labs(title="Special", x="formality score", y = "% of spec in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=TW*100)) + geom_point() + labs(title="Numerals", x="formality score", y = "% of numerals in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=VG*100)) + geom_point() + labs(title="Conjunctions", x="formality score", y = "% of conjunctions in text type") + ylim(0, 25)
 
 
 # 2"ADJ"              3"BW"               4"LID"              5"ZNW"              6"TSW"              7"VNW"             
@@ -64,7 +66,7 @@ for(i in 1:20){
   
   #original colours: red, blue, grey
    barplot(barplotprop[i,],ylim=range(pretty(c(0, 30))),col=c(rep("black",4), rep("white",4), rep("grey",4)), 
-          main=barplotdata$X[i],las=2)
+          main=barplotdata$collection[i],xlab = "part-of-speech", ylab="% of words in collection", las=2)
   legend("topright", legend=c("Formal", "Informal","Unknown"),fill=c("black", "white","grey")) 
   
   dev.off()
