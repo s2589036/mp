@@ -11,6 +11,7 @@ for (i in 1:130) {
   dat <- read.csv(filename)
   dat$with_verb <- 0
   dat$idiom_id <- i  # maybe you want to keep track of which iteration produced it?
+  dat$verb <- ""
   datalist[[i]] <- dat # add it to your list
 }
 
@@ -27,7 +28,7 @@ findidioms <- function(i,verbforms){
   idiomstatic <- idiomstatic[ with(idiomstatic,  grepl(verbformspattern, left_context)  | grepl(verbformspattern, right_context)  ) , ]
   idiomstatic$with_verb <- 1
   idiomstatic$idiom_id <- i
-  #idiomstatic$verb <- verbforms[1] <- add this in order to put the verb in crosstable as well (concatenated to static part)
+  idiomstatic$verb <- verbforms[1] #<- add this in order to put the verb in crosstable as well (concatenated to static part)
   idiomstatic
   }
 
@@ -96,18 +97,20 @@ allidiomstype2 <- rbind(allidiomstype2, findidioms(186,c("lopen","loop","loopt",
 
 idioms <- rbind(allidiomstype1,allidiomstype2)
 
-
+#this function works but the annotation of pos_head is often wrong
+idioms$amountofnouns <- str_count(idioms$pos_head,"N")-str_count(idioms$pos_head,"VNW")
+                                  
 #======================================================================================================================================
 
 
 #remove empty columns
-idioms <- idioms[c(1,2,3,4,5,6,7,8,32,35,36)]
+idioms <- idioms[c(1,2,3,4,5,6,7,8,32,35,36,37,38)]
 
 #add id
 idioms$id <- seq.int(nrow(idioms))
 
 #add column names
-colnames(idioms) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id","with_verb","idiom_id","id")
+colnames(idioms) <- c("doc_id", "doc_name","left_context","idiom_found","right_context","idiom_lemma","pos","pos_head","xml_id","with_verb","idiom_id","verb","amountofnouns","id")
 
 #add doc_type
 idioms$doc_type <- substr(idioms$doc_id,1,8)
@@ -116,7 +119,7 @@ idioms$doc_type <- substr(idioms$doc_id,1,8)
 idioms$doc_type_name <- revalue(idioms$doc_type, c("WR-P-E-A"="discussion lists","WR-P-E-C"="e-magazines","WR-P-E-E"="E-newsletters","WR-P-E-F"="press releases","WR-P-E-G"="subtitles","WR-P-E-H"="teletext pages","WR-P-E-I"="web sites","WR-P-E-J"="wikipedia","WR-P-E-K"="blogs","WR-P-E-L"="tweets","WR-P-P-B"="books","WR-P-P-C"="brochures","WR-P-P-D"="newsletters","WR-P-P-E"="guides manuals","WR-P-P-F"="legal texts","WR-P-P-G"="newspapers","WR-P-P-H"="periodicals magazines","WR-P-P-I"="policy documents","WR-P-P-J"="proceedings","WR-P-P-K"="reports","WR-U-E-A"="chats","WR-U-E-D"="sms","WR-U-E-E"="written assignments","WS-U-E-A"="auto cues","WS-U-T-B"="texts for the visually impaired"))
 
 #change order of columns
-idioms <- idioms[,c(12,11,10,13,14,1,2,3,4,5,6,7,8,9)]
+#idioms <- idioms[,c(12,11,10,13,14,1,2,3,4,5,6,7,8,9)]
 
 #remove CGN-annotations: IN NEW VERSION NOT IN THE CSV (EXCLUDED VIA OPENSONAR), SO THIS IS NOT NEEDED ANYMORE
 #idioms <- idioms[!grepl("CGN document", idioms$doc_name),]
@@ -150,8 +153,10 @@ mostfreq <- function(x){
 #  return(paste(names(tab[tab==max(tab)]), collapse=";"))
 #}
 
-findlemmas <- ddply(idioms, "idiom_id", summarise,
-                    most_common_lemma=mostfreq(idiom_found))
+findlemmas<- ddply(idioms, "idiom_id", summarise,
+                   most_common_lemma=paste(mostfreq(idiom_found)),
+                   most_common_lemma_verb=paste(mostfreq(idiom_found),mostfreq(verb)))
+
 
 #========================================================================
 
@@ -167,5 +172,5 @@ idioms <- merge(idioms, fixedness, by="idiom_id", all.y=TRUE)
 idioms <- idioms[order(idioms$id),]
 
 
-cross_table <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
+cross_table <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma_verb,idioms$doc_type_name),))
 write.csv(cross_table,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
