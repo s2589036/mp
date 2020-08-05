@@ -157,6 +157,14 @@ findlemmas<- ddply(idioms, "idiom_id", summarise,
                    most_common_lemma=paste(mostfreq(idiom_found)),
                    most_common_lemma_verb=paste(mostfreq(idiom_found),mostfreq(verb)))
 
+#========================================================================
+
+texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides & manuals","websites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext","e-magazines","newspapers","tweets","periodicals & magazines","wikipedia","blogs","newsletters")
+tokenfreq <- c(357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
+freqdf <- data.frame(texttype,tokenfreq)
+tfreqdf <- t(freqdf)
+colnames(tfreqdf) <- texttype
+
 
 #========================================================================
 
@@ -168,9 +176,29 @@ findlemmas <- merge(findlemmas, fixedness, by="idiom_id", all.y=TRUE)
 idioms <- merge(idioms, fixedness, by="idiom_id", all.y=TRUE)
 
 
-# maybe now order idioms:
+#order idioms:
 idioms <- idioms[order(idioms$id),]
 
+#make cross table
+cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma_verb,idioms$doc_type_name),)
 
-cross_table <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma_verb,idioms$doc_type_name),))
-write.csv(cross_table,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
+#add sums and write to file
+cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma_verb,idioms$doc_type_name),))
+write.csv(cross_table_print,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
+
+
+#add sizes of collections in order to calculate relative idiom frequencies 
+tcross_table <- as.data.frame(t(cross_table))
+tcross_table$texttype <- row.names(tcross_table)
+prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
+
+#calculate relative idiom frequencies (per 500 million words)
+prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*500000000) #rounded, is this okay?
+tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
+colnames(tprop_cross) <- tprop_cross[1,]
+tprop_cross <- tprop_cross[-1,]
+tprop_cross <- tprop_cross[-183,]
+
+write.csv(tprop_cross,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table_per_500_million_tokens_rounded.csv")
+
+
