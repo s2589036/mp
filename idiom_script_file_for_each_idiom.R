@@ -192,13 +192,24 @@ tcross_table <- as.data.frame(t(cross_table))
 tcross_table$texttype <- row.names(tcross_table)
 prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
 
+
 #calculate relative idiom frequencies (per 500 million words)
 prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*500000000) #rounded, is this okay?
+
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 colnames(tprop_cross) <- tprop_cross[1,]
 tprop_cross <- tprop_cross[-1,]
 tprop_cross <- tprop_cross[-183,]
 
 write.csv(tprop_cross,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table_per_500_million_tokens_rounded.csv")
+
+idioms_and_features <- data.frame(names(tcross_table)[1:182],as.numeric(tprop_cross$`discussion lists`), as.numeric(tprop_cross$newspapers))
+names(idioms_and_features) <- c("idiom","discussion_lists","newspapers")
+idioms_and_features <- addmargins(as.matrix(idioms_and_features))
+
+
+cross_table_sum <- rbind(cross_table,sum=colSums(cross_table))
+
+
 
 
