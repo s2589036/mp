@@ -93,14 +93,15 @@ coll_info$avg_text_length <- round(coll_info$total_words/coll_info$total_files)
 #Nothing: 10 let, 11 spec, 12 tw, 13 vg
 
 formalitydf <- data.frame(pos$collection)
+
 calcform <- function(formal,informal,name){
-  total_pos = rowSums(pos[, formal]) + rowSums(pos[, informal]) 
+  total_pos = rowSums(pos[, formal, drop=FALSE]) + rowSums(pos[, informal, drop=FALSE]) 
   formalitydf[name] <<- (
     #formal categories
-    (rowSums(pos[, formal])/total_pos)*100 
+    (rowSums(pos[, formal,drop=FALSE])/total_pos)*100 
     
     #informal categories
-    - (rowSums(pos[, informal])/total_pos)*100 
+    - (rowSums(pos[, informal, drop=FALSE])/total_pos)*100 
     +100)/2
 }
 
@@ -111,3 +112,4 @@ formalitydf$renkemaplus10 <- formalitydf$renkema + 10 #to show that renkema does
 calcform(c(2,4,5,8,11),c(3,6,7,9),"original but with special as formal") #original + special formal (less deixis)
 calcform(c(2,4,5,8),c(3,6,7,9,10),"original but with punctuation as informal") #original + punctuation informal
 calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig but with punctuation as informal AND special as formal") #original + punctuation informal + special formal (less deixis)
+calcform(c(4,5,8),c(7),"afterscatter") #after analyzing the scatter plots using the original formula
