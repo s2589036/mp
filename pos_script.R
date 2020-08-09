@@ -60,7 +60,6 @@ barplotprop <- barplotprop[,c(4,1,7,3,6,8,2,5,9,10,11,12)]
 
 
 for(i in 1:20){
- 
   mypath <- paste("G:/Mijn Drive/Studie informatiekunde/master/master project/paper/images/formplots_english_bw/",barplotdata$collection[i],".png",sep="")
   png(file=mypath)
   
@@ -71,13 +70,6 @@ for(i in 1:20){
   
   dev.off()
 }
-
-
-
-
-
-
-
 
 colnames <- c("adj","adv","det","noun","interj","pron","prep","verb","names","num","conj") #punctuation not taken into account
 total_words <- rowSums(pos[,colnames]) #all pos-tags summed (empty pos tags not taken into account because those were not words)
@@ -113,3 +105,8 @@ calcform(c(2,4,5,8,11),c(3,6,7,9),"original but with special as formal") #origin
 calcform(c(2,4,5,8),c(3,6,7,9,10),"original but with punctuation as informal") #original + punctuation informal
 calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig but with punctuation as informal AND special as formal") #original + punctuation informal + special formal (less deixis)
 calcform(c(4,5,8),c(7),"afterscatter") #after analyzing the scatter plots using the original formula
+install.packages("xtable")
+library(xtable)
+xtable(formalitydf)
+
+  
