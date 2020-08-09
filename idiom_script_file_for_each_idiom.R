@@ -1,5 +1,6 @@
 library(plyr)
 library(stringr)
+setwd("G:/Mijn Drive/Studie informatiekunde/master/master project/project")
 
 #=====================================================================================================================================
 #=============================================================ONLY ONE QUERY==========================================================
@@ -7,8 +8,7 @@ library(stringr)
 datalist = list()
 
 for (i in 1:130) {
-  filename = paste("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\without_verb\\",i,".csv",sep="")
-  dat <- read.csv(filename)
+  dat <- read.csv(paste("idioms_sonar\\without_verb\\",i,".csv",sep=""))
   dat$with_verb <- 0
   dat$idiom_id <- i  # maybe you want to keep track of which iteration produced it?
   dat$verb <- ""
@@ -23,7 +23,7 @@ allidiomstype1 = do.call(rbind, datalist)
 
 findidioms <- function(i,verbforms){
   verbformspattern <- paste("\\b",paste(verbforms, collapse = "\\b|\\b"),"\\b",sep="")
-  filename <- paste("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\idioms_sonar\\with_verb\\",i,".csv",sep="")
+  filename <- paste("idioms_sonar\\with_verb\\",i,".csv",sep="")
   idiomstatic <- read.csv(filename)
   idiomstatic <- idiomstatic[ with(idiomstatic,  grepl(verbformspattern, left_context)  | grepl(verbformspattern, right_context)  ) , ]
   idiomstatic$with_verb <- 1
@@ -184,7 +184,9 @@ cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma_verb,idioms$d
 
 #add sums and write to file
 cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma_verb,idioms$doc_type_name),))
-write.csv(cross_table_print,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table.csv")
+write.csv(cross_table_print,"results\\cross_table.csv")
+
+#cross_table_sum <- rbind(cross_table,sum=colSums(cross_table))
 
 
 #add sizes of collections in order to calculate relative idiom frequencies 
@@ -192,23 +194,21 @@ tcross_table <- as.data.frame(t(cross_table))
 tcross_table$texttype <- row.names(tcross_table)
 prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
 
-
-#calculate relative idiom frequencies (per 500 million words)
+#tpropcross: calculate relative idiom frequencies (per 500 million words)
 prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*500000000) #rounded, is this okay?
-
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 colnames(tprop_cross) <- tprop_cross[1,]
 tprop_cross <- tprop_cross[-1,]
 tprop_cross <- tprop_cross[-183,]
+write.csv(tprop_cross,"results\\cross_table_per_500_million_tokens_rounded.csv")
 
-write.csv(tprop_cross,"G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\cross_table_per_500_million_tokens_rounded.csv")
 
+#RELATIVE: TO ADD AND ANALYZE FEATURES
 idioms_and_features <- data.frame(names(tcross_table)[1:182],as.numeric(tprop_cross$`discussion lists`), as.numeric(tprop_cross$newspapers))
 names(idioms_and_features) <- c("idiom","discussion_lists","newspapers")
-idioms_and_features <- addmargins(as.matrix(idioms_and_features))
 
 
-cross_table_sum <- rbind(cross_table,sum=colSums(cross_table))
+
 
 
 
