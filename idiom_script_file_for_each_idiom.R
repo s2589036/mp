@@ -32,6 +32,7 @@ findidioms <- function(i,verbforms){
   idiomstatic
   }
 
+
 allidiomstype2 <- data.frame()
 allidiomstype2 <- rbind(allidiomstype2, findidioms(131,c("houden","houd","hou","houdt","hield","hielden","gehouden")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(132,c("halen","haal","haalt","haalde","haalden","gehaald")))
@@ -191,16 +192,17 @@ write.csv(cross_table_print,"results\\cross_table.csv")
 
 #add sizes of collections in order to calculate relative idiom frequencies 
 tcross_table <- as.data.frame(t(cross_table))
+tcross_table <- tcross_table[-183]
 tcross_table$texttype <- row.names(tcross_table)
 prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
 
-#tpropcross: calculate relative idiom frequencies (per 500 million words)
-prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*500000000) #rounded, is this okay?
+#tpropcross: calculate relative idiom frequencies (per 100 million words)
+prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*100000000) #rounded, is this okay?
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 colnames(tprop_cross) <- tprop_cross[1,]
 tprop_cross <- tprop_cross[-1,]
 tprop_cross <- tprop_cross[-183,]
-write.csv(tprop_cross,"results\\cross_table_per_500_million_tokens_rounded.csv")
+write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 
 
 #RELATIVE: TO ADD AND ANALYZE FEATURES
@@ -208,7 +210,39 @@ idioms_and_features <- data.frame(names(tcross_table)[1:182],as.numeric(tprop_cr
 names(idioms_and_features) <- c("idiom","discussion_lists","newspapers")
 
 
+#=====================================================================================================================================================
+#MAKE HEATMAP OF FREQUENCIES
+lala <- scale(tcross_table)
 
+install.packages("gplots")
+library(gplots)
+heatmap.2(t(lala)[1:25,])
+heatmap.2(t(lala)[26:50,])
+heatmap.2(t(lala)[51:75,])
+heatmap.2(t(lala)[76:100,])
+heatmap.2(t(lala)[101:125,])
+heatmap.2(t(lala)[126:150,])
+heatmap.2(t(lala)[151:175,])
+heatmap.2(t(lala)[176:182,])
+library(cluster)
+plot(agnes(t(lala)))
+
+
+
+#=====================================================================================================================================================
+
+
+
+#=====================================================================================================================================================
+#TRY TO CLUSER IDIOMS BASED ON THEIR FREQUENCIES IN DIFFERENT COLLECTIONS
+#install.packages("klaR")
+library(klaR)
+kmodes(prop_cross[-1], 10, iter.max = 1000, weighted = FALSE)
+
+lalal <- kmeans(cross_table, 3)
+lalal$centers
+
+#=====================================================================================================================================================
 
 
 
