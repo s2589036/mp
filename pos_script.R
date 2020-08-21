@@ -109,4 +109,8 @@ install.packages("xtable")
 library(xtable)
 xtable(formalitydf)
 
-  
+#==================LOOK AT SIGNIFICANT POS-TAGS FOR THE SCORE, USING MODELS======================
+library(lme4)
+formality <- lm(formality_orig ~ ADJ+BW+LID+ZNW+TSW+VNW+VZ+WW+LET+SPEC+TW+VG, data=posprop)
+summary(formality)
+#================================================================================================
