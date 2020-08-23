@@ -105,12 +105,40 @@ calcform(c(2,4,5,8,11),c(3,6,7,9),"original but with special as formal") #origin
 calcform(c(2,4,5,8),c(3,6,7,9,10),"original but with punctuation as informal") #original + punctuation informal
 calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig but with punctuation as informal AND special as formal") #original + punctuation informal + special formal (less deixis)
 calcform(c(4,5,8),c(7),"afterscatter") #after analyzing the scatter plots using the original formula
+
+
+
 install.packages("xtable")
 library(xtable)
 xtable(formalitydf)
 
 #==================LOOK AT SIGNIFICANT POS-TAGS FOR THE SCORE, USING MODELS======================
 library(lme4)
-formality <- lm(formality_orig ~ ADJ+BW+LID+ZNW+TSW+VNW+VZ+WW+LET+SPEC+TW+VG, data=posprop)
-summary(formality)
+formality_orig <- lm(formality_orig ~ ADJ+BW+LID+ZNW+TSW+VNW+VZ+WW+LET+SPEC+TW+VG, data=posprop)
+summary(formality_orig)
+qqnorm(resid(formality_orig))
+qqline(resid(formality_orig))
+hist(resid(formality_orig))
+plot(resid(formality_orig))
+
+formality_sig <- lm(formality_orig ~ ADJ+BW+TSW+VNW+WW+LET+SPEC, data=posprop)
+summary(formality_sig)
+qqnorm(resid(formality_sig))
+qqline(resid(formality_sig))
+hist(resid(formality_sig))
+plot(resid(formality_sig))
+
+formality_sig2 <- glm(formality_orig ~ ADJ+BW+TSW+VNW+WW+LET+SPEC, data=posprop) 
+summary(formality_sig2) #no formal features are significant when using glm 
+qqnorm(resid(formality_sig2))
+qqline(resid(formality_sig2))
+hist(resid(formality_sig2))
+
+
+#Formal: 5 noun, 2 adj, 8 prep, 4 article
+#Informal: 7 pronoun, 9 verb, 3 adverb, 6 interjection
+#Nothing: 10 let, 11 spec, 12 tw, 13 vg
+
+calcform(c(2),c(3,6,7,9),"afterregression") #after regression analysis: LET AND SPEC NOT INCLUDED BECAUSE ESTIMATE WAS UNCLEAR
+
 #================================================================================================
