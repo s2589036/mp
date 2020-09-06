@@ -1,5 +1,6 @@
 library(plyr)
 library(stringr)
+library(qdap)
 setwd("G:/Mijn Drive/Studie informatiekunde/master/master project/project")
 
 #=====================================================================================================================================
@@ -154,9 +155,8 @@ mostfreq <- function(x){
 #  return(paste(names(tab[tab==max(tab)]), collapse=";"))
 #}
 
-findlemmas<- ddply(idioms, "idiom_id", summarise,
-                   most_common_lemma=paste(mostfreq(idiom_found)),
-                   most_common_lemma_verb=paste(mostfreq(idiom_found),mostfreq(verb)))
+most_common <- ddply(idioms, "idiom_id", summarise,
+                   most_common_lemma=paste(mostfreq(idiom_found),mostfreq(verb)))
 
 #========================================================================
 
@@ -169,22 +169,26 @@ colnames(tfreqdf) <- texttype
 
 #========================================================================
 
-idioms <- merge(idioms, findlemmas, by="idiom_id", all.x=TRUE)
+idioms <- merge(idioms, most_common, by="idiom_id", all.x=TRUE)
+
 
 fixedness <- ddply(idioms, "idiom_id", summarize, fixedness=sum(idiom_found == most_common_lemma)/length(most_common_lemma))
-findlemmas <- merge(findlemmas, fixedness, by="idiom_id", all.y=TRUE)
 
-idioms <- merge(idioms, fixedness, by="idiom_id", all.y=TRUE)
+most_common <- merge(most_common, fixedness, by="idiom_id", all.y=TRUE)
+idioms$idiom_length_orig <- word_count(idioms$most_common_lemma)
+#with_verb = 1 if verb is included and 0 if no verb is included, this is added to the amount of words in the idiom_lemma
+idioms$idiom_length_this <- word_count(idioms$idiom_lemma) + idioms$with_verb
+most_common$most_common_lemma <- c()
 
 
 #order idioms:
 idioms <- idioms[order(idioms$id),]
 
 #make cross table
-cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma_verb,idioms$doc_type_name),)
+cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
 
 #add sums and write to file
-cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma_verb,idioms$doc_type_name),))
+cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
 write.csv(cross_table_print,"results\\cross_table.csv")
 
 #cross_table_sum <- rbind(cross_table,sum=colSums(cross_table))
@@ -241,6 +245,48 @@ heatmap.2(scaled_cross_table[176:182,])
 #plot(agnes(scaled_cross_table),which.plots=15, cex=1)
 #=====================================================================================================================================================
 
+#now used: https://www.datanovia.com/en/blog/types-of-clustering-methods-overview-and-quick-start-r-code/#:~:text=Distance%20Measures%20Essentials-,Partitioning%20clustering,pre%2Dspecified%20by%20the%20analyst.&text=The%20following%20R%20codes%20show,and%20PAM%20clustering%20in%20R
+
+#install.packages("factoextra")
+library("factoextra")
+fviz_nbclust(scaled_cross_table, kmeans, method = "gap_stat")
+
+set.seed(123)
+km.res <- kmeans(scaled_cross_table, 8, nstart = 100)
+# Visualize
+
+fviz_cluster(km.res, data = scaled_cross_table,
+             ellipse.type = "convex",
+             palette = "jco",
+             ggtheme = theme_minimal())
 
 
+library(dplyr)
+# Compute hierarchical clustering
+res.hc <- scaled_cross_table %>%
+  scale() %>%                    # Scale the data
+  dist(method = "euclidean") %>% # Compute dissimilarity matrix
+  hclust(method = "ward.D2")     # Compute hierachical clustering
 
+# Visualize using factoextra
+# Cut in 4 groups and color by groups
+fviz_dend(res.hc, k = 10, # Cut in four groups
+          cex = 0.5, # label size
+          k_colors = rainbow(11),
+          color_labels_by_k = TRUE, # color labels by groups
+          rect = TRUE # Add rectangle around groups
+)
+
+res.hc2 <- tcross_table %>%
+  scale() %>%                    # Scale the data
+  dist(method = "euclidean") %>% # Compute dissimilarity matrix
+  hclust(method = "ward.D2")     # Compute hierachical clustering
+
+# Visualize using factoextra
+# Cut in groups and color by groups
+fviz_dend(res.hc2, k = 3, # Cut in groups
+          cex = 0.5, # label size
+          k_colors = rainbow(3),
+          color_labels_by_k = TRUE, # color labels by groups
+          rect = TRUE # Add rectangle around groups
+)
