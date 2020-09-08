@@ -35,6 +35,7 @@ findidioms <- function(i,verbforms){
 
 
 allidiomstype2 <- data.frame()
+#NOG TOEVOEGEN: LOPEN TOEVOEGEN AAN "IN HET HONDERD"
 allidiomstype2 <- rbind(allidiomstype2, findidioms(131,c("houden","houd","hou","houdt","hield","hielden","gehouden")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(132,c("halen","haal","haalt","haalde","haalden","gehaald")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(133,c("blijven","blijf","blijft","bleef","bleven","gebleven")))
@@ -158,6 +159,10 @@ mostfreq <- function(x){
 most_common <- ddply(idioms, "idiom_id", summarise,
                    most_common_lemma=paste(mostfreq(idiom_found),mostfreq(verb)))
 
+#remove trailing space from most_common_lemma (added when adding optional verb)
+most_common$most_common_lemma <- trimws(most_common$most_common_lemma)
+
+
 #========================================================================
 
 texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides & manuals","websites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext","e-magazines","newspapers","tweets","periodicals & magazines","wikipedia","blogs","newsletters")
@@ -218,6 +223,14 @@ write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 idioms_and_features <- data.frame(names(tcross_table),as.numeric(tprop_cross$`discussion lists`), as.numeric(tprop_cross$newspapers))
 names(idioms_and_features) <- c("idiom","discussion_lists","newspapers")
 
+
+#show frequencies per idiom form (pos-tags) per collection
+idiom_structures_collection = as.data.frame(table(idioms$pos_head,idioms$doc_type_name))
+idiom_structures_counts = as.data.frame(table(idioms$pos_head))
+
+#show idiom deviations from canonnical form(s)
+different_forms_length <- as.data.frame(subset(idioms,idioms$idiom_length_orig!=idioms$idiom_length_this))
+different_forms_idiom <- as.data.frame(subset(idioms,idioms$idiom_lemma!=idioms$most_common_lemma))
 
 #=====================================================================================================================================================
 #MAKE HEATMAP OF FREQUENCIES
