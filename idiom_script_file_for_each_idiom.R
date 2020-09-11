@@ -1,3 +1,4 @@
+dev.off()
 library(plyr)
 library(stringr)
 library(qdap)
@@ -136,8 +137,6 @@ idioms$sentenceid <- paste(idioms$doc_id, word(idioms$xml_id,1,sep = ".w."),sep=
 #==================================================================================old===========================================================================
 #================================================================================================================================================================
 
-
-
 counts_per_collection <- ddply(idioms, .(doc_type_name), nrow)
 
 counts_per_idiom <- ddply(idioms, .(idiom_id), nrow)
@@ -239,7 +238,6 @@ scaled_cross_table <- scale(cross_table)
 
 #install.packages("gplots")
 library(gplots)
-dev.off()
 #heatmap.2(scaled_cross_table)
 heatmap.2(scaled_cross_table[1:25,])
 heatmap.2(scaled_cross_table[1:25,])
@@ -303,3 +301,22 @@ fviz_dend(res.hc2, k = 3, # Cut in groups
           color_labels_by_k = TRUE, # color labels by groups
           rect = TRUE # Add rectangle around groups
 )
+
+#check correlation between ttr and F-score
+labels = c("blogs","books ","brochures","discussion lists","e-magazines","guides & manuals","legal texts","newsletters","newspapers","periodicals & magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments")
+f = c(66.95,62.76,70.90,50.02,53.94,66.18,77.05,63.87,62.56,63.61,63.12,73.15,66.61,66.11,40.52,58.31,58.32,73.18,70.46,64.34)
+
+fscores <- data.frame(labels,f)
+
+texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext pages","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired")
+ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587898,0.057401703751558765,0.009689241125244002,0.055542312276519665,0.024249025176525562,0.03766366983543108,0.11896397524415984,0.010572668146432082,0.04049095832969337,0.11157505443049301,0.03752663077776695,0.014107998171320548,0.010236219490373278,0.01398963091384981,0.010867410407170893,0.04554732903431256,0.024833391412856145,0.01861169390999226,0.046154393095949826)
+ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013041213,0.07494102976306735,0.013140093001571153,0.07565526383210988,0.03161953587057931,0.04545992067190976,0.15152577540872178,0.0148120772902397,0.055242289732334915,0.14822989054251542,0.052668583941482175,0.017698750785921487,0.012530770339462963,0.018502535017490638,0.015308295847662488,0.06380383727410238,0.034785952539487686,0.02633071376488698,0.06540242518686619)
+ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145)
+
+ttr <- data.frame(texttypes,lemmafreqlist,lemmaposfreqlist,wordfreqlist)
+
+ttrf <- merge(fscores, ttr, by.x = "labels", by.y = "texttypes")
+
+plot(ttrf$f,ttrf$lemmafreqlist)
+plot(ttrf$f,ttrf$lemmaposfreqlist)
+plot(ttrf$f,ttrf$wordfreqlist)
