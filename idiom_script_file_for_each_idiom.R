@@ -9,7 +9,8 @@ setwd("G:/Mijn Drive/Studie informatiekunde/master/master project/project")
 #=====================================================================================================================================
 datalist = list()
 
-for (i in 1:130) {
+#exclude 74
+for (i in(1:130)[c(-74)]) {
   dat <- read.csv(paste("idioms_sonar\\without_verb\\",i,".csv",sep=""))
   dat$with_verb <- 0
   dat$idiom_id <- i  # maybe you want to keep track of which iteration produced it?
@@ -37,6 +38,7 @@ findidioms <- function(i,verbforms){
 
 allidiomstype2 <- data.frame()
 #NOG TOEVOEGEN: LOPEN TOEVOEGEN AAN "IN HET HONDERD"
+allidiomstype2 <- rbind(allidiomstype2, findidioms(74,c("lopen","loop","loopt","loopte","loopten","gelopen")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(131,c("houden","houd","hou","houdt","hield","hielden","gehouden")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(132,c("halen","haal","haalt","haalde","haalden","gehaald")))
 allidiomstype2 <- rbind(allidiomstype2, findidioms(133,c("blijven","blijf","blijft","bleef","bleven","gebleven")))
