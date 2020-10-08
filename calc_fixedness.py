@@ -3,7 +3,9 @@ import pickle
 from statistics import *
 from math import *
 import gensim
+import re
 print("loaded")
+
 
 print("Loading model...", end="")
 model = gensim.models.KeyedVectors.load_word2vec_format('word_embeddings/server_rug/vectors.bin', binary=True)
@@ -11,21 +13,22 @@ print("loaded.")
 
 print("Loading iddict...", end="")
 #VERANDER DIT TERUG!!!
-iddict = pickle.load(open("iddict-klein.pickle","rb"))
+iddict = pickle.load(open("iddict.pickle","rb"))
 print("loaded.")
 #iddict = {"doos": [1, 2, 3], "bodem": [1, 2, 3], "rand": [3, 4, 5], "oog": [3, 6, 7], "oor": [8, 1, 3],"mond": [9, 1, 2], "deksel": [10, 8, 1], "neus": [1, 2, 6]}
 
 def most_similar(inputword):
-    similar_words = [word for (word, freq) in model.most_similar(inputword, topn=500)]
+    #TODO: word.lower() != inputword.lower()
+    similar_words = [word for (word, freq) in model.most_similar(inputword, topn=500) if word != inputword]
     good_similar_words = []
     i = 0
 
     while len(good_similar_words) < 5:
-        word = similar_words[i]
+        word = similar_words[i].lower()
         i = i + 1
-        print("try word ", i, "from 100: ",word)
-        if word in iddict:
-            if len(iddict[word]) > 5:
+        #print("try word ", i, "from 100: ",word)
+        if word in iddict and re.match('^[\w-]+$', word) is not None:
+            if len(iddict[word]) > 5 and word not in good_similar_words:
                 good_similar_words.append(word)
             else:
                 i=i+1

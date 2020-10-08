@@ -1,0 +1,2639 @@
+runfile('G:/Mijn Drive/Studie informatiekunde/master/master project/project/calc_fixedness.py', wdir='G:/Mijn Drive/Studie informatiekunde/master/master project/project')
+Loading modules...loaded
+Loading model...loaded.
+Loading iddict...loaded.
+Enter 2 words (separated by ,) >? regen,drup
+['motregen', 'regen', 'sneeuwbuien', 'regenachtig', 'sneeuw']
+['drop', 'bewolkt', 'plens', 'vlok', 'regendruppel']
+PMI-SCORES WITH regen
+similar words to  drup :  ['drop', 'bewolkt', 'plens', 'vlok', 'regendruppel']
+regen :  33867
+drop :  1377
+regen & drop :  94
+Pmi:  2.2017318518175033 
+regen :  33867
+bewolkt :  5101
+regen & bewolkt :  1142
+Pmi:  2.7175487188533705 
+regen :  33867
+plens :  73
+regen & plens :  14
+Pmi:  2.65034311403251 
+regen :  33867
+vlok :  521
+regen & vlok :  17
+Pmi:  1.8811491365534774 
+regen :  33867
+regendruppel :  416
+regen & regendruppel :  8
+Pmi:  1.651534594839929 
+PMI-SCORES WITH drup
+similar words to  regen :  ['motregen', 'regen', 'sneeuwbuien', 'regenachtig', 'sneeuw']
+motregen :  1632
+drup :  414
+motregen & drup :  9
+Pmi:  3.0218366801345007 
+regen :  33867
+drup :  414
+regen & drup :  258
+Pmi:  3.162157303317059 
+sneeuwbuien :  6
+drup :  414
+sneeuwbuien & drup :  0
+Pmi:  0 
+regenachtig :  2236
+drup :  414
+regenachtig & drup :  0
+Pmi:  0 
+sneeuw :  17131
+drup :  414
+sneeuw & drup :  2
+Pmi:  1.3475616056920514 
+PMI-SCORE OF ORIGINAL WORDS: 
+regen :  33867
+drup :  414
+regen & drup :  258
+Pmi:  3.162157303317059 
+( 3.162157303317059 - mean( [2.2017318518175033, 2.7175487188533705, 2.65034311403251, 1.8811491365534774, 1.651534594839929, 3.0218366801345007, 3.162157303317059, 0, 0, 1.3475616056920514, 3.162157303317059] )) / stdev( [2.2017318518175033, 2.7175487188533705, 2.65034311403251, 1.8811491365534774, 1.651534594839929, 3.0218366801345007, 3.162157303317059, 0, 0, 1.3475616056920514, 3.162157303317059] )
+Fixedness of  regen  with  drup : 1.0245166991705332
+Enter 2 words (separated by ,) >? wal,sloot
+['kotter', 'boord', 'oceaan', 'steiger', 'kapseizen']
+['sloten', 'sluit', 'sluiten', 'gesloten', 'opengegaan']
+PMI-SCORES WITH wal
+similar words to  sloot :  ['sloten', 'sluit', 'sluiten', 'gesloten', 'opengegaan']
+wal :  6507
+sloten :  7
+wal & sloten :  0
+Pmi:  0 
+wal :  6507
+sluit :  15
+wal & sluit :  0
+Pmi:  0 
+wal :  6507
+sluiten :  80505
+wal & sluiten :  16
+Pmi:  0.38223098781326986 
+wal :  6507
+gesloten :  23936
+wal & gesloten :  3
+Pmi:  0.18200353803535688 
+wal :  6507
+opengegaan :  25
+wal & opengegaan :  0
+Pmi:  0 
+PMI-SCORES WITH sloot
+similar words to  wal :  ['kotter', 'boord', 'oceaan', 'steiger', 'kapseizen']
+kotter :  100
+sloot :  3959
+kotter & sloot :  0
+Pmi:  0 
+boord :  19310
+sloot :  3959
+boord & sloot :  2
+Pmi:  0.31497688636629934 
+oceaan :  6171
+sloot :  3959
+oceaan & sloot :  0
+Pmi:  0 
+steiger :  2147
+sloot :  3959
+steiger & sloot :  1
+Pmi:  0.9678971200454641 
+kapseizen :  917
+sloot :  3959
+kapseizen & sloot :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+wal :  6507
+sloot :  3959
+wal & sloot :  39
+Pmi:  2.077412964774356 
+( 2.077412964774356 - mean( [0, 0, 0.38223098781326986, 0.18200353803535688, 0, 0, 0.31497688636629934, 0, 0.9678971200454641, 0, 2.077412964774356] )) / stdev( [0, 0, 0.38223098781326986, 0.18200353803535688, 0, 0, 0.31497688636629934, 0, 0.9678971200454641, 0, 2.077412964774356] )
+Fixedness of  wal  with  sloot : 2.677169519254535
+Enter 2 words (separated by ,) >? hol,leeuw
+['gebruld', 'geprent', 'slangenkuil', 'muil', 'klauw']
+['tijger', 'leeuw', 'leeuwin', 'beer', 'leeuwen']
+PMI-SCORES WITH hol
+similar words to  leeuw :  ['tijger', 'leeuw', 'leeuwin', 'beer', 'leeuwen']
+hol :  9457
+tijger :  3373
+hol & tijger :  1
+Pmi:  0.39354493600842855 
+hol :  9457
+leeuw :  10619
+hol & leeuw :  294
+Pmi:  2.3638249868087997 
+hol :  9457
+leeuwin :  208
+hol & leeuwin :  1
+Pmi:  1.6034979422348685 
+hol :  9457
+beer :  7615
+hol & beer :  32
+Pmi:  1.5450413478454745 
+hol :  9457
+leeuwen :  27
+hol & leeuwen :  0
+Pmi:  0 
+PMI-SCORES WITH leeuw
+similar words to  hol :  ['gebruld', 'geprent', 'slangenkuil', 'muil', 'klauw']
+gebruld :  21
+leeuw :  10619
+gebruld & leeuw :  7
+Pmi:  3.3941097907132676 
+geprent :  20
+leeuw :  10619
+geprent & leeuw :  0
+Pmi:  0 
+slangenkuil :  7
+leeuw :  10619
+slangenkuil & leeuw :  0
+Pmi:  0 
+muil :  1544
+leeuw :  10619
+muil & leeuw :  35
+Pmi:  2.226651793783488 
+klauw :  2747
+leeuw :  10619
+klauw & leeuw :  78
+Pmi:  2.324466988702848 
+PMI-SCORE OF ORIGINAL WORDS: 
+hol :  9457
+leeuw :  10619
+hol & leeuw :  294
+Pmi:  2.3638249868087997 
+( 2.3638249868087997 - mean( [0.39354493600842855, 2.3638249868087997, 1.6034979422348685, 1.5450413478454745, 0, 3.3941097907132676, 0, 0, 2.226651793783488, 2.324466988702848, 2.3638249868087997] )) / stdev( [0.39354493600842855, 2.3638249868087997, 1.6034979422348685, 1.5450413478454745, 0, 3.3941097907132676, 0, 0, 2.226651793783488, 2.324466988702848, 2.3638249868087997] )
+Fixedness of  hol  with  leeuw : 0.7448852602159095
+Enter 2 words (separated by ,) >? been,grond
+['poot', 'heup', 'scheenbeen', 'onderbeen', 'ledematen']
+['gronden', 'grond', 'bodem', 'bouwgrond', 'akker']
+PMI-SCORES WITH been
+similar words to  grond :  ['gronden', 'grond', 'bodem', 'bouwgrond', 'akker']
+been :  44017
+gronden :  776
+been & gronden :  1
+Pmi:  0.36383250530097205 
+been :  44017
+grond :  99450
+been & grond :  639
+Pmi:  1.061590297257106 
+been :  44017
+bodem :  19700
+been & bodem :  27
+Pmi:  0.3905917645565549 
+been :  44017
+bouwgrond :  22
+been & bouwgrond :  0
+Pmi:  0 
+been :  44017
+akker :  3786
+been & akker :  1
+Pmi:  -0.32448638306861743 
+PMI-SCORES WITH grond
+similar words to  been :  ['poot', 'heup', 'scheenbeen', 'onderbeen', 'ledematen']
+poot :  13957
+grond :  99450
+poot & grond :  321
+Pmi:  1.2614228326806205 
+heup :  4555
+grond :  99450
+heup & grond :  32
+Pmi:  0.746371475784352 
+scheenbeen :  13
+grond :  99450
+scheenbeen & grond :  0
+Pmi:  0 
+onderbeen :  9
+grond :  99450
+onderbeen & grond :  1
+Pmi:  1.945467369334138 
+ledematen :  13
+grond :  99450
+ledematen & grond :  1
+Pmi:  1.785766526466626 
+PMI-SCORE OF ORIGINAL WORDS: 
+been :  44017
+grond :  99450
+been & grond :  639
+Pmi:  1.061590297257106 
+( 1.061590297257106 - mean( [0.36383250530097205, 1.061590297257106, 0.3905917645565549, 0, -0.32448638306861743, 1.2614228326806205, 0.746371475784352, 0, 1.945467369334138, 1.785766526466626, 1.061590297257106] )) / stdev( [0.36383250530097205, 1.061590297257106, 0.3905917645565549, 0, -0.32448638306861743, 1.2614228326806205, 0.746371475784352, 0, 1.945467369334138, 1.785766526466626, 1.061590297257106] )
+Fixedness of  been  with  grond : 0.4144037071962001
+Enter 2 words (separated by ,) >? kat,spek
+['poes', 'hond', 'katje', 'katten', 'cavia']
+['spek', 'spekjes', 'omelet', 'bloedworst', 'uitgebakken']
+PMI-SCORES WITH kat
+similar words to  spek :  ['spek', 'spekjes', 'omelet', 'bloedworst', 'uitgebakken']
+kat :  22358
+spek :  2505
+kat & spek :  49
+Pmi:  1.8392700642424455 
+kat :  22358
+spekjes :  15
+kat & spekjes :  0
+Pmi:  0 
+kat :  22358
+omelet :  569
+kat & omelet :  0
+Pmi:  0 
+kat :  22358
+bloedworst :  253
+kat & bloedworst :  0
+Pmi:  0 
+kat :  22358
+uitgebakken :  45
+kat & uitgebakken :  0
+Pmi:  0 
+PMI-SCORES WITH spek
+similar words to  kat :  ['poes', 'hond', 'katje', 'katten', 'cavia']
+poes :  4844
+spek :  2505
+poes & spek :  0
+Pmi:  0 
+hond :  47535
+spek :  2505
+hond & spek :  3
+Pmi:  0.29861469250433365 
+katje :  19
+spek :  2505
+katje & spek :  0
+Pmi:  0 
+katten :  576
+spek :  2505
+katten & spek :  0
+Pmi:  0 
+cavia :  832
+spek :  2505
+cavia & spek :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kat :  22358
+spek :  2505
+kat & spek :  49
+Pmi:  1.8392700642424455 
+( 1.8392700642424455 - mean( [1.8392700642424455, 0, 0, 0, 0, 0, 0.29861469250433365, 0, 0, 0, 1.8392700642424455] )) / stdev( [1.8392700642424455, 0, 0, 0, 0, 0, 0.29861469250433365, 0, 0, 0, 1.8392700642424455] )
+Fixedness of  kat  with  spek : 2.007747528596301
+Enter 2 words (separated by ,) >? duit,zak
+['stuiver', 'inspanning', 'bijdrage', 'inbreng', 'geste']
+['zakje', 'achterzak', 'zakken', 'vuilniszak', 'tas']
+PMI-SCORES WITH duit
+similar words to  zak :  ['zakje', 'achterzak', 'zakken', 'vuilniszak', 'tas']
+duit :  1463
+zakje :  13
+duit & zakje :  1
+Pmi:  3.6181269878017694 
+duit :  1463
+achterzak :  332
+duit & achterzak :  1
+Pmi:  2.21093225640457 
+duit :  1463
+zakken :  21300
+duit & zakken :  2
+Pmi:  0.70472073233385 
+duit :  1463
+vuilniszak :  1738
+duit & vuilniszak :  1
+Pmi:  1.4920205679959588 
+duit :  1463
+tas :  9224
+duit & tas :  0
+Pmi:  0 
+PMI-SCORES WITH zak
+similar words to  duit :  ['stuiver', 'inspanning', 'bijdrage', 'inbreng', 'geste']
+stuiver :  696
+zak :  31928
+stuiver & zak :  8
+Pmi:  1.453623698839332 
+inspanning :  32238
+zak :  31928
+inspanning & zak :  20
+Pmi:  0.18580485616959425 
+bijdrage :  42970
+zak :  31928
+bijdrage & zak :  21
+Pmi:  0.08219689250796673 
+inbreng :  5976
+zak :  31928
+inbreng & zak :  3
+Pmi:  0.0938536173702707 
+geste :  1253
+zak :  31928
+geste & zak :  1
+Pmi:  0.2951918804638006 
+PMI-SCORE OF ORIGINAL WORDS: 
+duit :  1463
+zak :  31928
+duit & zak :  951
+Pmi:  3.2060791422700534 
+( 3.2060791422700534 - mean( [3.6181269878017694, 2.21093225640457, 0.70472073233385, 1.4920205679959588, 0, 1.453623698839332, 0.18580485616959425, 0.08219689250796673, 0.0938536173702707, 0.2951918804638006, 3.2060791422700534] )) / stdev( [3.6181269878017694, 2.21093225640457, 0.70472073233385, 1.4920205679959588, 0, 1.453623698839332, 0.18580485616959425, 0.08219689250796673, 0.0938536173702707, 0.2951918804638006, 3.2060791422700534] )
+Fixedness of  duit  with  zak : 1.526542516085246
+Enter 2 words (separated by ,) >? hoofd,hol
+['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+['gebruld', 'geprent', 'slangenkuil', 'muil', 'klauw']
+PMI-SCORES WITH hoofd
+similar words to  hol :  ['gebruld', 'geprent', 'slangenkuil', 'muil', 'klauw']
+hoofd :  108368
+gebruld :  21
+hoofd & gebruld :  0
+Pmi:  0 
+hoofd :  108368
+geprent :  20
+hoofd & geprent :  2
+Pmi:  1.8624136079716314 
+hoofd :  108368
+slangenkuil :  7
+hoofd & slangenkuil :  0
+Pmi:  0 
+hoofd :  108368
+muil :  1544
+hoofd & muil :  10
+Pmi:  0.6737663119719141 
+hoofd :  108368
+klauw :  2747
+hoofd & klauw :  27
+Pmi:  0.8549187127100567 
+PMI-SCORES WITH hol
+similar words to  hoofd :  ['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+hoofden :  16
+hol :  9457
+hoofden & hol :  0
+Pmi:  0 
+hoofd :  108368
+hol :  9457
+hoofd & hol :  395
+Pmi:  1.4832573145618042 
+borst :  18860
+hol :  9457
+borst & hol :  14
+Pmi:  0.7921476244745584 
+hoofdje :  18
+hol :  9457
+hoofdje & hol :  0
+Pmi:  0 
+rechterhand :  23
+hol :  9457
+rechterhand & hol :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+hoofd :  108368
+hol :  9457
+hoofd & hol :  395
+Pmi:  1.4832573145618042 
+( 1.4832573145618042 - mean( [0, 1.8624136079716314, 0, 0.6737663119719141, 0.8549187127100567, 0, 1.4832573145618042, 0.7921476244745584, 0, 0, 1.4832573145618042] )) / stdev( [0, 1.8624136079716314, 0, 0.6737663119719141, 0.8549187127100567, 0, 1.4832573145618042, 0.7921476244745584, 0, 0, 1.4832573145618042] )
+Fixedness of  hoofd  with  hol : 1.17446629246329
+Enter 2 words (separated by ,) >? leven,brouwerij
+['leventje', 'familieleven', 'levens', 'leven', 'geleefd']
+['brouwerij', 'brouwer', 'witbier', 'alken-maes', 'geuze']
+PMI-SCORES WITH leven
+similar words to  brouwerij :  ['brouwerij', 'brouwer', 'witbier', 'alken-maes', 'geuze']
+leven :  393199
+brouwerij :  7995
+leven & brouwerij :  522
+Pmi:  1.117554296508157 
+leven :  393199
+brouwer :  2672
+leven & brouwer :  11
+Pmi:  -0.0827415070571345 
+leven :  393199
+witbier :  31
+leven & witbier :  0
+Pmi:  0 
+leven :  393199
+alken-maes :  6
+leven & alken-maes :  0
+Pmi:  0 
+leven :  393199
+geuze :  337
+leven & geuze :  2
+Pmi:  0.07610235638079108 
+PMI-SCORES WITH brouwerij
+similar words to  leven :  ['leventje', 'familieleven', 'levens', 'leven', 'geleefd']
+leventje :  12
+brouwerij :  7995
+leventje & brouwerij :  0
+Pmi:  0 
+familieleven :  6
+brouwerij :  7995
+familieleven & brouwerij :  0
+Pmi:  0 
+levens :  384
+brouwerij :  7995
+levens & brouwerij :  0
+Pmi:  0 
+leven :  393199
+brouwerij :  7995
+leven & brouwerij :  522
+Pmi:  1.117554296508157 
+geleefd :  108
+brouwerij :  7995
+geleefd & brouwerij :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+leven :  393199
+brouwerij :  7995
+leven & brouwerij :  522
+Pmi:  1.117554296508157 
+( 1.117554296508157 - mean( [1.117554296508157, -0.0827415070571345, 0, 0, 0.07610235638079108, 0, 0, 0, 1.117554296508157, 0, 1.117554296508157] )) / stdev( [1.117554296508157, -0.0827415070571345, 0, 0, 0.07610235638079108, 0, 0, 0, 1.117554296508157, 0, 1.117554296508157] )
+Fixedness of  leven  with  brouwerij : 1.5534067475740292
+Enter 2 words (separated by ,) >? boter,vis
+['boter', 'eidooier', 'koekepan', 'room', 'maïzena']
+['haring', 'kabeljauw', 'heilbot', 'paling', 'vissen']
+PMI-SCORES WITH boter
+similar words to  vis :  ['haring', 'kabeljauw', 'heilbot', 'paling', 'vissen']
+boter :  8002
+haring :  1939
+boter & haring :  9
+Pmi:  1.6607808195515585 
+boter :  8002
+kabeljauw :  1847
+boter & kabeljauw :  30
+Pmi:  2.20477047847036 
+boter :  8002
+heilbot :  408
+boter & heilbot :  2
+Pmi:  1.6844859517650401 
+boter :  8002
+paling :  1930
+boter & paling :  17
+Pmi:  1.9390077315614394 
+boter :  8002
+vissen :  8285
+boter & vissen :  0
+Pmi:  0 
+PMI-SCORES WITH vis
+similar words to  boter :  ['boter', 'eidooier', 'koekepan', 'room', 'maïzena']
+boter :  8002
+vis :  35131
+boter & vis :  303
+Pmi:  1.9298682355812422 
+eidooier :  94
+vis :  35131
+eidooier & vis :  1
+Pmi:  1.3784963005222166 
+koekepan :  1190
+vis :  35131
+koekepan & vis :  7
+Pmi:  1.1211752327436415 
+room :  5197
+vis :  35131
+room & vis :  30
+Pmi:  1.1129926920187183 
+maïzena :  125
+vis :  35131
+maïzena & vis :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+boter :  8002
+vis :  35131
+boter & vis :  303
+Pmi:  1.9298682355812422 
+( 1.9298682355812422 - mean( [1.6607808195515585, 2.20477047847036, 1.6844859517650401, 1.9390077315614394, 0, 1.9298682355812422, 1.3784963005222166, 1.1211752327436415, 1.1129926920187183, 0, 1.9298682355812422] )) / stdev( [1.6607808195515585, 2.20477047847036, 1.6844859517650401, 1.9390077315614394, 0, 1.9298682355812422, 1.3784963005222166, 1.1211752327436415, 1.1129926920187183, 0, 1.9298682355812422] )
+Fixedness of  boter  with  vis : 0.7538589788213076
+Enter 2 words (separated by ,) >? spek,boon
+['spek', 'spekjes', 'omelet', 'bloedworst', 'uitgebakken']
+['pepersaus', 'chocoladesaus', 'gebakje', 'toef', 'bonbon']
+PMI-SCORES WITH spek
+similar words to  boon :  ['pepersaus', 'chocoladesaus', 'gebakje', 'toef', 'bonbon']
+spek :  2505
+pepersaus :  7
+spek & pepersaus :  0
+Pmi:  0 
+spek :  2505
+chocoladesaus :  6
+spek & chocoladesaus :  0
+Pmi:  0 
+spek :  2505
+gebakje :  492
+spek & gebakje :  2
+Pmi:  2.107571828927274 
+spek :  2505
+toef :  265
+spek & toef :  1
+Pmi:  2.075261062093845 
+spek :  2505
+bonbon :  403
+spek & bonbon :  0
+Pmi:  0 
+PMI-SCORES WITH boon
+similar words to  spek :  ['spek', 'spekjes', 'omelet', 'bloedworst', 'uitgebakken']
+spek :  2505
+boon :  4580
+spek & boon :  238
+Pmi:  3.2142184150832955 
+spekjes :  15
+boon :  4580
+spekjes & boon :  4
+Pmi:  3.662417920502329 
+omelet :  569
+boon :  4580
+omelet & boon :  4
+Pmi:  2.083396913162939 
+bloedworst :  253
+boon :  4580
+bloedworst & boon :  6
+Pmi:  2.6114799174378738 
+uitgebakken :  45
+boon :  4580
+uitgebakken & boon :  3
+Pmi:  3.0603579291743666 
+PMI-SCORE OF ORIGINAL WORDS: 
+spek :  2505
+boon :  4580
+spek & boon :  238
+Pmi:  3.2142184150832955 
+( 3.2142184150832955 - mean( [0, 0, 2.107571828927274, 2.075261062093845, 0, 3.2142184150832955, 3.662417920502329, 2.083396913162939, 2.6114799174378738, 3.0603579291743666, 3.2142184150832955] )) / stdev( [0, 0, 2.107571828927274, 2.075261062093845, 0, 3.2142184150832955, 3.662417920502329, 2.083396913162939, 2.6114799174378738, 3.0603579291743666, 3.2142184150832955] )
+Fixedness of  spek  with  boon : 0.8736007872861251
+Enter 2 words (separated by ,) >? water,wijn
+['regenwater', 'water', 'grondwater', 'rioolwater', 'drinkwater']
+['wijnen', 'schuimwijn', 'rosé', 'chardonnay', 'sancerre']
+PMI-SCORES WITH water
+similar words to  wijn :  ['wijnen', 'schuimwijn', 'rosé', 'chardonnay', 'sancerre']
+water :  163784
+wijnen :  56
+water & wijnen :  0
+Pmi:  0 
+water :  163784
+schuimwijn :  7
+water & schuimwijn :  0
+Pmi:  0 
+water :  163784
+rosé :  874
+water & rosé :  6
+Pmi:  0.5196830105581965 
+water :  163784
+chardonnay :  536
+water & chardonnay :  0
+Pmi:  0 
+water :  163784
+sancerre :  20
+water & sancerre :  0
+Pmi:  0 
+PMI-SCORES WITH wijn
+similar words to  water :  ['regenwater', 'water', 'grondwater', 'rioolwater', 'drinkwater']
+regenwater :  1828
+wijn :  35747
+regenwater & wijn :  4
+Pmi:  0.6841588658483722 
+water :  163784
+wijn :  35747
+water & wijn :  1445
+Pmi:  1.2896714395858275 
+grondwater :  2472
+wijn :  35747
+grondwater & wijn :  0
+Pmi:  0 
+rioolwater :  8
+wijn :  35747
+rioolwater & wijn :  0
+Pmi:  0 
+drinkwater :  3634
+wijn :  35747
+drinkwater & wijn :  4
+Pmi:  0.3857501342741693 
+PMI-SCORE OF ORIGINAL WORDS: 
+water :  163784
+wijn :  35747
+water & wijn :  1445
+Pmi:  1.2896714395858275 
+( 1.2896714395858275 - mean( [0, 0, 0.5196830105581965, 0, 0, 0.6841588658483722, 1.2896714395858275, 0, 0, 0.3857501342741693, 1.2896714395858275] )) / stdev( [0, 0, 0.5196830105581965, 0, 0, 0.6841588658483722, 1.2896714395858275, 0, 0, 0.3857501342741693, 1.2896714395858275] )
+Fixedness of  water  with  wijn : 1.774606175458967
+Enter 2 words (separated by ,) >? water,zee
+['regenwater', 'water', 'grondwater', 'rioolwater', 'drinkwater']
+['kust', 'strand', 'noordzee', 'oceaan', 'zee']
+PMI-SCORES WITH water
+similar words to  zee :  ['kust', 'strand', 'noordzee', 'oceaan', 'zee']
+water :  163784
+kust :  34702
+water & kust :  626
+Pmi:  0.9392630205676075 
+water :  163784
+strand :  19844
+water & strand :  488
+Pmi:  1.0738337964475186 
+water :  163784
+noordzee :  131
+water & noordzee :  1
+Pmi:  0.5657718971531916 
+water :  163784
+oceaan :  6171
+water & oceaan :  367
+Pmi:  1.4573537106466588 
+water :  163784
+zee :  51937
+water & zee :  1873
+Pmi:  1.2401041100097725 
+PMI-SCORES WITH zee
+similar words to  water :  ['regenwater', 'water', 'grondwater', 'rioolwater', 'drinkwater']
+regenwater :  1828
+zee :  51937
+regenwater & zee :  10
+Pmi:  0.919861614661684 
+water :  163784
+zee :  51937
+water & zee :  1873
+Pmi:  1.2401041100097725 
+grondwater :  2472
+zee :  51937
+grondwater & zee :  22
+Pmi:  1.1312120204649245 
+rioolwater :  8
+zee :  51937
+rioolwater & zee :  0
+Pmi:  0 
+drinkwater :  3634
+zee :  51937
+drinkwater & zee :  15
+Pmi:  0.7975441421431624 
+PMI-SCORE OF ORIGINAL WORDS: 
+water :  163784
+zee :  51937
+water & zee :  1873
+Pmi:  1.2401041100097725 
+( 1.2401041100097725 - mean( [0.9392630205676075, 1.0738337964475186, 0.5657718971531916, 1.4573537106466588, 1.2401041100097725, 0.919861614661684, 1.2401041100097725, 1.1312120204649245, 0, 0.7975441421431624, 1.2401041100097725] )) / stdev( [0.9392630205676075, 1.0738337964475186, 0.5657718971531916, 1.4573537106466588, 1.2401041100097725, 0.919861614661684, 1.2401041100097725, 1.1312120204649245, 0, 0.7975441421431624, 1.2401041100097725] )
+Fixedness of  water  with  zee : 0.6835623872595914
+Enter 2 words (separated by ,) >? duivel,biecht
+['satan', 'demonen', 'duivelin', 'duivels', 'djinn']
+['biechten', 'getuigenis', 'boetedoening', 'bekentenis', 'schuldbekentenis']
+PMI-SCORES WITH duivel
+similar words to  biecht :  ['biechten', 'getuigenis', 'boetedoening', 'bekentenis', 'schuldbekentenis']
+duivel :  8780
+biechten :  468
+duivel & biechten :  11
+Pmi:  2.3249669824119157 
+duivel :  8780
+getuigenis :  7131
+duivel & getuigenis :  2
+Pmi:  0.4016997095439534 
+duivel :  8780
+boetedoening :  444
+duivel & boetedoening :  0
+Pmi:  0 
+duivel :  8780
+bekentenis :  3828
+duivel & bekentenis :  3
+Pmi:  0.8479694759426714 
+duivel :  8780
+schuldbekentenis :  437
+duivel & schuldbekentenis :  0
+Pmi:  0 
+PMI-SCORES WITH biecht
+similar words to  duivel :  ['satan', 'demonen', 'duivelin', 'duivels', 'djinn']
+satan :  1147
+biecht :  993
+satan & biecht :  1
+Pmi:  1.8408019998372687 
+demonen :  113
+biecht :  993
+demonen & biecht :  0
+Pmi:  0 
+duivelin :  66
+biecht :  993
+duivelin & biecht :  0
+Pmi:  0 
+duivels :  1970
+biecht :  993
+duivels & biecht :  1
+Pmi:  1.6058991915769432 
+djinn :  134
+biecht :  993
+djinn & biecht :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+duivel :  8780
+biecht :  993
+duivel & biecht :  9
+Pmi:  1.9111134112717585 
+( 1.9111134112717585 - mean( [2.3249669824119157, 0.4016997095439534, 0, 0.8479694759426714, 0, 1.8408019998372687, 0, 0, 1.6058991915769432, 0, 1.9111134112717585] )) / stdev( [2.3249669824119157, 0.4016997095439534, 0, 0.8479694759426714, 0, 1.8408019998372687, 0, 0, 1.6058991915769432, 0, 1.9111134112717585] )
+Fixedness of  duivel  with  biecht : 1.1815805037639076
+Enter 2 words (separated by ,) >? kip,stok
+['kippen', 'biefstuk', 'kip', 'kotelet', 'gebraden']
+['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+PMI-SCORES WITH kip
+similar words to  stok :  ['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+kip :  15277
+knuppel :  1335
+kip & knuppel :  1
+Pmi:  0.5877953219064347 
+kip :  15277
+riek :  191
+kip & riek :  0
+Pmi:  0 
+kip :  15277
+stokken :  1378
+kip & stokken :  1
+Pmi:  0.5740273700354217 
+kip :  15277
+wandelstok :  703
+kip & wandelstok :  0
+Pmi:  0 
+kip :  15277
+hockeystick :  6
+kip & hockeystick :  0
+Pmi:  0 
+PMI-SCORES WITH stok
+similar words to  kip :  ['kippen', 'biefstuk', 'kip', 'kotelet', 'gebraden']
+kippen :  133
+stok :  10722
+kippen & stok :  0
+Pmi:  0 
+biefstuk :  1361
+stok :  10722
+biefstuk & stok :  1
+Pmi:  0.7331807381412949 
+kip :  15277
+stok :  10722
+kip & stok :  53
+Pmi:  1.4072766543185298 
+kotelet :  91
+stok :  10722
+kotelet & stok :  0
+Pmi:  0 
+gebraden :  701
+stok :  10722
+gebraden & stok :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kip :  15277
+stok :  10722
+kip & stok :  53
+Pmi:  1.4072766543185298 
+( 1.4072766543185298 - mean( [0.5877953219064347, 0, 0.5740273700354217, 0, 0, 0, 0.7331807381412949, 1.4072766543185298, 0, 0, 1.4072766543185298] )) / stdev( [0.5877953219064347, 0, 0.5740273700354217, 0, 0, 0, 0.7331807381412949, 1.4072766543185298, 0, 0, 1.4072766543185298] )
+Fixedness of  kip  with  stok : 1.7426132047817844
+Enter 2 words (separated by ,) >? kippen,stok
+['kippen', 'varkens', 'kip', 'kalkoenen', 'hanen']
+['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+PMI-SCORES WITH kippen
+similar words to  stok :  ['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+kippen :  133
+knuppel :  1335
+kippen & knuppel :  0
+Pmi:  0 
+kippen :  133
+riek :  191
+kippen & riek :  0
+Pmi:  0 
+kippen :  133
+stokken :  1378
+kippen & stokken :  0
+Pmi:  0 
+kippen :  133
+wandelstok :  703
+kippen & wandelstok :  0
+Pmi:  0 
+kippen :  133
+hockeystick :  6
+kippen & hockeystick :  0
+Pmi:  0 
+PMI-SCORES WITH stok
+similar words to  kippen :  ['kippen', 'varkens', 'kip', 'kalkoenen', 'hanen']
+kippen :  133
+stok :  10722
+kippen & stok :  0
+Pmi:  0 
+varkens :  276
+stok :  10722
+varkens & stok :  0
+Pmi:  0 
+kip :  15277
+stok :  10722
+kip & stok :  53
+Pmi:  1.4072766543185298 
+kalkoenen :  13
+stok :  10722
+kalkoenen & stok :  0
+Pmi:  0 
+hanen :  22
+stok :  10722
+hanen & stok :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kippen :  133
+stok :  10722
+kippen & stok :  0
+Pmi:  0 
+( 0 - mean( [0, 0, 0, 0, 0, 0, 0, 1.4072766543185298, 0, 0, 0] )) / stdev( [0, 0, 0, 0, 0, 0, 0, 1.4072766543185298, 0, 0, 0] )
+Fixedness of  kippen  with  stok : -0.3015113445777636
+Enter 2 words (separated by ,) >? kip,stok
+['kippen', 'biefstuk', 'kip', 'kotelet', 'gebraden']
+['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+PMI-SCORES WITH kip
+similar words to  stok :  ['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+kip :  15277
+knuppel :  1335
+kip & knuppel :  1
+Pmi:  0.5877953219064347 
+kip :  15277
+riek :  191
+kip & riek :  0
+Pmi:  0 
+kip :  15277
+stokken :  1378
+kip & stokken :  1
+Pmi:  0.5740273700354217 
+kip :  15277
+wandelstok :  703
+kip & wandelstok :  0
+Pmi:  0 
+kip :  15277
+hockeystick :  6
+kip & hockeystick :  0
+Pmi:  0 
+PMI-SCORES WITH stok
+similar words to  kip :  ['kippen', 'biefstuk', 'kip', 'kotelet', 'gebraden']
+kippen :  133
+stok :  10722
+kippen & stok :  0
+Pmi:  0 
+biefstuk :  1361
+stok :  10722
+biefstuk & stok :  1
+Pmi:  0.7331807381412949 
+kip :  15277
+stok :  10722
+kip & stok :  53
+Pmi:  1.4072766543185298 
+kotelet :  91
+stok :  10722
+kotelet & stok :  0
+Pmi:  0 
+gebraden :  701
+stok :  10722
+gebraden & stok :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kip :  15277
+stok :  10722
+kip & stok :  53
+Pmi:  1.4072766543185298 
+( 1.4072766543185298 - mean( [0.5877953219064347, 0, 0.5740273700354217, 0, 0, 0, 0.7331807381412949, 1.4072766543185298, 0, 0, 1.4072766543185298] )) / stdev( [0.5877953219064347, 0, 0.5740273700354217, 0, 0, 0, 0.7331807381412949, 1.4072766543185298, 0, 0, 1.4072766543185298] )
+Fixedness of  kip  with  stok : 1.7426132047817844
+Enter 2 words (separated by ,) >? maas,net
+['ohm', 'bewaarplicht', 'toepassing', 'boren', 'polderen']
+['net', 'juist', 'even', 'vlak', 'wél']
+PMI-SCORES WITH maas
+similar words to  net :  ['net', 'juist', 'even', 'vlak', 'wél']
+maas :  1160
+net :  303325
+maas & net :  484
+Pmi:  2.035793832380958 
+maas :  1160
+juist :  143032
+maas & juist :  9
+Pmi:  0.6316659750742943 
+maas :  1160
+even :  296291
+maas & even :  8
+Pmi:  0.2642282042492331 
+maas :  1160
+vlak :  83970
+maas & vlak :  1
+Pmi:  -0.09126747617882577 
+maas :  1160
+wél :  8
+maas & wél :  0
+Pmi:  0 
+PMI-SCORES WITH net
+similar words to  maas :  ['ohm', 'bewaarplicht', 'toepassing', 'boren', 'polderen']
+ohm :  105
+net :  303325
+ohm & net :  0
+Pmi:  0 
+bewaarplicht :  10
+net :  303325
+bewaarplicht & net :  0
+Pmi:  0 
+toepassing :  61683
+net :  303325
+toepassing & net :  202
+Pmi:  -0.06940765839159704 
+boren :  3801
+net :  303325
+boren & net :  58
+Pmi:  0.5989365839232977 
+polderen :  112
+net :  303325
+polderen & net :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+maas :  1160
+net :  303325
+maas & net :  484
+Pmi:  2.035793832380958 
+( 2.035793832380958 - mean( [2.035793832380958, 0.6316659750742943, 0.2642282042492331, -0.09126747617882577, 0, 0, 0, -0.06940765839159704, 0.5989365839232977, 0, 2.035793832380958] )) / stdev( [2.035793832380958, 0.6316659750742943, 0.2642282042492331, -0.09126747617882577, 0, 0, 0, -0.06940765839159704, 0.5989365839232977, 0, 2.035793832380958] )
+Fixedness of  maas  with  net : 1.9195291394194818
+Enter 2 words (separated by ,) >? handdoek,ring
+['teerling', 'teerlingen', 'badwater', 'theedoek', 'klak']
+['ring', 'binnenring', 'ringbaan', 'stadsring', 'buitenring']
+PMI-SCORES WITH handdoek
+similar words to  ring :  ['ring', 'binnenring', 'ringbaan', 'stadsring', 'buitenring']
+handdoek :  3490
+ring :  21348
+handdoek & ring :  685
+Pmi:  2.860822616635613 
+handdoek :  3490
+binnenring :  7
+handdoek & binnenring :  0
+Pmi:  0 
+handdoek :  3490
+ringbaan :  35
+handdoek & ringbaan :  0
+Pmi:  0 
+handdoek :  3490
+stadsring :  7
+handdoek & stadsring :  0
+Pmi:  0 
+handdoek :  3490
+buitenring :  6
+handdoek & buitenring :  0
+Pmi:  0 
+PMI-SCORES WITH ring
+similar words to  handdoek :  ['teerling', 'teerlingen', 'badwater', 'theedoek', 'klak']
+teerling :  111
+ring :  21348
+teerling & ring :  0
+Pmi:  0 
+teerlingen :  96
+ring :  21348
+teerlingen & ring :  0
+Pmi:  0 
+badwater :  513
+ring :  21348
+badwater & ring :  0
+Pmi:  0 
+theedoek :  292
+ring :  21348
+theedoek & ring :  0
+Pmi:  0 
+klak :  306
+ring :  21348
+klak & ring :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+handdoek :  3490
+ring :  21348
+handdoek & ring :  685
+Pmi:  2.860822616635613 
+( 2.860822616635613 - mean( [2.860822616635613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.860822616635613] )) / stdev( [2.860822616635613, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.860822616635613] )
+Fixedness of  handdoek  with  ring : 2.0225995873897262
+Enter 2 words (separated by ,) >? kont,krib
+['achterwerk', 'tiet', 'reet', 'konten', 'bips']
+['ertegenaan', 'rotje', 'sneeuwballen', 'goddomme', 'schop']
+PMI-SCORES WITH kont
+similar words to  krib :  ['ertegenaan', 'rotje', 'sneeuwballen', 'goddomme', 'schop']
+kont :  4954
+ertegenaan :  192
+kont & ertegenaan :  1
+Pmi:  1.9190574352805496 
+kont :  4954
+rotje :  164
+kont & rotje :  0
+Pmi:  0 
+kont :  4954
+sneeuwballen :  11
+kont & sneeuwballen :  0
+Pmi:  0 
+kont :  4954
+goddomme :  91
+kont & goddomme :  1
+Pmi:  2.243317271663005 
+kont :  4954
+schop :  2401
+kont & schop :  163
+Pmi:  3.0341541083310295 
+PMI-SCORES WITH krib
+similar words to  kont :  ['achterwerk', 'tiet', 'reet', 'konten', 'bips']
+achterwerk :  766
+krib :  176
+achterwerk & krib :  1
+Pmi:  2.7675732287871635 
+tiet :  1196
+krib :  176
+tiet & krib :  0
+Pmi:  0 
+reet :  1868
+krib :  176
+reet & krib :  0
+Pmi:  0 
+konten :  10
+krib :  176
+konten & krib :  0
+Pmi:  0 
+bips :  177
+krib :  176
+bips & krib :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kont :  4954
+krib :  176
+kont & krib :  47
+Pmi:  3.6289438541056667 
+( 3.6289438541056667 - mean( [1.9190574352805496, 0, 0, 2.243317271663005, 3.0341541083310295, 2.7675732287871635, 0, 0, 0, 0, 3.6289438541056667] )) / stdev( [1.9190574352805496, 0, 0, 2.243317271663005, 3.0341541083310295, 2.7675732287871635, 0, 0, 0, 0, 3.6289438541056667] )
+Fixedness of  kont  with  krib : 1.6152413176736167
+Enter 2 words (separated by ,) >? geld,balk
+['centen', 'geld', 'spaarcentjes', 'belastinggeld', 'spaargeld']
+['balken', 'oxer', 'liggers', 'balustrade', 'reling']
+PMI-SCORES WITH geld
+similar words to  balk :  ['balken', 'oxer', 'liggers', 'balustrade', 'reling']
+geld :  197313
+balken :  19
+geld & balken :  0
+Pmi:  0 
+geld :  197313
+oxer :  15
+geld & oxer :  0
+Pmi:  0 
+geld :  197313
+liggers :  123
+geld & liggers :  0
+Pmi:  0 
+geld :  197313
+balustrade :  795
+geld & balustrade :  0
+Pmi:  0 
+geld :  197313
+reling :  464
+geld & reling :  0
+Pmi:  0 
+PMI-SCORES WITH balk
+similar words to  geld :  ['centen', 'geld', 'spaarcentjes', 'belastinggeld', 'spaargeld']
+centen :  31
+balk :  4207
+centen & balk :  0
+Pmi:  0 
+geld :  197313
+balk :  4207
+geld & balk :  205
+Pmi:  1.2899403155132743 
+spaarcentjes :  6
+balk :  4207
+spaarcentjes & balk :  0
+Pmi:  0 
+belastinggeld :  6
+balk :  4207
+belastinggeld & balk :  0
+Pmi:  0 
+spaargeld :  16
+balk :  4207
+spaargeld & balk :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+geld :  197313
+balk :  4207
+geld & balk :  205
+Pmi:  1.2899403155132743 
+( 1.2899403155132743 - mean( [0, 0, 0, 0, 0, 0, 1.2899403155132743, 0, 0, 0, 1.2899403155132743] )) / stdev( [0, 0, 0, 0, 0, 0, 1.2899403155132743, 0, 0, 0, 1.2899403155132743] )
+Fixedness of  geld  with  balk : 2.0225995873897262
+Enter 2 words (separated by ,) >? kind,badwater
+['kindje', 'kinderen', 'baby', 'kleuter', 'jongetje']
+['lichaamsvocht', 'gootsteen', 'sopje', 'afwasmiddel', 'frietvet']
+PMI-SCORES WITH kind
+similar words to  badwater :  ['lichaamsvocht', 'gootsteen', 'sopje', 'afwasmiddel', 'frietvet']
+kind :  404734
+lichaamsvocht :  8
+kind & lichaamsvocht :  0
+Pmi:  0 
+kind :  404734
+gootsteen :  543
+kind & gootsteen :  5
+Pmi:  0.25431515180535647 
+kind :  404734
+sopje :  10
+kind & sopje :  0
+Pmi:  0 
+kind :  404734
+afwasmiddel :  14
+kind & afwasmiddel :  0
+Pmi:  0 
+kind :  404734
+frietvet :  7
+kind & frietvet :  0
+Pmi:  0 
+PMI-SCORES WITH badwater
+similar words to  kind :  ['kindje', 'kinderen', 'baby', 'kleuter', 'jongetje']
+kindje :  311
+badwater :  513
+kindje & badwater :  0
+Pmi:  0 
+kinderen :  977
+badwater :  513
+kinderen & badwater :  0
+Pmi:  0 
+baby :  29819
+badwater :  513
+baby & badwater :  8
+Pmi:  1.6157942131071963 
+kleuter :  8490
+badwater :  513
+kleuter & badwater :  0
+Pmi:  0 
+jongetje :  22
+badwater :  513
+jongetje & badwater :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+kind :  404734
+badwater :  513
+kind & badwater :  329
+Pmi:  2.097223509896342 
+( 2.097223509896342 - mean( [0, 0.25431515180535647, 0, 0, 0, 0, 0, 1.6157942131071963, 0, 0, 2.097223509896342] )) / stdev( [0, 0.25431515180535647, 0, 0, 0, 0, 0, 1.6157942131071963, 0, 0, 2.097223509896342] )
+Fixedness of  kind  with  badwater : 2.3117279300958717
+Enter 2 words (separated by ,) >? olie,vuur
+['aardolie', 'olie', 'petroleum', 'stookolie', 'brandstof']
+['brand', 'brandende', 'smeulen', 'vuurzee', 'lichterlaaie']
+PMI-SCORES WITH olie
+similar words to  vuur :  ['brand', 'brandende', 'smeulen', 'vuurzee', 'lichterlaaie']
+olie :  26327
+brand :  51380
+olie & brand :  78
+Pmi:  0.6582137955574145 
+olie :  26327
+brandende :  8
+olie & brandende :  0
+Pmi:  0 
+olie :  26327
+smeulen :  1036
+olie & smeulen :  7
+Pmi:  1.306651577402304 
+olie :  26327
+vuurzee :  441
+olie & vuurzee :  2
+Pmi:  1.1335046989934041 
+olie :  26327
+lichterlaaie :  973
+olie & lichterlaaie :  2
+Pmi:  0.7898304481928908 
+PMI-SCORES WITH vuur
+similar words to  olie :  ['aardolie', 'olie', 'petroleum', 'stookolie', 'brandstof']
+aardolie :  1808
+vuur :  40187
+aardolie & vuur :  4
+Pmi:  0.6380906445406592 
+olie :  26327
+vuur :  40187
+olie & vuur :  909
+Pmi:  1.8313915891373527 
+petroleum :  925
+vuur :  40187
+petroleum & vuur :  10
+Pmi:  1.3270873466130086 
+stookolie :  51
+vuur :  40187
+stookolie & vuur :  2
+Pmi:  1.886688898918086 
+brandstof :  11212
+vuur :  40187
+brandstof & vuur :  44
+Pmi:  0.8869986667499803 
+PMI-SCORE OF ORIGINAL WORDS: 
+olie :  26327
+vuur :  40187
+olie & vuur :  909
+Pmi:  1.8313915891373527 
+( 1.8313915891373527 - mean( [0.6582137955574145, 0, 1.306651577402304, 1.1335046989934041, 0.7898304481928908, 0.6380906445406592, 1.8313915891373527, 1.3270873466130086, 1.886688898918086, 0.8869986667499803, 1.8313915891373527] )) / stdev( [0.6582137955574145, 0, 1.306651577402304, 1.1335046989934041, 0.7898304481928908, 0.6380906445406592, 1.8313915891373527, 1.3270873466130086, 1.886688898918086, 0.8869986667499803, 1.8313915891373527] )
+Fixedness of  olie  with  vuur : 1.2000997116956702
+Enter 2 words (separated by ,) >? parel,zwijn
+['parels', 'pareltjes', 'pareltje', 'aanwinst', 'juweel']
+['everzwijn', 'gnoe', 'coyote', 'fazant', 'gewei']
+PMI-SCORES WITH parel
+similar words to  zwijn :  ['everzwijn', 'gnoe', 'coyote', 'fazant', 'gewei']
+parel :  5209
+everzwijn :  18
+parel & everzwijn :  0
+Pmi:  0 
+parel :  5209
+gnoe :  99
+parel & gnoe :  0
+Pmi:  0 
+parel :  5209
+coyote :  185
+parel & coyote :  0
+Pmi:  0 
+parel :  5209
+fazant :  888
+parel & fazant :  1
+Pmi:  1.232147343022619 
+parel :  5209
+gewei :  492
+parel & gewei :  0
+Pmi:  0 
+PMI-SCORES WITH zwijn
+similar words to  parel :  ['parels', 'pareltjes', 'pareltje', 'aanwinst', 'juweel']
+parels :  13
+zwijn :  1909
+parels & zwijn :  0
+Pmi:  0 
+pareltjes :  11
+zwijn :  1909
+pareltjes & zwijn :  0
+Pmi:  0 
+pareltje :  9
+zwijn :  1909
+pareltje & zwijn :  0
+Pmi:  0 
+aanwinst :  4828
+zwijn :  1909
+aanwinst & zwijn :  0
+Pmi:  0 
+juweel :  9923
+zwijn :  1909
+juweel & zwijn :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+parel :  5209
+zwijn :  1909
+parel & zwijn :  73
+Pmi:  2.763077240528009 
+( 2.763077240528009 - mean( [0, 0, 0, 1.232147343022619, 0, 0, 0, 0, 0, 0, 2.763077240528009] )) / stdev( [0, 0, 0, 1.232147343022619, 0, 0, 0, 0, 0, 0, 2.763077240528009] )
+Fixedness of  parel  with  zwijn : 2.7346080410913127
+Enter 2 words (separated by ,) >? roet,eten
+['overhoop', 'spelbreker', 'afgeremd', 'overboord', 'smet']
+['snacken', 'eten', 'pita', 'voedsel', 'kebab']
+PMI-SCORES WITH roet
+similar words to  eten :  ['snacken', 'eten', 'pita', 'voedsel', 'kebab']
+roet :  2415
+snacken :  94
+roet & snacken :  0
+Pmi:  0 
+roet :  2415
+eten :  130727
+roet & eten :  1721
+Pmi:  2.6338131066248103 
+roet :  2415
+pita :  222
+roet & pita :  0
+Pmi:  0 
+roet :  2415
+voedsel :  27074
+roet & voedsel :  0
+Pmi:  0 
+roet :  2415
+kebab :  471
+roet & kebab :  0
+Pmi:  0 
+PMI-SCORES WITH eten
+similar words to  roet :  ['overhoop', 'spelbreker', 'afgeremd', 'overboord', 'smet']
+overhoop :  2647
+eten :  130727
+overhoop & eten :  8
+Pmi:  0.2612854170753767 
+spelbreker :  22
+eten :  130727
+spelbreker & eten :  0
+Pmi:  0 
+afgeremd :  60
+eten :  130727
+afgeremd & eten :  0
+Pmi:  0 
+overboord :  2793
+eten :  130727
+overboord & eten :  7
+Pmi:  0.17997647569803313 
+smet :  1372
+eten :  130727
+smet & eten :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+roet :  2415
+eten :  130727
+roet & eten :  1721
+Pmi:  2.6338131066248103 
+( 2.6338131066248103 - mean( [0, 2.6338131066248103, 0, 0, 0, 0.2612854170753767, 0, 0, 0.17997647569803313, 0, 2.6338131066248103] )) / stdev( [0, 2.6338131066248103, 0, 0, 0, 0.2612854170753767, 0, 0, 0.17997647569803313, 0, 2.6338131066248103] )
+Fixedness of  roet  with  eten : 2.0153288245095946
+Enter 2 words (separated by ,) >? kop,wind
+['koppen', 'kopje', 'jul', 'bovenin', 'hoofd']
+['westenwind', 'noordenwind', 'bries', 'briesje', 'zuidwester']
+PMI-SCORES WITH kop
+similar words to  wind :  ['westenwind', 'noordenwind', 'bries', 'briesje', 'zuidwester']
+kop :  61337
+westenwind :  13
+kop & westenwind :  0
+Pmi:  0 
+kop :  61337
+noordenwind :  6
+kop & noordenwind :  0
+Pmi:  0 
+kop :  61337
+bries :  953
+kop & bries :  6
+Pmi:  0.9086504852083351 
+kop :  61337
+briesje :  6
+kop & briesje :  0
+Pmi:  0 
+kop :  61337
+zuidwester :  88
+kop & zuidwester :  0
+Pmi:  0 
+PMI-SCORES WITH wind
+similar words to  kop :  ['koppen', 'kopje', 'jul', 'bovenin', 'hoofd']
+koppen :  5755
+wind :  33491
+koppen & wind :  1
+Pmi:  -0.3876587769635512 
+kopje :  496
+wind :  33491
+kopje & wind :  0
+Pmi:  0 
+jul :  152
+wind :  33491
+jul & wind :  0
+Pmi:  0 
+bovenin :  1284
+wind :  33491
+bovenin & wind :  1
+Pmi:  0.26382152726942487 
+hoofd :  108368
+wind :  33491
+hoofd & wind :  143
+Pmi:  0.4928215302050351 
+PMI-SCORE OF ORIGINAL WORDS: 
+kop :  61337
+wind :  33491
+kop & wind :  166
+Pmi:  0.8047721082714148 
+( 0.8047721082714148 - mean( [0, 0, 0.9086504852083351, 0, 0, -0.3876587769635512, 0, 0, 0.26382152726942487, 0.4928215302050351, 0.8047721082714148] )) / stdev( [0, 0, 0.9086504852083351, 0, 0, -0.3876587769635512, 0, 0, 0.26382152726942487, 0.4928215302050351, 0.8047721082714148] )
+Fixedness of  kop  with  wind : 1.5674082285306483
+Enter 2 words (separated by ,) >? druk,ketel
+['druk', 'pressie', 'werkdruk', 'invloed', 'werklast']
+['ketels', 'dampkap', 'warmtebron', 'brander', 'frietpot']
+PMI-SCORES WITH druk
+similar words to  ketel :  ['ketels', 'dampkap', 'warmtebron', 'brander', 'frietpot']
+druk :  114887
+ketels :  12
+druk & ketels :  0
+Pmi:  0 
+druk :  114887
+dampkap :  14
+druk & dampkap :  0
+Pmi:  0 
+druk :  114887
+warmtebron :  390
+druk & warmtebron :  2
+Pmi:  0.5470091658495947 
+druk :  114887
+brander :  597
+druk & brander :  4
+Pmi:  0.663129437410706 
+druk :  114887
+frietpot :  6
+druk & frietpot :  0
+Pmi:  0 
+PMI-SCORES WITH ketel
+similar words to  druk :  ['druk', 'pressie', 'werkdruk', 'invloed', 'werklast']
+druk :  114887
+ketel :  3190
+druk & ketel :  845
+Pmi:  2.2601098031046236 
+pressie :  569
+ketel :  3190
+pressie & ketel :  0
+Pmi:  0 
+werkdruk :  2380
+ketel :  3190
+werkdruk & ketel :  1
+Pmi:  1.0169470261202243 
+invloed :  67966
+ketel :  3190
+invloed & ketel :  5
+Pmi:  0.2602022763523831 
+werklast :  6
+ketel :  3190
+werklast & ketel :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+druk :  114887
+ketel :  3190
+druk & ketel :  845
+Pmi:  2.2601098031046236 
+( 2.2601098031046236 - mean( [0, 0, 0.5470091658495947, 0.663129437410706, 0, 2.2601098031046236, 0, 1.0169470261202243, 0.2602022763523831, 0, 2.2601098031046236] )) / stdev( [0, 0, 0.5470091658495947, 0.663129437410706, 0, 2.2601098031046236, 0, 1.0169470261202243, 0.2602022763523831, 0, 2.2601098031046236] )
+Fixedness of  druk  with  ketel : 1.8626478945897436
+Enter 2 words (separated by ,) >? onderste,kan
+['bovenste', 'voorste', 'onderin', 'onderaan', 'middelste']
+['kunnen', 'kon', 'mag', 'kan', 'kunt']
+PMI-SCORES WITH onderste
+similar words to  kan :  ['kunnen', 'kon', 'mag', 'kan', 'kunt']
+onderste :  6895
+kunnen :  2638435
+onderste & kunnen :  471
+Pmi:  0.3104549034050927 
+onderste :  6895
+kon :  42
+onderste & kon :  0
+Pmi:  0 
+onderste :  6895
+mag :  4448
+onderste & mag :  1
+Pmi:  0.41061561714804784 
+onderste :  6895
+kan :  5245
+onderste & kan :  623
+Pmi:  3.1335229498516415 
+onderste :  6895
+kunt :  70
+onderste & kunt :  0
+Pmi:  0 
+PMI-SCORES WITH kan
+similar words to  onderste :  ['bovenste', 'voorste', 'onderin', 'onderaan', 'middelste']
+bovenste :  8417
+kan :  5245
+bovenste & kan :  7
+Pmi:  1.0975098865426989 
+voorste :  3766
+kan :  5245
+voorste & kan :  1
+Pmi:  0.6016888580236948 
+onderin :  1446
+kan :  5245
+onderin & kan :  1
+Pmi:  1.0174008807458286 
+onderaan :  7480
+kan :  5245
+onderaan & kan :  3
+Pmi:  0.7807888305595418 
+middelste :  3121
+kan :  5245
+middelste & kan :  2
+Pmi:  0.9843054007029893 
+PMI-SCORE OF ORIGINAL WORDS: 
+onderste :  6895
+kan :  5245
+onderste & kan :  623
+Pmi:  3.1335229498516415 
+( 3.1335229498516415 - mean( [0.3104549034050927, 0, 0.41061561714804784, 3.1335229498516415, 0, 1.0975098865426989, 0.6016888580236948, 1.0174008807458286, 0.7807888305595418, 0.9843054007029893, 3.1335229498516415] )) / stdev( [0.3104549034050927, 0, 0.41061561714804784, 3.1335229498516415, 0, 1.0975098865426989, 0.6016888580236948, 1.0174008807458286, 0.7807888305595418, 0.9843054007029893, 3.1335229498516415] )
+Fixedness of  onderste  with  kan : 1.8989050534718024
+Enter 2 words (separated by ,) >? boter,hoofd
+['boter', 'eidooier', 'koekepan', 'room', 'maïzena']
+['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+PMI-SCORES WITH boter
+similar words to  hoofd :  ['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+boter :  8002
+hoofden :  16
+boter & hoofden :  0
+Pmi:  0 
+boter :  8002
+hoofd :  108368
+boter & hoofd :  344
+Pmi:  1.4957735035001831 
+boter :  8002
+borst :  18860
+boter & borst :  7
+Pmi:  0.5636724708038863 
+boter :  8002
+hoofdje :  18
+boter & hoofdje :  0
+Pmi:  0 
+boter :  8002
+rechterhand :  23
+boter & rechterhand :  0
+Pmi:  0 
+PMI-SCORES WITH hoofd
+similar words to  boter :  ['boter', 'eidooier', 'koekepan', 'room', 'maïzena']
+boter :  8002
+hoofd :  108368
+boter & hoofd :  344
+Pmi:  1.4957735035001831 
+eidooier :  94
+hoofd :  108368
+eidooier & hoofd :  0
+Pmi:  0 
+koekepan :  1190
+hoofd :  108368
+koekepan & hoofd :  3
+Pmi:  0.26398790129876315 
+room :  5197
+hoofd :  108368
+room & hoofd :  7
+Pmi:  -0.008241068836971186 
+maïzena :  125
+hoofd :  108368
+maïzena & hoofd :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+boter :  8002
+hoofd :  108368
+boter & hoofd :  344
+Pmi:  1.4957735035001831 
+( 1.4957735035001831 - mean( [0, 1.4957735035001831, 0.5636724708038863, 0, 0, 1.4957735035001831, 0, 0.26398790129876315, -0.008241068836971186, 0, 1.4957735035001831] )) / stdev( [0, 1.4957735035001831, 0.5636724708038863, 0, 0, 1.4957735035001831, 0, 0.26398790129876315, -0.008241068836971186, 0, 1.4957735035001831] )
+Fixedness of  boter  with  hoofd : 1.5040379580036194
+Enter 2 words (separated by ,) >? aal,staart
+['spiering', 'wieren', 'winde', 'baars', 'witvis']
+['snavel', 'achterlijf', 'snuit', 'staren', 'kwispelen']
+PMI-SCORES WITH aal
+similar words to  staart :  ['snavel', 'achterlijf', 'snuit', 'staren', 'kwispelen']
+aal :  705
+snavel :  2316
+aal & snavel :  0
+Pmi:  0 
+aal :  705
+achterlijf :  6
+aal & achterlijf :  0
+Pmi:  0 
+aal :  705
+snuit :  2088
+aal & snuit :  0
+Pmi:  0 
+aal :  705
+staren :  5498
+aal & staren :  0
+Pmi:  0 
+aal :  705
+kwispelen :  255
+aal & kwispelen :  0
+Pmi:  0 
+PMI-SCORES WITH staart
+similar words to  aal :  ['spiering', 'wieren', 'winde', 'baars', 'witvis']
+spiering :  80
+staart :  13598
+spiering & staart :  0
+Pmi:  0 
+wieren :  12
+staart :  13598
+wieren & staart :  0
+Pmi:  0 
+winde :  58
+staart :  13598
+winde & staart :  0
+Pmi:  0 
+baars :  320
+staart :  13598
+baars & staart :  0
+Pmi:  0 
+witvis :  7
+staart :  13598
+witvis & staart :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+aal :  705
+staart :  13598
+aal & staart :  1
+Pmi:  0.9156505124044264 
+( 0.9156505124044264 - mean( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.9156505124044264] )) / stdev( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.9156505124044264] )
+Fixedness of  aal  with  staart : 3.015113445777636
+Enter 2 words (separated by ,) >? appel,dorst
+['appels', 'appelen', 'peer', 'banaan', 'kersen']
+['honger', 'appeltje', 'gelaafd', 'dorst', 'schuimend']
+PMI-SCORES WITH appel
+similar words to  dorst :  ['honger', 'appeltje', 'gelaafd', 'dorst', 'schuimend']
+appel :  10599
+honger :  13279
+appel & honger :  18
+Pmi:  1.0041569082797963 
+appel :  10599
+appeltje :  12
+appel & appeltje :  0
+Pmi:  0 
+appel :  10599
+gelaafd :  10
+appel & gelaafd :  0
+Pmi:  0 
+appel :  10599
+dorst :  3267
+appel & dorst :  245
+Pmi:  2.747066723968504 
+appel :  10599
+schuimend :  308
+appel & schuimend :  0
+Pmi:  0 
+PMI-SCORES WITH dorst
+similar words to  appel :  ['appels', 'appelen', 'peer', 'banaan', 'kersen']
+appels :  48
+dorst :  3267
+appels & dorst :  0
+Pmi:  0 
+appelen :  15
+dorst :  3267
+appelen & dorst :  0
+Pmi:  0 
+peer :  3820
+dorst :  3267
+peer & dorst :  3
+Pmi:  1.2782234235664338 
+banaan :  5373
+dorst :  3267
+banaan & dorst :  0
+Pmi:  0 
+kersen :  43
+dorst :  3267
+kersen & dorst :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+appel :  10599
+dorst :  3267
+appel & dorst :  245
+Pmi:  2.747066723968504 
+( 2.747066723968504 - mean( [1.0041569082797963, 0, 0, 2.747066723968504, 0, 0, 0, 1.2782234235664338, 0, 0, 2.747066723968504] )) / stdev( [1.0041569082797963, 0, 0, 2.747066723968504, 0, 0, 0, 1.2782234235664338, 0, 0, 2.747066723968504] )
+Fixedness of  appel  with  dorst : 1.8442136355145362
+Enter 2 words (separated by ,) >? appeltje,dorst
+['appel', 'ruif', 'geschild', 'kruimel', 'cadeautje']
+['honger', 'appeltje', 'gelaafd', 'dorst', 'schuimend']
+PMI-SCORES WITH appeltje
+similar words to  dorst :  ['honger', 'appeltje', 'gelaafd', 'dorst', 'schuimend']
+appeltje :  12
+honger :  13279
+appeltje & honger :  0
+Pmi:  0 
+appeltje :  12
+appeltje :  12
+appeltje & appeltje :  12
+Pmi:  6.8181334201862915 
+appeltje :  12
+gelaafd :  10
+appeltje & gelaafd :  0
+Pmi:  0 
+appeltje :  12
+dorst :  3267
+appeltje & dorst :  0
+Pmi:  0 
+appeltje :  12
+schuimend :  308
+appeltje & schuimend :  0
+Pmi:  0 
+PMI-SCORES WITH dorst
+similar words to  appeltje :  ['appel', 'ruif', 'geschild', 'kruimel', 'cadeautje']
+appel :  10599
+dorst :  3267
+appel & dorst :  245
+Pmi:  2.747066723968504 
+ruif :  63
+dorst :  3267
+ruif & dorst :  0
+Pmi:  0 
+geschild :  435
+dorst :  3267
+geschild & dorst :  0
+Pmi:  0 
+kruimel :  854
+dorst :  3267
+kruimel & dorst :  0
+Pmi:  0 
+cadeautje :  17
+dorst :  3267
+cadeautje & dorst :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+appeltje :  12
+dorst :  3267
+appeltje & dorst :  0
+Pmi:  0 
+( 0 - mean( [0, 6.8181334201862915, 0, 0, 0, 2.747066723968504, 0, 0, 0, 0, 0] )) / stdev( [0, 6.8181334201862915, 0, 0, 0, 2.747066723968504, 0, 0, 0, 0, 0] )
+Fixedness of  appeltje  with  dorst : -0.40669456049314173
+Enter 2 words (separated by ,) >? bord,kop
+['bordje', 'borden', 'bordjes', 'scorebord', 'plakkaat']
+['koppen', 'kopje', 'jul', 'bovenin', 'hoofd']
+PMI-SCORES WITH bord
+similar words to  kop :  ['koppen', 'kopje', 'jul', 'bovenin', 'hoofd']
+bord :  26760
+koppen :  5755
+bord & koppen :  85
+Pmi:  1.639202154886614 
+bord :  26760
+kopje :  496
+bord & kopje :  0
+Pmi:  0 
+bord :  26760
+jul :  152
+bord & jul :  0
+Pmi:  0 
+bord :  26760
+bovenin :  1284
+bord & bovenin :  2
+Pmi:  0.6622935290692787 
+bord :  26760
+hoofd :  108368
+bord & hoofd :  119
+Pmi:  0.5104744602683767 
+PMI-SCORES WITH kop
+similar words to  bord :  ['bordje', 'borden', 'bordjes', 'scorebord', 'plakkaat']
+bordje :  10
+kop :  61337
+bordje & kop :  0
+Pmi:  0 
+borden :  28
+kop :  61337
+borden & kop :  0
+Pmi:  0 
+bordjes :  14
+kop :  61337
+bordjes & kop :  0
+Pmi:  0 
+scorebord :  9
+kop :  61337
+scorebord & kop :  0
+Pmi:  0 
+plakkaat :  441
+kop :  61337
+plakkaat & kop :  1
+Pmi:  0.4651535459951793 
+PMI-SCORE OF ORIGINAL WORDS: 
+bord :  26760
+kop :  61337
+bord & kop :  195
+Pmi:  0.9721406377297503 
+( 0.9721406377297503 - mean( [1.639202154886614, 0, 0, 0.6622935290692787, 0.5104744602683767, 0, 0, 0, 0, 0.4651535459951793, 0.9721406377297503] )) / stdev( [1.639202154886614, 0, 0, 0.6622935290692787, 0.5104744602683767, 0, 0, 0, 0, 0.4651535459951793, 0.9721406377297503] )
+Fixedness of  bord  with  kop : 1.0867332965526422
+Enter 2 words (separated by ,) >? gat,hoofd
+['gaten', 'gaatje', 'hiaat', 'gat', 'leemte']
+['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+PMI-SCORES WITH gat
+similar words to  hoofd :  ['hoofden', 'hoofd', 'borst', 'hoofdje', 'rechterhand']
+gat :  28405
+hoofden :  16
+gat & hoofden :  0
+Pmi:  0 
+gat :  28405
+hoofd :  108368
+gat & hoofd :  231
+Pmi:  0.7726307942504983 
+gat :  28405
+borst :  18860
+gat & borst :  27
+Pmi:  0.5997419483783177 
+gat :  28405
+hoofdje :  18
+gat & hoofdje :  0
+Pmi:  0 
+gat :  28405
+rechterhand :  23
+gat & rechterhand :  0
+Pmi:  0 
+PMI-SCORES WITH hoofd
+similar words to  gat :  ['gaten', 'gaatje', 'hiaat', 'gat', 'leemte']
+gaten :  12327
+hoofd :  108368
+gaten & hoofd :  45
+Pmi:  0.4247687257654414 
+gaatje :  16
+hoofd :  108368
+gaatje & hoofd :  1
+Pmi:  1.6582936253157066 
+hiaat :  878
+hoofd :  108368
+hiaat & hoofd :  6
+Pmi:  0.6970703424491725 
+gat :  28405
+hoofd :  108368
+gat & hoofd :  231
+Pmi:  0.7726307942504983 
+leemte :  1551
+hoofd :  108368
+leemte & hoofd :  2
+Pmi:  -0.027168194177992256 
+PMI-SCORE OF ORIGINAL WORDS: 
+gat :  28405
+hoofd :  108368
+gat & hoofd :  231
+Pmi:  0.7726307942504983 
+( 0.7726307942504983 - mean( [0, 0.7726307942504983, 0.5997419483783177, 0, 0, 0.4247687257654414, 1.6582936253157066, 0.6970703424491725, 0.7726307942504983, -0.027168194177992256, 0.7726307942504983] )) / stdev( [0, 0.7726307942504983, 0.5997419483783177, 0, 0, 0.4247687257654414, 1.6582936253157066, 0.6970703424491725, 0.7726307942504983, -0.027168194177992256, 0.7726307942504983] )
+Fixedness of  gat  with  hoofd : 0.5000125565748842
+Enter 2 words (separated by ,) >? gat,hand
+['gaten', 'gaatje', 'hiaat', 'gat', 'leemte']
+['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+PMI-SCORES WITH gat
+similar words to  hand :  ['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+gat :  28405
+handen :  39880
+gat & handen :  12
+Pmi:  -0.07765403097135318 
+gat :  28405
+vinger :  25408
+gat & vinger :  118
+Pmi:  1.1108313991797631 
+gat :  28405
+linkerhand :  13
+gat & linkerhand :  0
+Pmi:  0 
+gat :  28405
+arm :  70079
+gat & arm :  79
+Pmi:  0.4959590679197286 
+gat :  28405
+handjes :  27
+gat & handjes :  0
+Pmi:  0 
+PMI-SCORES WITH hand
+similar words to  gat :  ['gaten', 'gaatje', 'hiaat', 'gat', 'leemte']
+gaten :  12327
+hand :  191826
+gaten & hand :  93
+Pmi:  0.49203274792546875 
+gaatje :  16
+hand :  191826
+gaatje & hand :  0
+Pmi:  0 
+hiaat :  878
+hand :  191826
+hiaat & hand :  3
+Pmi:  0.1480339341666273 
+gat :  28405
+hand :  191826
+gat & hand :  323
+Pmi:  0.6702149240708928 
+leemte :  1551
+hand :  191826
+leemte & hand :  8
+Pmi:  0.326885384531406 
+PMI-SCORE OF ORIGINAL WORDS: 
+gat :  28405
+hand :  191826
+gat & hand :  323
+Pmi:  0.6702149240708928 
+( 0.6702149240708928 - mean( [-0.07765403097135318, 1.1108313991797631, 0, 0.4959590679197286, 0, 0.49203274792546875, 0, 0.1480339341666273, 0.6702149240708928, 0.326885384531406, 0.6702149240708928] )) / stdev( [-0.07765403097135318, 1.1108313991797631, 0, 0.4959590679197286, 0, 0.49203274792546875, 0, 0.1480339341666273, 0.6702149240708928, 0.326885384531406, 0.6702149240708928] )
+Fixedness of  gat  with  hand : 0.8538830530538237
+Enter 2 words (separated by ,) >? stok,deur
+['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+['voordeur', 'poort', 'deur', 'deuren', 'gordijnen']
+PMI-SCORES WITH stok
+similar words to  deur :  ['voordeur', 'poort', 'deur', 'deuren', 'gordijnen']
+stok :  10722
+voordeur :  9
+stok & voordeur :  0
+Pmi:  0 
+stok :  10722
+poort :  14160
+stok & poort :  7
+Pmi:  0.5610736500051362 
+stok :  10722
+deur :  76692
+stok & deur :  646
+Pmi:  1.7925213177435328 
+stok :  10722
+deuren :  45
+stok & deuren :  0
+Pmi:  0 
+stok :  10722
+gordijnen :  26
+stok & gordijnen :  0
+Pmi:  0 
+PMI-SCORES WITH deur
+similar words to  stok :  ['knuppel', 'riek', 'stokken', 'wandelstok', 'hockeystick']
+knuppel :  1335
+deur :  76692
+knuppel & deur :  10
+Pmi:  0.8870833369371429 
+riek :  191
+deur :  76692
+riek & deur :  0
+Pmi:  0 
+stokken :  1378
+deur :  76692
+stokken & deur :  8
+Pmi:  0.7764053720580735 
+wandelstok :  703
+deur :  76692
+wandelstok & deur :  8
+Pmi:  1.0686992646098563 
+hockeystick :  6
+deur :  76692
+hockeystick & deur :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+stok :  10722
+deur :  76692
+stok & deur :  646
+Pmi:  1.7925213177435328 
+( 1.7925213177435328 - mean( [0, 0.5610736500051362, 1.7925213177435328, 0, 0, 0.8870833369371429, 0, 0.7764053720580735, 1.0686992646098563, 0, 1.7925213177435328] )) / stdev( [0, 0.5610736500051362, 1.7925213177435328, 0, 0, 0.8870833369371429, 0, 0.7764053720580735, 1.0686992646098563, 0, 1.7925213177435328] )
+Fixedness of  stok  with  deur : 1.6553572900662152
+Enter 2 words (separated by ,) >? stuk,kraag
+['stukje', 'stukken', 'ietsje', 'blijspel', 'kleiner']
+['lurven', 'nekvel', 'kladden', 'anorak', 'winkeldievegges']
+PMI-SCORES WITH stuk
+similar words to  kraag :  ['lurven', 'nekvel', 'kladden', 'anorak', 'winkeldievegges']
+stuk :  161916
+lurven :  228
+stuk & lurven :  0
+Pmi:  0 
+stuk :  161916
+nekvel :  200
+stuk & nekvel :  2
+Pmi:  0.6880248998253562 
+stuk :  161916
+kladden :  134
+stuk & kladden :  3
+Pmi:  1.0380413561802109 
+stuk :  161916
+anorak :  85
+stuk & anorak :  0
+Pmi:  0 
+stuk :  161916
+winkeldievegges :  31
+stuk & winkeldievegges :  0
+Pmi:  0 
+PMI-SCORES WITH kraag
+similar words to  stuk :  ['stukje', 'stukken', 'ietsje', 'blijspel', 'kleiner']
+stukje :  616
+kraag :  2550
+stukje & kraag :  0
+Pmi:  0 
+stukken :  128
+kraag :  2550
+stukken & kraag :  0
+Pmi:  0 
+ietsje :  2306
+kraag :  2550
+ietsje & kraag :  0
+Pmi:  0 
+blijspel :  485
+kraag :  2550
+blijspel & kraag :  0
+Pmi:  0 
+kleiner :  29
+kraag :  2550
+kleiner & kraag :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+stuk :  161916
+kraag :  2550
+stuk & kraag :  91
+Pmi:  1.2405261117124946 
+( 1.2405261117124946 - mean( [0, 0.6880248998253562, 1.0380413561802109, 0, 0, 0, 0, 0, 0, 0, 1.2405261117124946] )) / stdev( [0, 0.6880248998253562, 1.0380413561802109, 0, 0, 0, 0, 0, 0, 0, 1.2405261117124946] )
+Fixedness of  stuk  with  kraag : 2.028857672034611
+Enter 2 words (separated by ,) >? vinger,pap
+['vingertje', 'wijsvinger', 'vingers', 'duim', 'middelvinger']
+['pakkerd', 'hap', 'zeggenschap', 'knip', 'erwtensoep']
+PMI-SCORES WITH vinger
+similar words to  pap :  ['pakkerd', 'hap', 'zeggenschap', 'knip', 'erwtensoep']
+vinger :  25408
+pakkerd :  30
+vinger & pakkerd :  0
+Pmi:  0 
+vinger :  25408
+hap :  7949
+vinger & hap :  7
+Pmi:  0.4371297285174454 
+vinger :  25408
+zeggenschap :  2714
+vinger & zeggenschap :  4
+Pmi:  0.6607943334911592 
+vinger :  25408
+knip :  1299
+vinger & knip :  109
+Pmi:  2.4161615323545105 
+vinger :  25408
+erwtensoep :  9
+vinger & erwtensoep :  0
+Pmi:  0 
+PMI-SCORES WITH pap
+similar words to  vinger :  ['vingertje', 'wijsvinger', 'vingers', 'duim', 'middelvinger']
+vingertje :  11
+pap :  4268
+vingertje & pap :  2
+Pmi:  3.5267275659872412 
+wijsvinger :  1214
+pap :  4268
+wijsvinger & pap :  0
+Pmi:  0 
+vingers :  40
+pap :  4268
+vingers & pap :  0
+Pmi:  0 
+duim :  5965
+pap :  4268
+duim & pap :  0
+Pmi:  0 
+middelvinger :  773
+pap :  4268
+middelvinger & pap :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+vinger :  25408
+pap :  4268
+vinger & pap :  603
+Pmi:  2.642437086874634 
+( 2.642437086874634 - mean( [0, 0.4371297285174454, 0.6607943334911592, 2.4161615323545105, 0, 3.5267275659872412, 0, 0, 0, 0, 2.642437086874634] )) / stdev( [0, 0.4371297285174454, 0.6607943334911592, 2.4161615323545105, 0, 3.5267275659872412, 0, 0, 0, 0, 2.642437086874634] )
+Fixedness of  vinger  with  pap : 1.3373476997594127
+Enter 2 words (separated by ,) >? brood,plank
+['boterham', 'broden', 'stokbrood', 'witbrood', 'boterhammen']
+['schuif', 'homp', 'schappen', 'latten', 'spijker']
+PMI-SCORES WITH brood
+similar words to  plank :  ['schuif', 'homp', 'schappen', 'latten', 'spijker']
+brood :  16141
+schuif :  1163
+brood & schuif :  1
+Pmi:  0.623804513992498 
+brood :  16141
+homp :  215
+brood & homp :  52
+Pmi:  3.07294911244014 
+brood :  16141
+schappen :  15
+brood & schappen :  0
+Pmi:  0 
+brood :  16141
+latten :  13
+brood & latten :  0
+Pmi:  0 
+brood :  16141
+spijker :  2032
+brood & spijker :  2
+Pmi:  0.682490520773046 
+PMI-SCORES WITH plank
+similar words to  brood :  ['boterham', 'broden', 'stokbrood', 'witbrood', 'boterhammen']
+boterham :  5440
+plank :  8368
+boterham & plank :  3
+Pmi:  0.7162153497322009 
+broden :  16
+plank :  8368
+broden & plank :  0
+Pmi:  0 
+stokbrood :  10
+plank :  8368
+stokbrood & plank :  0
+Pmi:  0 
+witbrood :  6
+plank :  8368
+witbrood & plank :  0
+Pmi:  0 
+boterhammen :  13
+plank :  8368
+boterhammen & plank :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+brood :  16141
+plank :  8368
+brood & plank :  299
+Pmi:  2.242433745522177 
+( 2.242433745522177 - mean( [0.623804513992498, 3.07294911244014, 0, 0, 0.682490520773046, 0.7162153497322009, 0, 0, 0, 0, 2.242433745522177] )) / stdev( [0.623804513992498, 3.07294911244014, 0, 0, 0.682490520773046, 0.7162153497322009, 0, 0, 0, 0, 2.242433745522177] )
+Fixedness of  brood  with  plank : 1.5058471672043836
+Enter 2 words (separated by ,) >? geld,zak
+['centen', 'geld', 'spaarcentjes', 'belastinggeld', 'spaargeld']
+['zakje', 'achterzak', 'zakken', 'vuilniszak', 'tas']
+PMI-SCORES WITH geld
+similar words to  zak :  ['zakje', 'achterzak', 'zakken', 'vuilniszak', 'tas']
+geld :  197313
+zakje :  13
+geld & zakje :  0
+Pmi:  0 
+geld :  197313
+achterzak :  332
+geld & achterzak :  6
+Pmi:  0.8591721331541239 
+geld :  197313
+zakken :  21300
+geld & zakken :  83
+Pmi:  0.1928574554118527 
+geld :  197313
+vuilniszak :  1738
+geld & vuilniszak :  15
+Pmi:  0.5382004534175501 
+geld :  197313
+tas :  9224
+geld & tas :  127
+Pmi:  0.7410433931438307 
+PMI-SCORES WITH zak
+similar words to  geld :  ['centen', 'geld', 'spaarcentjes', 'belastinggeld', 'spaargeld']
+centen :  31
+zak :  31928
+centen & zak :  0
+Pmi:  0 
+geld :  197313
+zak :  31928
+geld & zak :  1737
+Pmi:  1.3377870701456482 
+spaarcentjes :  6
+zak :  31928
+spaarcentjes & zak :  0
+Pmi:  0 
+belastinggeld :  6
+zak :  31928
+belastinggeld & zak :  0
+Pmi:  0 
+spaargeld :  16
+zak :  31928
+spaargeld & zak :  1
+Pmi:  2.1890229688020257 
+PMI-SCORE OF ORIGINAL WORDS: 
+geld :  197313
+zak :  31928
+geld & zak :  1737
+Pmi:  1.3377870701456482 
+( 1.3377870701456482 - mean( [0, 0.8591721331541239, 0.1928574554118527, 0.5382004534175501, 0.7410433931438307, 0, 1.3377870701456482, 0, 0, 2.1890229688020257, 1.3377870701456482] )) / stdev( [0, 0.8591721331541239, 0.1928574554118527, 0.5382004534175501, 0.7410433931438307, 0, 1.3377870701456482, 0, 0, 2.1890229688020257, 1.3377870701456482] )
+Fixedness of  geld  with  zak : 0.9409731563070787
+Enter 2 words (separated by ,) >? haar,tand
+['haar', 'haarzelf', 'hare', 'patricks', 'zus']
+['tanden', 'hoektand', 'tand', 'onderkaak', 'voortand']
+PMI-SCORES WITH haar
+similar words to  tand :  ['tanden', 'hoektand', 'tand', 'onderkaak', 'voortand']
+haar :  876901
+tanden :  119
+haar & tanden :  6
+Pmi:  0.6569683898870873 
+haar :  876901
+hoektand :  467
+haar & hoektand :  12
+Pmi:  0.3642284663774871 
+haar :  876901
+tand :  19985
+haar & tand :  1402
+Pmi:  0.8004079619304906 
+haar :  876901
+onderkaak :  1502
+haar & onderkaak :  20
+Pmi:  0.07872416389180602 
+haar :  876901
+voortand :  372
+haar & voortand :  44
+Pmi:  1.0272738375002644 
+PMI-SCORES WITH tand
+similar words to  haar :  ['haar', 'haarzelf', 'hare', 'patricks', 'zus']
+haar :  876901
+tand :  19985
+haar & tand :  1402
+Pmi:  0.8004079619304906 
+haarzelf :  980
+tand :  19985
+haarzelf & tand :  0
+Pmi:  0 
+hare :  2481
+tand :  19985
+hare & tand :  8
+Pmi:  1.1050737363575283 
+patricks :  6
+tand :  19985
+patricks & tand :  0
+Pmi:  0 
+zus :  37713
+tand :  19985
+zus & tand :  16
+Pmi:  0.22423941518421772 
+PMI-SCORE OF ORIGINAL WORDS: 
+haar :  876901
+tand :  19985
+haar & tand :  1402
+Pmi:  0.8004079619304906 
+( 0.8004079619304906 - mean( [0.6569683898870873, 0.3642284663774871, 0.8004079619304906, 0.07872416389180602, 1.0272738375002644, 0.8004079619304906, 0, 1.1050737363575283, 0, 0.22423941518421772, 0.8004079619304906] )) / stdev( [0.6569683898870873, 0.3642284663774871, 0.8004079619304906, 0.07872416389180602, 1.0272738375002644, 0.8004079619304906, 0, 1.1050737363575283, 0, 0.22423941518421772, 0.8004079619304906] )
+Fixedness of  haar  with  tand : 0.649754919041689
+Enter 2 words (separated by ,) >? heft,hand
+['heffen', 'hef', 'touwtjes', 'initiatief', 'commando']
+['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+PMI-SCORES WITH heft
+similar words to  hand :  ['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+heft :  1511
+handen :  39880
+heft & handen :  930
+Pmi:  3.085778000809209 
+heft :  1511
+vinger :  25408
+heft & vinger :  0
+Pmi:  0 
+heft :  1511
+linkerhand :  13
+heft & linkerhand :  0
+Pmi:  0 
+heft :  1511
+arm :  70079
+heft & arm :  6
+Pmi:  0.6506135562871828 
+heft :  1511
+handjes :  27
+heft & handjes :  0
+Pmi:  0 
+PMI-SCORES WITH hand
+similar words to  heft :  ['heffen', 'hef', 'touwtjes', 'initiatief', 'commando']
+heffen :  6389
+hand :  191826
+heffen & hand :  296
+Pmi:  1.280266018279866 
+hef :  27
+hand :  191826
+hef & hand :  0
+Pmi:  0 
+touwtjes :  10
+hand :  191826
+touwtjes & hand :  0
+Pmi:  0 
+initiatief :  58761
+hand :  191826
+initiatief & hand :  248
+Pmi:  0.23976969813549553 
+commando :  5697
+hand :  191826
+commando & hand :  41
+Pmi:  0.4715448326161229 
+PMI-SCORE OF ORIGINAL WORDS: 
+heft :  1511
+hand :  191826
+heft & hand :  347
+Pmi:  1.9754722058049157 
+( 1.9754722058049157 - mean( [3.085778000809209, 0, 0, 0.6506135562871828, 0, 1.280266018279866, 0, 0, 0.23976969813549553, 0.4715448326161229, 1.9754722058049157] )) / stdev( [3.085778000809209, 0, 0, 0.6506135562871828, 0, 1.280266018279866, 0, 0, 0.23976969813549553, 0.4715448326161229, 1.9754722058049157] )
+Fixedness of  heft  with  hand : 1.2520880427541425
+Enter 2 words (separated by ,) >? pap,been
+['pakkerd', 'hap', 'zeggenschap', 'knip', 'erwtensoep']
+['poot', 'heup', 'scheenbeen', 'onderbeen', 'ledematen']
+PMI-SCORES WITH pap
+similar words to  been :  ['poot', 'heup', 'scheenbeen', 'onderbeen', 'ledematen']
+pap :  4268
+poot :  13957
+pap & poot :  1
+Pmi:  0.12229817698377053 
+pap :  4268
+heup :  4555
+pap & heup :  1
+Pmi:  0.6086018741724681 
+pap :  4268
+scheenbeen :  13
+pap & scheenbeen :  0
+Pmi:  0 
+pap :  4268
+onderbeen :  9
+pap & onderbeen :  0
+Pmi:  0 
+pap :  4268
+ledematen :  13
+pap & ledematen :  0
+Pmi:  0 
+PMI-SCORES WITH been
+similar words to  pap :  ['pakkerd', 'hap', 'zeggenschap', 'knip', 'erwtensoep']
+pakkerd :  30
+been :  44017
+pakkerd & been :  0
+Pmi:  0 
+hap :  7949
+been :  44017
+hap & been :  12
+Pmi:  0.4325629756230588 
+zeggenschap :  2714
+been :  44017
+zeggenschap & been :  0
+Pmi:  0 
+knip :  1299
+been :  44017
+knip & been :  2
+Pmi:  0.4411150711501138 
+erwtensoep :  9
+been :  44017
+erwtensoep & been :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+pap :  4268
+been :  44017
+pap & been :  14
+Pmi:  0.7695978514849662 
+( 0.7695978514849662 - mean( [0.12229817698377053, 0.6086018741724681, 0, 0, 0, 0, 0.4325629756230588, 0, 0.4411150711501138, 0, 0.7695978514849662] )) / stdev( [0.12229817698377053, 0.6086018741724681, 0, 0, 0, 0, 0.4325629756230588, 0, 0.4411150711501138, 0, 0.7695978514849662] )
+Fixedness of  pap  with  been : 1.9028681171353077
+Enter 2 words (separated by ,) >? schaap,droog
+['schapen', 'koe', 'dier', 'rund', 'geitje']
+['regenachtig', 'droog', 'onweerachtig', 'vochtig', 'winderig']
+PMI-SCORES WITH schaap
+similar words to  droog :  ['regenachtig', 'droog', 'onweerachtig', 'vochtig', 'winderig']
+schaap :  11520
+regenachtig :  2236
+schaap & regenachtig :  0
+Pmi:  0 
+schaap :  11520
+droog :  48311
+schaap & droog :  204
+Pmi:  1.4614463274361944 
+schaap :  11520
+onweerachtig :  355
+schaap & onweerachtig :  0
+Pmi:  0 
+schaap :  11520
+vochtig :  6934
+schaap & vochtig :  7
+Pmi:  0.8399763898406032 
+schaap :  11520
+winderig :  1560
+schaap & winderig :  1
+Pmi:  0.6427375887922626 
+PMI-SCORES WITH droog
+similar words to  schaap :  ['schapen', 'koe', 'dier', 'rund', 'geitje']
+schapen :  316
+droog :  48311
+schapen & droog :  0
+Pmi:  0 
+koe :  12351
+droog :  48311
+koe & droog :  22
+Pmi:  0.46398919820254664 
+dier :  87590
+droog :  48311
+dier & droog :  216
+Pmi:  0.6052678639059427 
+rund :  5899
+droog :  48311
+rund & droog :  6
+Pmi:  0.22064149331198488 
+geitje :  12
+droog :  48311
+geitje & droog :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+schaap :  11520
+droog :  48311
+schaap & droog :  204
+Pmi:  1.4614463274361944 
+( 1.4614463274361944 - mean( [0, 1.4614463274361944, 0, 0.8399763898406032, 0.6427375887922626, 0, 0.46398919820254664, 0.6052678639059427, 0.22064149331198488, 0, 1.4614463274361944] )) / stdev( [0, 1.4614463274361944, 0, 0.8399763898406032, 0.6427375887922626, 0, 0.46398919820254664, 0.6052678639059427, 0.22064149331198488, 0, 1.4614463274361944] )
+Fixedness of  schaap  with  droog : 1.7026876150277235
+Enter 2 words (separated by ,) >? hand,knip
+['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+['opgepot', 'gespalkt', 'strek', 'ingedrukt', 'drukken']
+PMI-SCORES WITH hand
+similar words to  knip :  ['opgepot', 'gespalkt', 'strek', 'ingedrukt', 'drukken']
+hand :  191826
+opgepot :  41
+hand & opgepot :  0
+Pmi:  0 
+hand :  191826
+gespalkt :  48
+hand & gespalkt :  2
+Pmi:  1.2341959536414613 
+hand :  191826
+strek :  15
+hand & strek :  0
+Pmi:  0 
+hand :  191826
+ingedrukt :  427
+hand & ingedrukt :  1
+Pmi:  -0.01602067967195644 
+hand :  191826
+drukken :  25001
+hand & drukken :  952
+Pmi:  1.1950867636336542 
+PMI-SCORES WITH knip
+similar words to  hand :  ['handen', 'vinger', 'linkerhand', 'arm', 'handjes']
+handen :  39880
+knip :  1299
+handen & knip :  2
+Pmi:  0.4839803611852527 
+vinger :  25408
+knip :  1299
+vinger & knip :  109
+Pmi:  2.4161615323545105 
+linkerhand :  13
+knip :  1299
+linkerhand & knip :  0
+Pmi:  0 
+arm :  70079
+knip :  1299
+arm & knip :  2
+Pmi:  0.23914761483351793 
+handjes :  27
+knip :  1299
+handjes & knip :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+hand :  191826
+knip :  1299
+hand & knip :  217
+Pmi:  1.8372577781285686 
+( 1.8372577781285686 - mean( [0, 1.2341959536414613, 0, -0.01602067967195644, 1.1950867636336542, 0.4839803611852527, 2.4161615323545105, 0, 0.23914761483351793, 0, 1.8372577781285686] )) / stdev( [0, 1.2341959536414613, 0, -0.01602067967195644, 1.1950867636336542, 0.4839803611852527, 2.4161615323545105, 0, 0.23914761483351793, 0, 1.8372577781285686] )
+Fixedness of  hand  with  knip : 1.34646937868581
+Enter 2 words (separated by ,) >? god,frankrijk
+['god', 'goden', 'godheid', 'afgod', 'opperwezen']
+['italie', 'spanje', 'duitsland', 'zwitserland', 'turkije']
+PMI-SCORES WITH god
+similar words to  frankrijk :  ['italie', 'spanje', 'duitsland', 'zwitserland', 'turkije']
+god :  31233
+italie :  118
+god & italie :  0
+Pmi:  0 
+god :  31233
+spanje :  244
+god & spanje :  0
+Pmi:  0 
+god :  31233
+duitsland :  100
+god & duitsland :  0
+Pmi:  0 
+god :  31233
+zwitserland :  78
+god & zwitserland :  0
+Pmi:  0 
+god :  31233
+turkije :  189
+god & turkije :  0
+Pmi:  0 
+PMI-SCORES WITH frankrijk
+similar words to  god :  ['god', 'goden', 'godheid', 'afgod', 'opperwezen']
+god :  31233
+frankrijk :  120
+god & frankrijk :  0
+Pmi:  0 
+goden :  115
+frankrijk :  120
+goden & frankrijk :  0
+Pmi:  0 
+godheid :  1731
+frankrijk :  120
+godheid & frankrijk :  0
+Pmi:  0 
+afgod :  622
+frankrijk :  120
+afgod & frankrijk :  0
+Pmi:  0 
+opperwezen :  9
+frankrijk :  120
+opperwezen & frankrijk :  0
+Pmi:  0 
+PMI-SCORE OF ORIGINAL WORDS: 
+god :  31233
+frankrijk :  120
+god & frankrijk :  0
+Pmi:  0 
+( 0 - mean( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] )) / stdev( [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] )
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+  File "C:\Program Files\JetBrains\PyCharm Community Edition 2019.2\helpers\pydev\_pydev_bundle\pydev_umd.py", line 197, in runfile
+    pydev_imports.execfile(filename, global_vars, local_vars)  # execute the script
+  File "C:\Program Files\JetBrains\PyCharm Community Edition 2019.2\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+  File "G:/Mijn Drive/Studie informatiekunde/master/master project/project/calc_fixedness.py", line 114, in <module>
+    print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict))
+  File "G:/Mijn Drive/Studie informatiekunde/master/master project/project/calc_fixedness.py", line 113, in main
+    word2 = inputwords.split(",")[1]
+  File "G:/Mijn Drive/Studie informatiekunde/master/master project/project/calc_fixedness.py", line 102, in calc_fixedness
+    try:
+ZeroDivisionError: float division by zero
+def most_similar(inputword):
+    #TODO: word.lower() != inputword.lower()
+    similar_words = [word for (word, freq) in model.most_similar(inputword, topn=500) if word != inputword]
+    good_similar_words = []
+    i = 0
+    while len(good_similar_words) < 5:
+        word = similar_words[i].lower()
+        i = i + 1
+        #print("try word ", i, "from 100: ",word)
+        if word in iddict and re.match('^[\w-]+$', word) is not None:
+            if len(iddict[word]) > 5 and word not in good_similar_words:
+                good_similar_words.append(word)
+            else:
+                i=i+1
+                pass
+        else:
+            i = i+1
+            pass
+    print(good_similar_words)
+    return good_similar_words
+def calc_pmi(word1,word2,iddict):
+    total_amount_of_n_n_pairs = 78943189
+    word1list = set(iddict[word1])
+    word2list = set(iddict[word2])
+    intersectword1word2 = list(word1list.intersection(word2list))
+    word1freq = len(word1list)
+    word2freq = len(word2list)
+    word12freq = len(intersectword1word2)
+    print(word1,": ",word1freq)
+    print(word2,": ",word2freq)
+    print(word1,"&",word2,": ",word12freq)
+    try:
+        pmi = log(total_amount_of_n_n_pairs * word12freq /(word1freq*word2freq),10)
+    except ValueError:
+        pmi = 0
+    print("Pmi: ",pmi,"\n")
+    return pmi
+def calc_fixedness(word1,word2,iddict):
+    word1sim = most_similar(word1)
+    word2sim = most_similar(word2)
+    #VOOR deksel,neus (zelf verzonnen)
+    #word1sim = ["doos","bodem","rand"]
+    #word2sim = ["oog", "oor", "mond"]
+    pmi_list = []
+    print("PMI-SCORES WITH", word1)
+    print("similar words to ", word2, ": ", word2sim)
+    for simword in word2sim:
+        pmi = calc_pmi(word1, simword, iddict)
+        #print(word1, simword, pmi)
+        pmi_list.append(pmi)
+    print("\n")
+    print("PMI-SCORES WITH", word2)
+    print("similar words to ", word1, ": ", word1sim)
+    for simword in word1sim:
+        try:
+            pmi = calc_pmi(simword,word2,iddict)
+        except ValueError:
+            pmi = 0
+        pmi_list.append(pmi)
+    print("PMI-SCORE OF ORIGINAL WORDS: ")
+    try:
+        original_pmi = calc_pmi(word1,word2,iddict)
+    except ValueError:
+        original_pmi = 0
+    pmi_list.append(original_pmi) #klopt dit?
+    print("(", original_pmi, "- mean(", pmi_list, ")) / stdev(",pmi_list,")")
+    try:
+        fixedness = (original_pmi - mean(pmi_list)) / stdev(pmi_list)
+    except ValueError:
+        fixedness = 0
+    return fixedness
+def main():
+    inputwords = "-"
+    while inputwords != "":
+        inputwords = input("Enter 2 words (separated by ,) ")
+        word1 = inputwords.split(",")[0]
+        word2 = inputwords.split(",")[1]
+        print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict))
+main()
+Enter 2 words (separated by ,) >? vinger,pols
+['vingertje', 'wijsvinger', 'vingers', 'duim', 'middelvinger']
+['elleboog', 'heup', 'knieschijf', 'borstbeen', 'knie']
+PMI-SCORES WITH vinger
+similar words to  pols :  ['elleboog', 'heup', 'knieschijf', 'borstbeen', 'knie']
+vinger :  25408
+elleboog :  2460
+vinger & elleboog :  39
+Pmi:  1.6924736854100353 
+vinger :  25408
+heup :  4555
+vinger & heup :  25
+Pmi:  1.2317958128499356 
+vinger :  25408
+knieschijf :  337
+vinger & knieschijf :  1
+Pmi:  0.9647142846155766 
+vinger :  25408
+borstbeen :  9
+vinger & borstbeen :  0
+Pmi:  0 
+vinger :  25408
+knie :  19497
+vinger & knie :  72
+Pmi:  1.05970889023145 
+PMI-SCORES WITH pols
+similar words to  vinger :  ['vingertje', 'wijsvinger', 'vingers', 'duim', 'middelvinger']
+vingertje :  11
+pols :  4638
+vingertje & pols :  0
+Pmi:  0 
+wijsvinger :  1214
+pols :  4638
+wijsvinger & pols :  4
+Pmi:  1.7488252265206725 
+vingers :  40
+pols :  4638
+vingers & pols :  0
+Pmi:  0 
+duim :  5965
+pols :  4638
+duim & pols :  24
+Pmi:  1.835584715637194 
+middelvinger :  773
+pols :  4638
+middelvinger & pols :  3
+Pmi:  1.8199256827332864 
+PMI-SCORE OF ORIGINAL WORDS: 
+vinger :  25408
+pols :  4638
+vinger & pols :  600
+Pmi:  2.6041646915685903 
+( 2.6041646915685903 - mean( [1.6924736854100353, 1.2317958128499356, 0.9647142846155766, 0, 1.05970889023145, 0, 1.7488252265206725, 0, 1.835584715637194, 1.8199256827332864, 2.6041646915685903] )) / stdev( [1.6924736854100353, 1.2317958128499356, 0.9647142846155766, 0, 1.05970889023145, 0, 1.7488252265206725, 0, 1.835584715637194, 1.8199256827332864, 2.6041646915685903] )
+Fixedness of  vinger  with  pols : 1.6259419384360347
+Enter 2 words (separated by ,) >? oog,zeil
+['oogje', 'oor', 'ogen', 'bres', 'oog']
+['zeildoek', 'achterdek', 'tuigage', 'kiel', 'giek']
+PMI-SCORES WITH oog
+similar words to  zeil :  ['zeildoek', 'achterdek', 'tuigage', 'kiel', 'giek']
+oog :  141627
+zeildoek :  265
+oog & zeildoek :  5
+Pmi:  1.0218927407849343 
+oog :  141627
+achterdek :  173
+oog & achterdek :  2
+Pmi:  0.8091525029209093 
+oog :  141627
+tuigage :  157
+oog & tuigage :  0
+Pmi:  0 
+oog :  141627
+kiel :  863
+oog & kiel :  1
+Pmi:  -0.189842185329486 
+oog :  141627
+giek :  160
+oog & giek :  2
+Pmi:  0.8430786233937798 
+PMI-SCORES WITH zeil
+similar words to  oog :  ['oogje', 'oor', 'ogen', 'bres', 'oog']
+oogje :  1085
+zeil :  5405
+oogje & zeil :  1084
+Pmi:  4.164118511962408 
+oor :  26860
+zeil :  5405
+oor & zeil :  2
+Pmi:  0.036442955275872976 
+ogen :  19466
+zeil :  5405
+ogen & zeil :  4
+Pmi:  0.4773022402331911 
+bres :  1640
+zeil :  5405
+bres & zeil :  0
+Pmi:  0 
+oog :  141627
+zeil :  5405
+oog & zeil :  227
+Pmi:  1.369398769289517 
+PMI-SCORE OF ORIGINAL WORDS: 
+oog :  141627
+zeil :  5405
+oog & zeil :  227
+Pmi:  1.369398769289517 
+( 1.369398769289517 - mean( [1.0218927407849343, 0.8091525029209093, 0, -0.189842185329486, 0.8430786233937798, 4.164118511962408, 0.036442955275872976, 0.4773022402331911, 0, 1.369398769289517, 1.369398769289517] )) / stdev( [1.0218927407849343, 0.8091525029209093, 0, -0.189842185329486, 0.8430786233937798, 4.164118511962408, 0.036442955275872976, 0.4773022402331911, 0, 1.369398769289517, 1.369398769289517] )
+Fixedness of  oog  with  zeil : 0.38507561459339695
+Enter 2 words (separated by ,) 
+
+
+
+
+
