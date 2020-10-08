@@ -18,23 +18,17 @@ print("loaded.")
 #iddict = {"doos": [1, 2, 3], "bodem": [1, 2, 3], "rand": [3, 4, 5], "oog": [3, 6, 7], "oor": [8, 1, 3],"mond": [9, 1, 2], "deksel": [10, 8, 1], "neus": [1, 2, 6]}
 
 def most_similar(inputword):
-    #TODO: word.lower() != inputword.lower()
-    similar_words = [word for (word, freq) in model.most_similar(inputword, topn=500) if word != inputword]
+    similar_words = [word.lower() for (word, freq) in model.most_similar(inputword.lower(), topn=500) if word.lower() != inputword.lower()]
     good_similar_words = []
     i = 0
 
     while len(good_similar_words) < 5:
-        word = similar_words[i].lower()
+        word = similar_words[i]
         i = i + 1
         #print("try word ", i, "from 100: ",word)
-        if word in iddict and re.match('^[\w-]+$', word) is not None:
-            if len(iddict[word]) > 5 and word not in good_similar_words:
-                good_similar_words.append(word)
-            else:
-                i=i+1
-                pass
+        if word in iddict and re.match('^[\w-]+$', word) is not None and len(iddict[word]) > 5 and word not in good_similar_words:
+            good_similar_words.append(word)
         else:
-            i = i+1
             pass
 
     print(good_similar_words)
