@@ -13,7 +13,7 @@ print("loaded.")
 
 print("Loading iddict...", end="")
 #VERANDER DIT TERUG!!!
-iddict = pickle.load(open("iddict.pickle","rb"))
+iddict = pickle.load(open("iddict-klein.pickle","rb"))
 print("loaded.")
 #iddict = {"doos": [1, 2, 3], "bodem": [1, 2, 3], "rand": [3, 4, 5], "oog": [3, 6, 7], "oor": [8, 1, 3],"mond": [9, 1, 2], "deksel": [10, 8, 1], "neus": [1, 2, 6]}
 
@@ -35,9 +35,7 @@ def most_similar(inputword):
     return good_similar_words
 
 
-def calc_pmi(word1,word2,iddict):
-    total_amount_of_n_n_pairs = 78943189
-
+def calc_pmi(word1,word2,iddict,total_amount_of_pairs):
     word1list = set(iddict[word1])
     word2list = set(iddict[word2])
     intersectword1word2 = list(word1list.intersection(word2list))
@@ -51,7 +49,7 @@ def calc_pmi(word1,word2,iddict):
     print(word1,"&",word2,": ",word12freq)
 
     try:
-        pmi = log(total_amount_of_n_n_pairs * word12freq /(word1freq*word2freq),10)
+        pmi = log(total_amount_of_pairs * word12freq /(word1freq*word2freq),10)
     except ValueError:
         pmi = 0
 
@@ -59,7 +57,7 @@ def calc_pmi(word1,word2,iddict):
     return pmi
 
 
-def calc_fixedness(word1,word2,iddict):
+def calc_fixedness(word1,word2,iddict,total_amount_of_pairs):
     word1sim = most_similar(word1)
     word2sim = most_similar(word2)
 
@@ -71,7 +69,7 @@ def calc_fixedness(word1,word2,iddict):
     print("PMI-SCORES WITH", word1)
     print("similar words to ", word2, ": ", word2sim)
     for simword in word2sim:
-        pmi = calc_pmi(word1, simword, iddict)
+        pmi = calc_pmi(word1, simword, iddict,total_amount_of_pairs)
         #print(word1, simword, pmi)
         pmi_list.append(pmi)
 
@@ -80,14 +78,14 @@ def calc_fixedness(word1,word2,iddict):
     print("similar words to ", word1, ": ", word1sim)
     for simword in word1sim:
         try:
-            pmi = calc_pmi(simword,word2,iddict)
+            pmi = calc_pmi(simword,word2,iddict,total_amount_of_pairs)
         except ValueError:
             pmi = 0
         pmi_list.append(pmi)
 
     print("PMI-SCORE OF ORIGINAL WORDS: ")
     try:
-        original_pmi = calc_pmi(word1,word2,iddict)
+        original_pmi = calc_pmi(word1,word2,iddict,total_amount_of_pairs)
     except ValueError:
         original_pmi = 0
     pmi_list.append(original_pmi) #klopt dit?
@@ -99,11 +97,22 @@ def calc_fixedness(word1,word2,iddict):
         fixedness = 0
     return fixedness
 
-def main():
+def main_interactive():
     inputwords = "-"
     while inputwords != "":
         inputwords = input("Enter 2 words (separated by ,) ")
         word1 = inputwords.split(",")[0]
         word2 = inputwords.split(",")[1]
-        print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict))
-main()
+        print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict,total_amount_of_pairs))
+
+def main(total_amount_of_pairs):
+    infile = open("twonounidioms.txt","r")
+    outfile = open("twonounidioms-out.txt", "w")
+    for line in infile.readlines():
+        inputwords = line.rstrip("\n").split("\t")
+        word1 = inputwords[0]
+        word2 = inputwords[1]
+        fixedness = calc_fixedness(word1, word2, iddict, total_amount_of_pairs)
+        outline = word1+"\t"+word2+"\t"+str(fixedness)+"\n"
+        outfile.write(outline)
+main(78943189)
