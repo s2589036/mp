@@ -13,7 +13,7 @@ print("loaded.")
 
 print("Loading iddict...", end="")
 #VERANDER DIT TERUG!!!
-iddict = pickle.load(open("iddict-klein.pickle","rb"))
+iddict = pickle.load(open("iddict.pickle","rb"))
 print("loaded.")
 #iddict = {"doos": [1, 2, 3], "bodem": [1, 2, 3], "rand": [3, 4, 5], "oog": [3, 6, 7], "oor": [8, 1, 3],"mond": [9, 1, 2], "deksel": [10, 8, 1], "neus": [1, 2, 6]}
 
@@ -97,22 +97,29 @@ def calc_fixedness(word1,word2,iddict,total_amount_of_pairs):
         fixedness = 0
     return fixedness
 
-def main_interactive():
+def main_interactive(total_amount_of_pairs):
     inputwords = "-"
     while inputwords != "":
         inputwords = input("Enter 2 words (separated by ,) ")
         word1 = inputwords.split(",")[0]
         word2 = inputwords.split(",")[1]
         print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict,total_amount_of_pairs))
+main_interactive(34811809)
 
 def main(total_amount_of_pairs):
-    infile = open("twonounidioms.txt","r")
-    outfile = open("twonounidioms-out.txt", "w")
+    infile = open("nounverbidioms.txt","r")
+    outfile = open("nounverbidioms-out.txt", "w")
     for line in infile.readlines():
         inputwords = line.rstrip("\n").split("\t")
         word1 = inputwords[0]
         word2 = inputwords[1]
-        fixedness = calc_fixedness(word1, word2, iddict, total_amount_of_pairs)
+        print(word1 + "\t" + word2)
+        try:
+            fixedness = calc_fixedness(word1, word2, iddict, total_amount_of_pairs)
+        except ZeroDivisionError:
+            fixedness = 0
         outline = word1+"\t"+word2+"\t"+str(fixedness)+"\n"
         outfile.write(outline)
-main(78943189)
+
+main(34811809)
+
