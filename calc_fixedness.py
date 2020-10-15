@@ -11,10 +11,18 @@ print("Loading model...", end="")
 model = gensim.models.KeyedVectors.load_word2vec_format('word_embeddings/server_rug/vectors.bin', binary=True)
 print("loaded.")
 
+#non-lowered iddict
 print("Loading iddict...", end="")
-#VERANDER DIT TERUG!!!
 iddict = pickle.load(open("iddict.pickle","rb"))
 print("loaded.")
+
+"""
+#lowered iddict
+print("Loading iddict...", end="")
+iddict = pickle.load(open("iddict_lowered.pickle","rb"))
+print("loaded.")
+"""
+
 #iddict = {"doos": [1, 2, 3], "bodem": [1, 2, 3], "rand": [3, 4, 5], "oog": [3, 6, 7], "oor": [8, 1, 3],"mond": [9, 1, 2], "deksel": [10, 8, 1], "neus": [1, 2, 6]}
 
 def most_similar(inputword):
@@ -34,7 +42,29 @@ def most_similar(inputword):
     print(good_similar_words)
     return good_similar_words
 
+#set after
+def calc_pmi(word1,word2,iddict,total_amount_of_pairs):
+    word1list = iddict[word1]
+    word2list = iddict[word2]
+    intersectword1word2 = list(set(word1list).intersection(set(word2list)))
 
+    word1freq = len(word1list)
+    word2freq = len(word2list)
+    word12freq = len(intersectword1word2)
+
+    print(word1,": ",word1freq)
+    print(word2,": ",word2freq)
+    print(word1,"&",word2,": ",word12freq)
+
+    try:
+        pmi = log(total_amount_of_pairs * word12freq /(word1freq*word2freq),10)
+    except ValueError:
+        pmi = 0
+
+    print("Pmi: ",pmi,"\n")
+    return pmi
+"""
+#set before
 def calc_pmi(word1,word2,iddict,total_amount_of_pairs):
     word1list = set(iddict[word1])
     word2list = set(iddict[word2])
@@ -55,7 +85,7 @@ def calc_pmi(word1,word2,iddict,total_amount_of_pairs):
 
     print("Pmi: ",pmi,"\n")
     return pmi
-
+"""
 
 def calc_fixedness(word1,word2,iddict,total_amount_of_pairs):
     word1sim = most_similar(word1)
@@ -104,22 +134,45 @@ def main_interactive(total_amount_of_pairs):
         word1 = inputwords.split(",")[0]
         word2 = inputwords.split(",")[1]
         print("Fixedness of ", word1, " with ", word2, ":", calc_fixedness(word1,word2,iddict,total_amount_of_pairs))
-main_interactive(34811809)
+#main_interactive(34811809)
 
-def main(total_amount_of_pairs):
-    infile = open("nounverbidioms.txt","r")
-    outfile = open("nounverbidioms-out.txt", "w")
+def nounverb():
+    total_amount_of_pairs = 34811809
+    infile = open("nounverbidioms-id.txt","r")
+    outfile = open("nounverbidioms-id-out-non_lowered-dict-set-of-idlists-after.txt", "w")
     for line in infile.readlines():
         inputwords = line.rstrip("\n").split("\t")
-        word1 = inputwords[0]
-        word2 = inputwords[1]
+        id = inputwords[0]
+        word1 = inputwords[1]
+        word2 = inputwords[2]
         print(word1 + "\t" + word2)
         try:
             fixedness = calc_fixedness(word1, word2, iddict, total_amount_of_pairs)
         except ZeroDivisionError:
             fixedness = 0
-        outline = word1+"\t"+word2+"\t"+str(fixedness)+"\n"
+        outline = id+"\t"+word1+"\t"+word2+"\t"+str(fixedness)+"\n"
         outfile.write(outline)
 
-main(34811809)
+
+def twonoun():
+    total_amount_of_pairs = 30133129
+    infile = open("twonounidioms-id.txt","r")
+    outfile = open("twonounidioms-id-out-non_lowered-dict-set-of-idlists-after.txt", "w")
+    for line in infile.readlines():
+        inputwords = line.rstrip("\n").split("\t")
+        id = inputwords[0]
+        word1 = inputwords[1]
+        word2 = inputwords[2]
+        print(word1 + "\t" + word2)
+        try:
+            fixedness = calc_fixedness(word1, word2, iddict, total_amount_of_pairs)
+        except ZeroDivisionError:
+            fixedness = 0
+        outline = id+"\t"+word1+"\t"+word2+"\t"+str(fixedness)+"\n"
+        outfile.write(outline)
+
+def main():
+    nounverb()
+    twonoun()
+main()
 
