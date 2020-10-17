@@ -134,7 +134,6 @@ idioms$idiom_lemma <- tolower(idioms$idiom_lemma)
 
 idioms$sentenceid <- paste(idioms$doc_id, word(idioms$xml_id,1,sep = ".w."),sep="-")
 
-
 #================================================================================================================================================================
 #==================================================================================old===========================================================================
 #================================================================================================================================================================
@@ -177,18 +176,15 @@ colnames(tfreqdf) <- texttype
 
 idioms <- merge(idioms, most_common, by="idiom_id", all.x=TRUE)
 
-
-fixedness <- ddply(idioms, "idiom_id", summarize, fixedness=sum(idiom_found == most_common_lemma)/length(most_common_lemma))
-
-most_common <- merge(most_common, fixedness, by="idiom_id", all.y=TRUE)
 idioms$idiom_length_orig <- word_count(idioms$most_common_lemma)
 #with_verb = 1 if verb is included and 0 if no verb is included, this is added to the amount of words in the idiom_lemma
 idioms$idiom_length_this <- word_count(idioms$idiom_lemma) + idioms$with_verb
-most_common$most_common_lemma <- c()
-
 
 #order idioms:
 idioms <- idioms[order(idioms$id),]
+
+id_most_common <- unique(data.frame(idioms$idiom_id,idioms$most_common_lemma))
+
 
 #make cross table
 cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
@@ -217,12 +213,26 @@ tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 colnames(tprop_cross) <- tprop_cross[1,]
 tprop_cross <- tprop_cross[-1,]
 tprop_cross <- tprop_cross[-183,]
+
+
 write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 
 
-#RELATIVE: TO ADD AND ANALYZE FEATURES
-idioms_and_features <- data.frame(names(tcross_table),as.numeric(tprop_cross$`discussion lists`), as.numeric(tprop_cross$newspapers))
-names(idioms_and_features) <- c("idiom","discussion_lists","newspapers")
+#-----------------\/-\/-\/-\/-\/-\/-----------HIER NU AAN BEZIG------------------\/-\/-\/-\/-\/-\/------------
+fixedness_nv <- read.table("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\fixedness\\nounverbidioms-id-out-lowered-dict-set-of-idlists-after.txt", sep="\t")
+fixedness_nn <- read.table("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\fixedness\\twonounidioms-id-out-lowered-dict-set-of-idlists-after.txt", sep="\t")
+
+fixedness <- rbind(fixedness_nn,fixedness_nv)
+
+
+idiom_features <- merge(most_common, fixedness, by.x="idiom_id" ,by.y="V1")
+idiom_features$V2 <- c()
+idiom_features$V3 <- c()
+colnames(idiom_features) <- c("id","idiom","fixedness")
+
+idiom_features <- merge(idiom_features,tprop_cross,by.x="idiom",by.y=0)
+
+#----------^^^^^^^^------------------HIER NU AAN BEZIG-------------------------^^^^^^^^----------------------
 
 
 #show frequencies per idiom form (pos-tags) per collection
@@ -315,10 +325,25 @@ ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587
 ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013041213,0.07494102976306735,0.013140093001571153,0.07565526383210988,0.03161953587057931,0.04545992067190976,0.15152577540872178,0.0148120772902397,0.055242289732334915,0.14822989054251542,0.052668583941482175,0.017698750785921487,0.012530770339462963,0.018502535017490638,0.015308295847662488,0.06380383727410238,0.034785952539487686,0.02633071376488698,0.06540242518686619)
 ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145)
 
-ttr <- data.frame(texttypes,lemmafreqlist,lemmaposfreqlist,wordfreqlist)
+ttr <- data.frame(texttypes,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wordfreqlist)
 
 ttrf <- merge(fscores, ttr, by.x = "labels", by.y = "texttypes")
+
+
 
 plot(ttrf$f,ttrf$lemmafreqlist)
 plot(ttrf$f,ttrf$lemmaposfreqlist)
 plot(ttrf$f,ttrf$wordfreqlist)
+
+#=====================================================
+#Make one dataframe with total freqs of idioms (proportional per 100,000,000 words) AND ttr- / F-scores to visualize a possible
+#correlation
+
+total_nr_idioms_prop <- data.frame(prop_cross$texttype, rowSums(prop_cross[2:18]))
+colnames(total_nr_idioms_prop) <- c("texttype","propfreq")
+
+ttrfFreq <- merge(ttrf, total_nr_idioms_prop, by.x = "labels", by.y = "texttype")
+
+plot(ttrfFreq$f,ttrfFreq$propfreq)
+#=====================================================
+
