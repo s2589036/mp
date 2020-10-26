@@ -2,6 +2,10 @@ dev.off()
 library(plyr)
 library(stringr)
 library(qdap)
+
+#install.packages("spacyr", INSTALL_opts = '--no-lock')
+library(spacyr)
+
 setwd("G:/Mijn Drive/Studie informatiekunde/master/master project/project")
 
 #=====================================================================================================================================
@@ -19,6 +23,9 @@ for (i in(1:130)[c(-74)]) {
 }
 
 allidiomstype1 = do.call(rbind, datalist)
+
+
+
 
 #=====================================================================================================================================
 #============================COMBINE QUERY FILE OF STATIC PART WITH A SEARCH FOR VERB FORM IN CONTEXTS================================
@@ -134,6 +141,54 @@ idioms$idiom_lemma <- tolower(idioms$idiom_lemma)
 
 idioms$sentenceid <- paste(idioms$doc_id, word(idioms$xml_id,1,sep = ".w."),sep="-")
 
+
+#================================================================================================================================================================
+#====================================================================sample 50 rows for each idiom============================================================
+#================================================================================================================================================================
+
+
+sampledidioms <- data.frame()
+
+datalist = list()
+for(i in unique(idioms$idiom_id)){
+  newidiom <- data.frame()
+  dataframeidiom <- idioms[idioms$idiom_id==i,]
+if(nrow(dataframeidiom) > 50){
+  newidiom <- dataframeidiom[sample(nrow(dataframeidiom),50),]
+}else{
+  newidiom <- idioms[idioms$idiom_id==i,]
+}
+datalist[[i]]<-newidiom
+
+}
+
+sampledidioms <-do.call(rbind,datalist)
+
+write.csv(sampledidioms,"results\\sampled_idioms.csv")
+
+#================================================================================================================================================================
+#==================================================================try to improve postags using spacy============================================================
+#================================================================================================================================================================
+
+
+spacy_initialize(model="nl", python_executable = "C:\\Users\niels\\AppData\\Local\\Programs\\Python\\Python37\\python.exe")
+
+
+getpos <- function(x){
+ str(spacy_parse(x)$pos)
+}
+
+idiomsub = idioms[1:10,]
+
+
+pos_heads_spacy_df <- ddply(idiomsub, "sentenceid", summarise, 
+                            pos_tag_spacy=getpos(idiom_lemma))
+
+names(pos_heads_spacy_df)
+
+
+help(tapply)
+
 #================================================================================================================================================================
 #==================================================================================old===========================================================================
 #================================================================================================================================================================
@@ -210,15 +265,17 @@ tcross_table <- tcross_table[-183]
 #tpropcross: calculate relative idiom frequencies (per 100 million words)
 prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
+
 colnames(tprop_cross) <- tprop_cross[1,]
+
 tprop_cross <- tprop_cross[-1,]
 tprop_cross <- tprop_cross[-183,]
-
+tprop_cross[,1:19] <- sapply(tprop_cross[,1:19],as.numeric)
 
 write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 
 
-#-----------------\/-\/-\/-\/-\/-\/-----------HIER NU AAN BEZIG------------------\/-\/-\/-\/-\/-\/------------
+
 fixedness_nv <- read.table("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\fixedness\\nounverbidioms-id-out-lowered-dict-set-of-idlists-after.txt", sep="\t")
 fixedness_nn <- read.table("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\results\\fixedness\\twonounidioms-id-out-lowered-dict-set-of-idlists-after.txt", sep="\t")
 
@@ -229,8 +286,33 @@ idiom_features <- merge(most_common, fixedness, by.x="idiom_id" ,by.y="V1")
 idiom_features$V2 <- c()
 idiom_features$V3 <- c()
 colnames(idiom_features) <- c("id","idiom","fixedness")
-
 idiom_features <- merge(idiom_features,tprop_cross,by.x="idiom",by.y=0)
+
+sprenger_feat <- read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\sprenger_data_own_ids.csv")
+idiom_features <- merge(idiom_features,sprenger_feat,by.x="id",by.y="ID")
+
+most_common_pos_head <- ddply(idioms, "idiom_id", summarise,
+                     most_common_pos_head=paste(mostfreq(pos_head)))
+
+
+idiom_features <- merge(idiom_features,most_common_pos_head,by.x="id",by.y="idiom_id")
+
+library(mgcv)
+
+correlations <- data.frame(cor(idiom_features[,3:31], method = c("pearson", "kendall", "spearman")))
+
+
+
+m1 <- gam(fixedness ~ s(est) + ti(id), data=idiom_features, family=gaussian()) 
+
+m2 <- gam(fixedness ~ s(newspapers) + ti(id, LogFreq) + ti(id, est.link),data=idiom_features)
+anova(m1,m2)
+
+
+
+
+summary(m1)
+
 
 #----------^^^^^^^^------------------HIER NU AAN BEZIG-------------------------^^^^^^^^----------------------
 
@@ -245,6 +327,7 @@ different_forms_idiom <- as.data.frame(subset(idioms,idioms$idiom_lemma!=idioms$
 
 #=====================================================================================================================================================
 #MAKE HEATMAP OF FREQUENCIES
+
 
 scaled_cross_table <- scale(cross_table)
 
