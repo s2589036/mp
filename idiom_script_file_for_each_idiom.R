@@ -15,7 +15,7 @@ datalist = list()
 
 #exclude 74
 for (i in(1:130)[c(-74)]) {
-  dat <- read.csv(paste("idioms_sonar\\without_verb\\",i,".csv",sep=""))
+  dat <- read.csv(paste("idioms_sonar\\without_verb\\",i,".csv",sep=""),encoding="UTF-8")
   dat$with_verb <- 0
   dat$idiom_id <- i  # maybe you want to keep track of which iteration produced it?
   dat$verb <- ""
@@ -34,7 +34,7 @@ allidiomstype1 = do.call(rbind, datalist)
 findidioms <- function(i,verbforms){
   verbformspattern <- paste("\\b",paste(verbforms, collapse = "\\b|\\b"),"\\b",sep="")
   filename <- paste("idioms_sonar\\with_verb\\",i,".csv",sep="")
-  idiomstatic <- read.csv(filename)
+  idiomstatic <- read.csv(filename,encoding="UTF-8")
   idiomstatic <- idiomstatic[ with(idiomstatic,  grepl(verbformspattern, left_context)  | grepl(verbformspattern, right_context)  ) , ]
   idiomstatic$with_verb <- 1
   idiomstatic$idiom_id <- i
