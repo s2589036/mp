@@ -263,7 +263,7 @@ colnames(counts_per_idiom_collection) <- c("idiom_id","collection","freq","lemma
 
 #========================================================================
 
-texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides & manuals","websites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext","e-magazines","newspapers","tweets","periodicals & magazines","wikipedia","blogs","newsletters")
+texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides manuals","web sites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
 tokenfreq <- c(357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
 freqdf <- data.frame(texttype,tokenfreq)
 tfreqdf <- t(freqdf)
@@ -271,9 +271,6 @@ colnames(tfreqdf) <- texttype
 
 
 #========================================================================
-
-
-
 
 #make cross table
 cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
@@ -289,15 +286,19 @@ write.csv(cross_table_print,"results\\cross_table.csv")
 tcross_table <- as.data.frame(t(cross_table))
 
 tcross_table$texttype <- row.names(tcross_table)
+
+sort(tcross_table$texttype)
+sort(freqdf$texttype)
+
 prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
-tcross_table <- tcross_table[-183]
+#tcross_table <- tcross_table[-179]
 
-
-
-
+sort(prop_cross$texttype)
 
 #tpropcross: calculate relative idiom frequencies (per 100 million words)
-prop_cross[2:183] <- round((prop_cross[2:183]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
+prop_cross_new <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
+
+
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 
 colnames(tprop_cross) <- tprop_cross[1,]
@@ -461,33 +462,47 @@ colnames(total_nr_idioms_prop) <- c("texttype","propfreq")
 
 ttrfFreq <- merge(ttrf, total_nr_idioms_prop, by.x = "labels", by.y = "texttype")
 
-plot(ttrfFreq$f,ttrfFreq$propfreq)
+plot(ttrfFreq$f,ttrfFreq$propfreq, title(main="F-score * relative idiom frequency"),xlab="F-score",ylab="Relative idiom frequency")
 
 #======================================================
 
 library(ggplot2)
-ggplot(counts_per_idiom_collection, 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))
-
-
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id<50,], 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))
-                                                                                                                                                                                  + geom_col(width = 1)
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>50 & counts_per_idiom_collection$idiom_id<100,], 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))
-
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>100 & counts_per_idiom_collection$idiom_id<150,], 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0)) + geom_col(width = 1)
-
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>150 & counts_per_idiom_collection$idiom_id<200,], 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+library(RColorBrewer)
+ggplot(total_nr_idioms_prop, 
+       aes(y=propfreq, x=texttype)) + geom_bar(position="stack", stat="identity", width=0.7) + 
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Proportional total frequency of idioms per collection per 100 million words")
 
 ggplot(counts_per_idiom_collection,
        aes(y=freq, x=collection)) + geom_bar(stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection")
+
+buildgraph <- function(begin,end){
+mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
+ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>begin & counts_per_idiom_collection$idiom_id<=end,], 
+       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Idiom frequencies", begin + 1,"to",end,sep=" "))}
+
+buildgraph(0,50)
+buildgraph(50,100)
+buildgraph(100,150)
+buildgraph(150,185)
+
+
+
+library(tidyr)
+propfreqidioms <- pivot_longer(prop_cross[1:179], cols=2:179, names_to = "idiom", values_to = "freq")
+
+propfreqidioms <- merge(propfreqidioms,most_common,by.x="idiom",by.y="most_common_lemma")
+
+buildgraphprop <- function(begin,end){
+  mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
+  ggplot(propfreqidioms[propfreqidioms$idiom_id>begin & propfreqidioms$idiom_id<=end,], aes(fill=texttype, y=freq, x=idiom)) + geom_bar(position="stack", stat="identity", width=0.7) + 
+    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" "))}
+
+buildgraphprop(0,50)
+buildgraphprop(50,100)
+buildgraphprop(100,150)
+buildgraphprop(150,185)
+
+
 
