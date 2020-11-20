@@ -26,3 +26,8 @@ X	X	X	127	op water en brood -- is vaak letterlijk, weglaten!
 X	X	X	129	deur op een kier -- is vaak letterlijk
 X	X	X	183	door de bocht gaan -- is altijd letterlijk als het 				niet "kort door de bocht" is 
 X	X	X	186 	in zijn mond lopen --- is niet uniek op te zoeken met 1 noun en 1 verb
+
+
+HEEL VEEL EERDER AL WEGGELATEN (ZATEN AL NIET IN EERSTE VERSIE):
+Toen sneed hij zich in de vingers.
+Toen had hij hem in zijn broekzak.
