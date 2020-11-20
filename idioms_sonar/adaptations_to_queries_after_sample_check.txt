@@ -1,0 +1,28 @@
+MAKKELIJKE AANPASSINGEN DIE EIGENLIJK HIERVOOR AL HADDEN GEMOETEN:
+X	X	15	op de vuist --> letterlijke woorden ipv lemma's + "gaan" toegevoegd
+
+We looked up the idioms in such a way that the results were most likely to be idiomatic: in order to achieve this, we samples 50 idiom occurrences and checked manually if the instances were used literally or idiomatically. Idioms whose sample did not reach the 70% were adapted until they did (N=...) and otherwise removed (N=...).
+
+GRENS OP 70% idiomatisch:
+deze aanvankelijk =<70%:
+
+OPNIEUW GETAGD (opnieuw opgeslagen in V1 van tag, want lag aan taggen en niet aan idiom):
+excel R-file	map
+X	X	X	141	uit de kast komen -- erin gelaten: wel in discussie noemen: is wel meestal idiomatisch maar niet in de betekenis van een coming out
+
+
+AANGEPASTE QUERIES:
+X	X	nvt	12	water naar de zee --- DRAGEN toevoegen
+X	X	X	74	in het honderd -- honderd als word en niet als lemma in query (lopen toevoegen maar dat was al gebeurd in eerste versie)
+X	X	X	145	zool van z'n andere schoen lopen -- pas query aan: zolEN schoenEN (beide word) 
+X	X	X	172	in zijn broek doen -- [word="het"][]{0,2} ervoor toevoegen (het bijna in zijn broek doen, etc.; 'het' is wel noodzakelijk: dan het in LW/VNW ADJ broek)
+
+
+
+WEGGELATEN:
+X	X	X	1	regen in de drup -- probleem met gekke herhalende zinnen in corpus - "regen in de drup Aanloopje Vakantie Schorpioenen Hoog (...)" zit als einde bij teksten van 1 bron (femistyle.be) - noemen in 						discussie & nu weglaten
+X	X	X	31	gaatje in het hoofd -- is meestal letterlijk, weglaten!
+X	X	X	127	op water en brood -- is vaak letterlijk, weglaten!
+X	X	X	129	deur op een kier -- is vaak letterlijk
+X	X	X	183	door de bocht gaan -- is altijd letterlijk als het 				niet "kort door de bocht" is 
+X	X	X	186 	in zijn mond lopen --- is niet uniek op te zoeken met 1 noun en 1 verb
