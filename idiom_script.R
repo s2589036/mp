@@ -26,8 +26,6 @@ for (i in(1:130)[c(-1,-12,-15,-31,-74,-127,-129)]) {
 allidiomstype1 = do.call(rbind, datalist)
 
 
-
-
 #=====================================================================================================================================
 #============================COMBINE QUERY FILE OF STATIC PART WITH A SEARCH FOR VERB FORM IN CONTEXTS================================
 #=====================================================================================================================================
@@ -269,6 +267,26 @@ freqdf <- data.frame(texttype,tokenfreq)
 tfreqdf <- t(freqdf)
 colnames(tfreqdf) <- texttype
 
+#========================================================================
+
+idiom_token_freq <- merge(counts_per_collection,freqdf,by.x = "doc_type_name", by.y="texttype")
+hist(idiom_token_freq$V1)
+hist(idiom_token_freq$tokenfreq)
+
+
+library("ggpubr")
+ggscatter(idiom_token_freq, x = "V1", y = "tokenfreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+
+ggscatter(idiom_token_freq[idiom_token_freq$doc_type_name!="newspapers",], x = "V1", y = "tokenfreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Collection Size\n (Pearson) -- Newspapers excluded", xlab = "Idiom Freq", ylab = "Collection Size")
+
+
+
 
 #========================================================================
 
@@ -278,9 +296,6 @@ cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_ty
 #add sums and write to file
 cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
 write.csv(cross_table_print,"results\\cross_table.csv")
-
-#cross_table_sum <- rbind(cross_table,sum=colSums(cross_table))
-
 
 #add sizes of collections in order to calculate relative idiom frequencies 
 tcross_table <- as.data.frame(t(cross_table))
@@ -295,8 +310,12 @@ prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
 
 sort(prop_cross$texttype)
 
+#tpropcross: calculate relative idiom frequencies (per million words)
+#prop_cross_million <- (prop_cross[2:179]/prop_cross$tokenfreq)*100000000
+
 #tpropcross: calculate relative idiom frequencies (per 100 million words)
 prop_cross_new <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
+
 
 
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
@@ -478,14 +497,26 @@ ggplot(counts_per_idiom_collection,
 
 buildgraph <- function(begin,end){
 mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>begin & counts_per_idiom_collection$idiom_id<=end,], 
+ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>=begin & counts_per_idiom_collection$idiom_id<=end,], 
        aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Idiom frequencies", begin + 1,"to",end,sep=" "))}
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Idiom frequencies", begin,"-",end,sep=" "))+
+  theme(legend.position="right") + guides(fill=guide_legend(ncol=2, bycol=TRUE))
 
-buildgraph(0,50)
-buildgraph(50,100)
-buildgraph(100,150)
-buildgraph(150,185)
+}
+
+
+buildgraph(1,50)
+ggsave("results/idiom_freq_plots_per_collection/absolute_1-50.png",width=30,height=15,units=c("cm"))
+dev.off()
+buildgraph(51,100)
+ggsave("results/idiom_freq_plots_per_collection/absolute_51-100.png",width=30,height=15,units=c("cm"))
+dev.off()
+buildgraph(101,150)
+ggsave("results/idiom_freq_plots_per_collection/absolute_101-150.png",width=30,height=15,units=c("cm"))
+dev.off()
+buildgraph(151,185)
+ggsave("results/idiom_freq_plots_per_collection/absolute_151-185.png",width=30,height=15,units=c("cm"))
+dev.off()
 
 
 
