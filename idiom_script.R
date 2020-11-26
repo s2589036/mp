@@ -107,12 +107,18 @@ allidiomstype2 <- rbind(allidiomstype2, findidioms(184,c("vertrouwen","vertrouw"
 allidiomstype2 <- rbind(allidiomstype2, findidioms(185,c("maken","maak","maakt","maakte","maakten","gemaakt")))
 #allidiomstype2 <- rbind(allidiomstype2, findidioms(186,c("lopen","loop","loopt","liep","liepen","gelopen")))
 
-
-
 idioms <- rbind(allidiomstype1,allidiomstype2)
-
 #this function works but the annotation of pos_head is often wrong
 idioms$amountofnouns <- str_count(idioms$pos_head,"N")-str_count(idioms$pos_head,"VNW")
+
+#================================TEST AMOUNT OF ADJS PER COLLECTION=============================================================# 
+# idioms$amountofadjs <- str_count(idioms$pos_head,\"ADJ\")
+# library(dplyr)
+# 
+# idioms %>%
+#   group_by(doc_type_name) %>%
+#   summarise_at(vars(amountofadjs), funs(sum(amountofadjs, na.rm=TRUE)))
+#================================================================================================================================
 
 #======================================================================================================================================
 
@@ -261,8 +267,8 @@ colnames(counts_per_idiom_collection) <- c("idiom_id","collection","freq","lemma
 
 #========================================================================
 
-texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides manuals","web sites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
-tokenfreq <- c(357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
+texttype <- c("auto cues","written assignments","policy documents","legal texts","books","subtitles","guides manuals","web sites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
+tokenfreq <- c(28087981,357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
 freqdf <- data.frame(texttype,tokenfreq)
 tfreqdf <- t(freqdf)
 colnames(tfreqdf) <- texttype
@@ -314,9 +320,7 @@ sort(prop_cross$texttype)
 #prop_cross_million <- (prop_cross[2:179]/prop_cross$tokenfreq)*100000000
 
 #tpropcross: calculate relative idiom frequencies (per 100 million words)
-prop_cross_new <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
-
-
+prop_cross[2:179] <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
 
 tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
 
@@ -487,13 +491,13 @@ plot(ttrfFreq$f,ttrfFreq$propfreq, title(main="F-score * relative idiom frequenc
 
 library(ggplot2)
 library(RColorBrewer)
-ggplot(total_nr_idioms_prop, 
-       aes(y=propfreq, x=texttype)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Proportional total frequency of idioms per collection per 100 million words")
-
 ggplot(counts_per_idiom_collection,
        aes(y=freq, x=collection)) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection")
+
+ggplot(total_nr_idioms_prop, 
+       aes(y=propfreq, x=texttype)) + geom_bar(position="stack", stat="identity", width=0.7) + 
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection per 100 million words")
 
 buildgraph <- function(begin,end){
 mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
@@ -528,12 +532,16 @@ propfreqidioms <- merge(propfreqidioms,most_common,by.x="idiom",by.y="most_commo
 buildgraphprop <- function(begin,end){
   mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
   ggplot(propfreqidioms[propfreqidioms$idiom_id>begin & propfreqidioms$idiom_id<=end,], aes(fill=texttype, y=freq, x=idiom)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" "))}
+    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" "))
+  }
 
 buildgraphprop(0,50)
-buildgraphprop(50,100)
-buildgraphprop(100,150)
-buildgraphprop(150,185)
-
+ggsave("results/idiom_freq_plots_per_collection/relative_1-50.png",width=30,height=15,units=c("cm"))
+buildgraphprop(51,100)
+ggsave("results/idiom_freq_plots_per_collection/relative_51-100.png",width=30,height=15,units=c("cm"))
+buildgraphprop(101,150)
+ggsave("results/idiom_freq_plots_per_collection/relative_101-150.png",width=30,height=15,units=c("cm"))
+buildgraphprop(151,185)
+ggsave("results/idiom_freq_plots_per_collection/relative_151-185.png",width=30,height=15,units=c("cm"))
 
 
