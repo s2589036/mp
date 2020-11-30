@@ -490,7 +490,10 @@ plot(ttrfFreq$f,ttrfFreq$propfreq, title(main="F-score * relative idiom frequenc
 #======================================================
 
 library(ggplot2)
-library(RColorBrewer)
+install.packages("randomcoloR")
+library(randomcoloR)
+
+
 ggplot(counts_per_idiom_collection,
        aes(y=freq, x=collection)) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection")
@@ -499,12 +502,13 @@ ggplot(total_nr_idioms_prop,
        aes(y=propfreq, x=texttype)) + geom_bar(position="stack", stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection per 100 million words")
 
+library(randomcoloR)
+mycolors <- distinctColorPalette(26)
 buildgraph <- function(begin,end){
-mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
 ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>=begin & counts_per_idiom_collection$idiom_id<=end,], 
        aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Idiom frequencies", begin,"-",end,sep=" "))+
-  theme(legend.position="right") + guides(fill=guide_legend(ncol=2, bycol=TRUE))
+  theme(legend.position="right") + guides(fill=guide_legend(ncol=2, bycol=TRUE)) + scale_fill_manual(values=mycolors)
 
 }
 
@@ -530,9 +534,9 @@ propfreqidioms <- pivot_longer(prop_cross[1:179], cols=2:179, names_to = "idiom"
 propfreqidioms <- merge(propfreqidioms,most_common,by.x="idiom",by.y="most_common_lemma")
 
 buildgraphprop <- function(begin,end){
-  mycolors = colorRampPalette(brewer.pal(8, "Set2"))(22)
   ggplot(propfreqidioms[propfreqidioms$idiom_id>begin & propfreqidioms$idiom_id<=end,], aes(fill=texttype, y=freq, x=idiom)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" "))
+    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + 
+    ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" ")) + scale_fill_manual(values=mycolors)
   }
 
 buildgraphprop(0,50)
