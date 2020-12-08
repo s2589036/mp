@@ -191,6 +191,7 @@ id_most_common <- unique(data.frame(idioms$idiom_id,idioms$most_common_lemma))
 sampledidioms <- data.frame()
 
 datalist = list()
+#added newly tagged idioms to old samples
 for(i in c(12,74,145,172)){
   newidiom <- data.frame()
   dataframeidiom <- idioms[idioms$idiom_id==i,]
@@ -276,8 +277,11 @@ colnames(tfreqdf) <- texttype
 #========================================================================
 
 idiom_token_freq <- merge(counts_per_collection,freqdf,by.x = "doc_type_name", by.y="texttype")
+idiom_token_freq <- merge(idiom_token_freq,ttrfFreq,by.x="doc_type_name",by.y="labels")
+
 hist(idiom_token_freq$V1)
 hist(idiom_token_freq$tokenfreq)
+
 
 
 library("ggpubr")
@@ -292,6 +296,12 @@ ggscatter(idiom_token_freq[idiom_token_freq$doc_type_name!="newspapers",], x = "
           title= "Correlation between Idiom Freq. and Collection Size\n (Pearson) -- Newspapers excluded", xlab = "Idiom Freq", ylab = "Collection Size")
 
 
+ggscatter(idiom_token_freq, x = "V1", y = "tokenfreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+
+
 
 
 #========================================================================
@@ -301,11 +311,11 @@ cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_ty
 
 #add sums and write to file
 cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
+
 write.csv(cross_table_print,"results\\cross_table.csv")
 
 #add sizes of collections in order to calculate relative idiom frequencies 
 tcross_table <- as.data.frame(t(cross_table))
-
 tcross_table$texttype <- row.names(tcross_table)
 
 sort(tcross_table$texttype)
@@ -314,6 +324,7 @@ sort(freqdf$texttype)
 prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
 #tcross_table <- tcross_table[-179]
 
+
 sort(prop_cross$texttype)
 
 #tpropcross: calculate relative idiom frequencies (per million words)
@@ -321,14 +332,14 @@ sort(prop_cross$texttype)
 
 #tpropcross: calculate relative idiom frequencies (per 100 million words)
 prop_cross[2:179] <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
+str(prop_cross)
 
-tprop_cross <- as.data.frame.matrix(t(prop_cross),stringsAsFactors = FALSE)
+tprop_cross <- t(prop_cross)
 
 colnames(tprop_cross) <- tprop_cross[1,]
-
 tprop_cross <- tprop_cross[-1,]
-tprop_cross <- tprop_cross[-183,]
-tprop_cross[,1:19] <- sapply(tprop_cross[,1:19],as.numeric)
+
+tprop_cross[, c(1:24)] <- sapply(tprop_cross[, c(1:24)], as.numeric)
 
 write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 
@@ -341,13 +352,21 @@ fixedness <- rbind(fixedness_nn,fixedness_nv)
 
 
 idiom_features <- merge(most_common, fixedness, by.x="idiom_id" ,by.y="V1")
+
+
 idiom_features$V2 <- c()
 idiom_features$V3 <- c()
 colnames(idiom_features) <- c("id","idiom","fixedness")
+str(tprop_cross)
+
+
 idiom_features <- merge(idiom_features,tprop_cross,by.x="idiom",by.y=0)
 
 sprenger_feat <- read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\project\\script files\\sprenger_data_own_ids.csv")
 idiom_features <- merge(idiom_features,sprenger_feat,by.x="id",by.y="ID")
+idiom_features[, c(2:27)] <- sapply(idiom_features[, c(2:27)], as.numeric)
+
+str(idiom_features)
 
 most_common_pos_head <- ddply(idioms, "idiom_id", summarise,
                               most_common_pos_head=paste(mostfreq(pos_head)))
@@ -357,8 +376,10 @@ idiom_features <- merge(idiom_features,most_common_pos_head,by.x="id",by.y="idio
 
 library(mgcv)
 
-correlations <- data.frame(cor(idiom_features[,3:31], method = c("pearson", "kendall", "spearman")))
 
+correlations <- data.frame(cor(idiom_features[,3:36], method = c("pearson", "kendall", "spearman")))
+
+cor(idiom_features[,1:23],method=c("pearson"))
 
 
 m1 <- gam(fixedness ~ s(est) + ti(id), data=idiom_features, family=gaussian()) 
@@ -456,25 +477,28 @@ fviz_dend(res.hc2, k = 3, # Cut in groups
 )
 
 #check correlation between ttr and F-score
-labels = c("blogs","books ","brochures","discussion lists","e-magazines","guides & manuals","legal texts","newsletters","newspapers","periodicals & magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments")
+labels = c("blogs","books","brochures","discussion lists","e-magazines","guides manuals","legal texts","newsletters","newspapers","periodicals magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments")
+length(labels)
 f = c(66.95,62.76,70.90,50.02,53.94,66.18,77.05,63.87,62.56,63.61,63.12,73.15,66.61,66.11,40.52,58.31,58.32,73.18,70.46,64.34)
 
 fscores <- data.frame(labels,f)
 
-texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext pages","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired")
+texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired")
+length(texttypes)
+
 ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587898,0.057401703751558765,0.009689241125244002,0.055542312276519665,0.024249025176525562,0.03766366983543108,0.11896397524415984,0.010572668146432082,0.04049095832969337,0.11157505443049301,0.03752663077776695,0.014107998171320548,0.010236219490373278,0.01398963091384981,0.010867410407170893,0.04554732903431256,0.024833391412856145,0.01861169390999226,0.046154393095949826)
 ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013041213,0.07494102976306735,0.013140093001571153,0.07565526383210988,0.03161953587057931,0.04545992067190976,0.15152577540872178,0.0148120772902397,0.055242289732334915,0.14822989054251542,0.052668583941482175,0.017698750785921487,0.012530770339462963,0.018502535017490638,0.015308295847662488,0.06380383727410238,0.034785952539487686,0.02633071376488698,0.06540242518686619)
 ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145)
 
 ttr <- data.frame(texttypes,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wordfreqlist)
-
 ttrf <- merge(fscores, ttr, by.x = "labels", by.y = "texttypes")
+sort(fscores$labels)
+sort(ttrf$labels)
 
 
-
-plot(ttrf$f,ttrf$lemmafreqlist)
-plot(ttrf$f,ttrf$lemmaposfreqlist)
-plot(ttrf$f,ttrf$wordfreqlist)
+plot(ttrf$f,ttrf$ttr_lemmafreqlist)
+plot(ttrf$f,ttrf$ttr_lemmaposfreqlist)
+plot(ttrf$f,ttrf$ttr_wordfreqlist)
 
 #=====================================================
 #Make one dataframe with total freqs of idioms (proportional per 100,000,000 words) AND ttr- / F-scores to visualize a possible
@@ -483,9 +507,23 @@ plot(ttrf$f,ttrf$wordfreqlist)
 total_nr_idioms_prop <- data.frame(prop_cross$texttype, rowSums(prop_cross[2:18]))
 colnames(total_nr_idioms_prop) <- c("texttype","propfreq")
 
-ttrfFreq <- merge(ttrf, total_nr_idioms_prop, by.x = "labels", by.y = "texttype")
+ttrfrelFreq <- merge(ttrf, total_nr_idioms_prop, by.x = "labels", by.y = "texttype")
 
-plot(ttrfFreq$f,ttrfFreq$propfreq, title(main="F-score * relative idiom frequency"),xlab="F-score",ylab="Relative idiom frequency")
+plot(ttrfrelFreq$f,ttrfrelFreq$propfreq, title(main="F-score * relative idiom frequency"),xlab="F-score",ylab="Relative idiom frequency")
+
+
+ttrfabsFreq <- merge(ttrf,idiom_token_freq,by.x="labels",by.y="doc_type_name")
+
+ggscatter(ttrfabsFreq, x = "V1", y = "f", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Formality Score \n(Pearson)", xlab = "Idiom Freq", ylab = "Formality Score")
+
+ggscatter(ttrfabsFreq, x = "V1", y = "ttr_wordfreqlist", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+
 
 #======================================================
 
@@ -515,16 +553,12 @@ ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>=begin &
 
 buildgraph(1,50)
 ggsave("results/idiom_freq_plots_per_collection/absolute_1-50.png",width=30,height=15,units=c("cm"))
-dev.off()
 buildgraph(51,100)
 ggsave("results/idiom_freq_plots_per_collection/absolute_51-100.png",width=30,height=15,units=c("cm"))
-dev.off()
 buildgraph(101,150)
 ggsave("results/idiom_freq_plots_per_collection/absolute_101-150.png",width=30,height=15,units=c("cm"))
-dev.off()
 buildgraph(151,185)
 ggsave("results/idiom_freq_plots_per_collection/absolute_151-185.png",width=30,height=15,units=c("cm"))
-dev.off()
 
 
 
