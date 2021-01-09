@@ -1,0 +1,183 @@
+"","tapply(idioms_sample_out1$Idiomatic.R, idioms_sample_out1$most_common_lemma, "
+"aal bij zijn staart",1
+"aan de aarde vertrouwen",1
+"aan de bel trekken",1
+"aan zijn jasje trekken",0.714285714285714
+"aan zijn woord houden",1
+"aap uit de mouw",0.98
+"achter de geraniums",1
+"achter de hand houden",1
+"addertje onder het gras",1
+"advocaat van de duivel",1
+"als een blok in slaap",1
+"appeltje voor de dorst",1
+"baard in de keel",1
+"beide benen op de grond",1
+"benen uit het lijf",1
+"bij de dag leven",0.952380952380952
+"bij de duivel te biecht",1
+"blad voor de mond",1
+"boel op stelten",1
+"boer met kiespijn",0.976744186046512
+"bokken van de schapen",1
+"bord voor hun kop",0.94
+"boter bij de vis",0.98
+"boter op het hoofd",1
+"boven water halen",0.84
+"brood op de plank",0.98
+"buiten de deur houden",1
+"daad bij het woord",1
+"de kat uit de boom",1
+"de longen uit het lijf",1
+"deksel op de neus",1
+"deur op een kier",0.66
+"door de bomen het bos",1
+"door het oog van de naald",1
+"druk van de ketel",1
+"duit in het zakje",1
+"eieren voor zijn geld",1
+"eten uit je mond kijken",1
+"gaatje in het hoofd",0.470588235294118
+"gat in de lucht",1
+"gat in hun hand",0.92
+"geld op zak",1
+"geld over de balk",1
+"gesprek van de dag",0.94
+"gezicht in de plooi",1
+"God in Frankrijk",1
+"haar op hun tanden",1
+"hak op de tak",1
+"hand in de tand",1
+"hand op de knip",1
+"handdoek in de ring",1
+"hart onder de riem",1
+"heft in handen",1
+"hek van de dam",1
+"held op sokken",1
+"hemd van het lijf",1
+"hol van de leeuw",0.98
+"hond in de pot",1
+"hoofd als een boei",1
+"hoofd boven water",1
+"hoofd in de wolken",1
+"hoofd op hol",1
+"in de arm nemen",0.92
+"in de kaart spelen",1
+"in de kraag vatten",1
+"in de lappenmand",1
+"in de val lopen",0.98
+"in de vingers hebben",0.98
+"in het achterhoofd houden",0.98
+"in het honderd lopen",0.92
+"in mijn keel kloppen",1
+"in uw oren knopen",1
+"in vuur en vlam",0.76
+"in zak en as",1
+"in zijn broek doen",0.56
+"in zijn hemd staan",0.88
+"in zijn mond lopen",0.0285714285714286
+"kaas van het brood eten",1
+"kat in een zak",1
+"kat op het spek",1
+"kind met het badwater",1
+"kind van de rekening",1
+"kink in de kabel",1
+"knollen voor citroenen",1
+"koe bij de hoorns",1
+"kogel is door de kerk",1
+"kont tegen de krib",1
+"kop in de wind",1
+"kop in het zand",0.98
+"kous op de kop",1
+"leven in de brouwerij",1
+"luis in de pels",0.98
+"mazen van het net",0.98
+"met de deur in huis",1
+"met de duimen draaien",1
+"met de eer strijken",1
+"met de handen in het haar zitten",1
+"met de handschoen trouwen",1
+"met de kippen op stok",1
+"met vlag en wimpel",0.94
+"met vuur spelen",1
+"naar het zwaard grijpen",1
+"neus in de boeken",0.98
+"neus in de boter",1
+"neus in de wind",1
+"neus op de feiten",1
+"olie op het vuur",0.96
+"om mijn hart slaan",1
+"onder de knie krijgen",1
+"onder de lat staan",1
+"onder de pet houden",1
+"onder de wol",1
+"onderste uit de kan",1
+"oogje in het zeil",1
+"op alle slakken zout",1
+"op de achtergrond blijven",1
+"op de borst kloppen",1
+"op de korrel",1
+"op de vuist",0.86
+"op de ziel trappen",1
+"op rozen zitten",1
+"op sleeptouw",0.98
+"op straat zetten",0.84
+"op water en brood",0.5
+"op weg helpen",1
+"op zijn duimpje",1
+"op zijn vestje spugen",1
+"oren van het hoofd",0.82
+"over koetjes en kalfjes",1
+"paard achter de wagen",1
+"pap in de benen",1
+"parels voor de zwijnen",1
+"pas op de plaats",1
+"poot aan de grond",1
+"regen in de drup",0.4
+"roet in het eten",1
+"rug tegen de muur",0.94
+"schaapjes op het droge",1
+"slag om de arm",1
+"snel door de bocht gaan",0.32
+"spijker op zijn kop",1
+"spijkers met koppen",0.94
+"sterren van de hemel",1
+"stok achter de deur",1
+"stuk in zijn kraag",0.98
+"tegen de stroom op roeien",1
+"tegen windmolens vechten",1
+"tot aan de lippen staan",0.98
+"tussen wal en schip",1
+"twee vliegen in één klap",1
+"uit de kast komen",0.82
+"uit het hoofd leren",1
+"uit het zadel wippen",0.777777777777778
+"uit zijn hoed toveren",1
+"uit zijn rol vallen",1
+"van de daken schreeuwen",1
+"van de hand doen",1
+"van de wijs brengen",1
+"van een mug een olifant",1
+"van zijn bed lichten",1
+"veeg uit de pan",1
+"vel over been",1
+"vinger aan de pols",0.96
+"vinger in de pap",1
+"vinger op de zere plek",1
+"voet bij stuk",1
+"vogel voor de kat",1
+"voor een appel en een ei",1
+"voor het voetlicht",0.98
+"voor spek en bonen",1
+"voor zijn kiezen",1
+"vuur aan de schenen",1
+"vuur uit de sloffen",1
+"waar voor hun geld",0.98
+"wal in de sloot",1
+"water bij de wijn",1
+"water naar de zee",0
+"wind uit de zeilen",1
+"zich uit de voeten maken",1
+"ziel onder de arm",1
+"zool van z'n andere schoen lopen",0.75
+"zout in de wonde",1

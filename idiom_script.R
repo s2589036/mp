@@ -148,7 +148,7 @@ idioms$idiom_lemma <- tolower(idioms$idiom_lemma)
 
 idioms$sentenceid <- paste(idioms$doc_id, word(idioms$xml_id,1,sep = ".w."),sep="-")
 
-
+idioms <- idioms[idioms$doc_type_ != "auto cues",]
 
 #FUNCTION OF JACOLIEN, MERG THIS ======================================
 
@@ -477,18 +477,18 @@ fviz_dend(res.hc2, k = 3, # Cut in groups
 )
 
 #check correlation between ttr and F-score
-labels = c("blogs","books","brochures","discussion lists","e-magazines","guides manuals","legal texts","newsletters","newspapers","periodicals magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments")
+labels = c("blogs","books","brochures","discussion lists","e-magazines","guides manuals","legal texts","newsletters","newspapers","periodicals magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments","tweets","chats","sms")
 length(labels)
-f = c(66.95,62.76,70.90,50.02,53.94,66.18,77.05,63.87,62.56,63.61,63.12,73.15,66.61,66.11,40.52,58.31,58.32,73.18,70.46,64.34)
+f = c(66.95,62.76,70.90,50.02,53.94,66.18,77.05,63.87,62.56,63.61,63.12,73.15,66.61,66.11,40.52,58.31,58.32,73.18,70.46,64.34,54.36,47.78,43.48)
 
 fscores <- data.frame(labels,f)
 
-texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired")
+texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired","tweets","chats","sms")
 length(texttypes)
 
-ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587898,0.057401703751558765,0.009689241125244002,0.055542312276519665,0.024249025176525562,0.03766366983543108,0.11896397524415984,0.010572668146432082,0.04049095832969337,0.11157505443049301,0.03752663077776695,0.014107998171320548,0.010236219490373278,0.01398963091384981,0.010867410407170893,0.04554732903431256,0.024833391412856145,0.01861169390999226,0.046154393095949826)
-ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013041213,0.07494102976306735,0.013140093001571153,0.07565526383210988,0.03161953587057931,0.04545992067190976,0.15152577540872178,0.0148120772902397,0.055242289732334915,0.14822989054251542,0.052668583941482175,0.017698750785921487,0.012530770339462963,0.018502535017490638,0.015308295847662488,0.06380383727410238,0.034785952539487686,0.02633071376488698,0.06540242518686619)
-ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145)
+ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587898,0.057401703751558765,0.009689241125244002,0.055542312276519665,0.024249025176525562,0.03766366983543108,0.11896397524415984,0.010572668146432082,0.04049095832969337,0.11157505443049301,0.03752663077776695,0.014107998171320548,0.010236219490373278,0.01398963091384981,0.010867410407170893,0.04554732903431256,0.024833391412856145,0.01861169390999226,0.046154393095949826,0.04369887397239263,0.018766516914988537,0.04383623714558847)
+ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013041213,0.07494102976306735,0.013140093001571153,0.07565526383210988,0.03161953587057931,0.04545992067190976,0.15152577540872178,0.0148120772902397,0.055242289732334915,0.14822989054251542,0.052668583941482175,0.017698750785921487,0.012530770339462963,0.018502535017490638,0.015308295847662488,0.06380383727410238,0.034785952539487686,0.02633071376488698,0.06540242518686619,0.05544851922069425,0.028243387717487627,0.05866198078123878)
+ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145,0.04710152440308449,0.021423962098917636,0.053956755024341184)
 
 ttr <- data.frame(texttypes,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wordfreqlist)
 ttrf <- merge(fscores, ttr, by.x = "labels", by.y = "texttypes")
@@ -513,16 +513,84 @@ plot(ttrfrelFreq$f,ttrfrelFreq$propfreq, title(main="F-score * relative idiom fr
 
 
 ttrfabsFreq <- merge(ttrf,idiom_token_freq,by.x="labels",by.y="doc_type_name")
+ttrfabsFreq$logidiomfreq <- log(ttrfabsFreq$V1)
+
+dev.off()
+i=0
+i=i+1
 
 ggscatter(ttrfabsFreq, x = "V1", y = "f", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
           title= "Correlation between Idiom Freq. and Formality Score \n(Pearson)", xlab = "Idiom Freq", ylab = "Formality Score")
 
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ggscatter(ttrfabsFreq, x = "V1", y = "tokenfreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Collection Size \n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
 ggscatter(ttrfabsFreq, x = "V1", y = "ttr_wordfreqlist", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
           title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ggscatter(ttrfabsFreq, x = "f", y = "ttr_wordfreqlist", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between F-score and Type-token Ratio (word level) \n(Pearson)", xlab = "F-score", ylab = "Type-token Ratio")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ggscatter(ttrfabsFreq, x = "logidiomfreq", y = "f", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between log Idiom Freq. and Formality Score \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Formality Score")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ggscatter(ttrfabsFreq, x = "logidiomfreq", y = "tokenfreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between log Idiom Freq. and Collection Size \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Collection Size")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ttrfabsFreq$logcollsizefreq <- log(ttrfabsFreq$tokenfreq)
+
+ggscatter(ttrfabsFreq, x = "logidiomfreq", y = "logcollsizefreq", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between log Idiom Freq. and log Collection Size \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Log Collection Size")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+ggscatter(ttrfabsFreq, x = "logidiomfreq", y = "ttr_wordfreqlist", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
+
+plot(ttrfabsFreq$f, ttrfabsFreq$ttr_wordfreqlist, xlab="Formality Score", ylab="Type-Token Ratio", main="Type-token Ratio X Formality score")
+
+i=i+1
+ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
 
 
 #======================================================

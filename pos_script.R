@@ -20,7 +20,7 @@ ggplot(posprop,aes(x=formality_orig,y=TSW*100)) + geom_point() + labs(title="Int
 ggplot(posprop,aes(x=formality_orig,y=VNW*100)) + geom_point() + labs(title="Pronouns", x="formality score", y = "% of pronouns in text type") + ylim(0, 25)
 ggplot(posprop,aes(x=formality_orig,y=VZ*100)) + geom_point() + labs(title="Prepositions", x="formality score", y = "% of prepositions in text type") + ylim(0, 25)
 ggplot(posprop,aes(x=formality_orig,y=WW*100)) + geom_point() + labs(title="Verbs", x="formality score", y = "% of verbs in text type") + ylim(0, 25)
-ggplot(posprop,aes(x=formality_orig,y=LET*100)) + geom_point() + labs(title="Interpunction", x="formality score", y = "% of interpunction in text type") + ylim(0, 25)
+ggplot(posprop,aes(x=formality_orig,y=LET*100)) + geom_point() + labs(title="Punctuation", x="formality score", y = "% of interpunction in text type") + ylim(0, 25)
 ggplot(posprop,aes(x=formality_orig,y=SPEC*100)) + geom_point() + labs(title="Special", x="formality score", y = "% of spec in text type") + ylim(0, 25)
 ggplot(posprop,aes(x=formality_orig,y=TW*100)) + geom_point() + labs(title="Numerals", x="formality score", y = "% of numerals in text type") + ylim(0, 25)
 ggplot(posprop,aes(x=formality_orig,y=VG*100)) + geom_point() + labs(title="Conjunctions", x="formality score", y = "% of conjunctions in text type") + ylim(0, 25)
@@ -59,7 +59,7 @@ barplotprop <- prop.table(as.matrix(barplotdata[,2:13]), margin = 1) * 100
 barplotprop <- barplotprop[,c(4,1,7,3,6,8,2,5,9,10,11,12)]
 
 
-for(i in 1:20){
+for(i in 1:23){
   mypath <- paste("G:/Mijn Drive/Studie informatiekunde/master/master project/paper/images/formplots_english_bw/",barplotdata$collection[i],".png",sep="")
   png(file=mypath)
   
@@ -86,6 +86,11 @@ coll_info$avg_text_length <- round(coll_info$total_words/coll_info$total_files)
 
 formalitydf <- data.frame(pos$collection)
 
+pos$possum1 = pos$ZNW + pos$ADJ + pos$VZ + pos$LID + pos$VNW + pos$WW + pos$BW + pos$TSW
+pos$formality_orig = ((pos$ZNW/pos$possum1)*100 + (pos$ADJ/pos$possum1)*100 + (pos$VZ/pos$possum1)*100 + (pos$LID/pos$possum1)*100 - (pos$VNW/pos$possum1)*100 - (pos$WW/pos$possum1)*100 - (pos$BW/pos$possum1)*100 - (pos$TSW/pos$possum1)*100 +100)/2
+
+
+
 calcform <- function(formal,informal,name){
   total_pos = rowSums(pos[, formal, drop=FALSE]) + rowSums(pos[, informal, drop=FALSE]) 
   formalitydf[name] <<- (
@@ -97,13 +102,15 @@ calcform <- function(formal,informal,name){
     +100)/2
 }
 
-calcform(c(2,4,5,8),c(3,6,7),"original") #original
-calcform(c(4,5,8),c(2,3,6,7),"renkema") #renkema: adjectives informal
+calcform(c(2,4,5,8),c(3,6,7,9),"original") #original
+calcform(c(4,5,8),c(2,3,6,7,9),"renkema") #renkema: adjectives informal
 formalitydf$renkemaplus10 <- formalitydf$renkema + 10 #to show that renkema does not change a lot in order from the original, 
 #but is just slightly lower because adjectives are now considered informal --> formality score drops
 calcform(c(2,4,5,8,11),c(3,6,7,9),"original but with special as formal") #original + special formal (less deixis)
 calcform(c(2,4,5,8),c(3,6,7,9,10),"original but with punctuation as informal") #original + punctuation informal
 calcform(c(2,4,5,8,11),c(3,6,7,9,10),"orig but with punctuation as informal AND special as formal") #original + punctuation informal + special formal (less deixis)
+
+
 calcform(c(4,5,8),c(7),"afterscatter") #after analyzing the scatter plots using the original formula
 
 
@@ -142,3 +149,11 @@ hist(resid(formality_sig2))
 calcform(c(2),c(3,6,7,9),"afterregression") #after regression analysis: LET AND SPEC NOT INCLUDED BECAUSE ESTIMATE WAS UNCLEAR
 
 #================================================================================================
+
+
+ggplot(data=posprop, aes(x=reorder(collection,formality_orig),y=formality_orig)) + 
+  geom_bar(position="dodge",stat="identity") + 
+  coord_flip(ylim = c(30,80)) + ggtitle("Formality scores for all text types") +
+  labs(x="Text type",y="F-score")
+
+
