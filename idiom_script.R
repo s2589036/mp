@@ -136,7 +136,7 @@ colnames(idioms) <- c("doc_id", "doc_name","left_context","idiom_found","right_c
 idioms$doc_type <- substr(idioms$doc_id,1,8)
 
 #add doc_type_name: doc_type with a meaningful name: e-newsletters (WR-P-P-E) and and 
-idioms$doc_type_name <- revalue(idioms$doc_type, c("WR-P-E-A"="discussion lists","WR-P-E-C"="e-magazines","WR-P-E-E"="E-newsletters","WR-P-E-F"="press releases","WR-P-E-G"="subtitles","WR-P-E-H"="teletext pages","WR-P-E-I"="web sites","WR-P-E-J"="wikipedia","WR-P-E-K"="blogs","WR-P-E-L"="tweets","WR-P-P-B"="books","WR-P-P-C"="brochures","WR-P-P-D"="newsletters","WR-P-P-E"="guides manuals","WR-P-P-F"="legal texts","WR-P-P-G"="newspapers","WR-P-P-H"="periodicals magazines","WR-P-P-I"="policy documents","WR-P-P-J"="proceedings","WR-P-P-K"="reports","WR-U-E-A"="chats","WR-U-E-D"="sms","WR-U-E-E"="written assignments","WS-U-E-A"="auto cues","WS-U-T-B"="texts for the visually impaired"))
+idioms$doc_type_name <- revalue(idioms$doc_type, c("WR-P-E-A"="discussion lists","WR-P-E-C"="e-magazines","WR-P-E-E"="E-newsletters","WR-P-E-F"="press releases","WR-P-E-G"="subtitles","WR-P-E-H"="teletext pages","WR-P-E-I"="websites","WR-P-E-J"="wikipedia","WR-P-E-K"="blogs","WR-P-E-L"="tweets","WR-P-P-B"="books","WR-P-P-C"="brochures","WR-P-P-D"="newsletters","WR-P-P-E"="guides manuals","WR-P-P-F"="legal texts","WR-P-P-G"="newspapers","WR-P-P-H"="periodicals magazines","WR-P-P-I"="policy documents","WR-P-P-J"="proceedings","WR-P-P-K"="reports","WR-U-E-A"="chats","WR-U-E-D"="sms","WR-U-E-E"="written assignments","WS-U-E-A"="auto cues","WS-U-T-B"="texts for the visually impaired"))
 
 #change order of columns
 #idioms <- idioms[,c(12,11,10,13,14,1,2,3,4,5,6,7,8,9)]
@@ -252,8 +252,6 @@ pos_heads_spacy_df <- ddply(idiomsub, "sentenceid", summarise,
 names(pos_heads_spacy_df)
 
 
-help(tapply)
-
 #================================================================================================================================================================
 #==================================================================================old===========================================================================
 #================================================================================================================================================================
@@ -268,8 +266,8 @@ colnames(counts_per_idiom_collection) <- c("idiom_id","collection","freq","lemma
 
 #========================================================================
 
-texttype <- c("auto cues","written assignments","policy documents","legal texts","books","subtitles","guides manuals","web sites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
-tokenfreq <- c(28087981,357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
+texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides manuals","websites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
+tokenfreq <- c(357947,8711551,10689681,26184781,28209846,236099,3111589,2218223,723876,11873434,1213382,675082,314025,332795,57070554,448865,8626248,211669748,23197211,93058924,23001184,139765,35446)
 freqdf <- data.frame(texttype,tokenfreq)
 tfreqdf <- t(freqdf)
 colnames(tfreqdf) <- texttype
@@ -382,11 +380,15 @@ correlations <- data.frame(cor(idiom_features[,3:36], method = c("pearson", "ken
 cor(idiom_features[,1:23],method=c("pearson"))
 
 
-m1 <- gam(fixedness ~ s(est) + ti(id), data=idiom_features, family=gaussian()) 
+m1 <- gam(fixedness ~ s(est.link) + ti(id), data=idiom_features, family=gaussian()) 
+m2 <- gam(newspapers ~ ti(id, LogFreq) + ti(id, est.link),data=idiom_features)
+m3 <- gam(newspapers ~ s(LogFreq) + s(id, est.link),data=idiom_features)
 
-m2 <- gam(fixedness ~ s(newspapers) + ti(id, LogFreq) + ti(id, est.link),data=idiom_features)
-anova(m1,m2)
 
+anova(m1,m2,m3)
+
+summary(m2)
+plot(m2)
 
 
 
@@ -420,8 +422,8 @@ heatmap.2(scaled_cross_table[51:75,])
 heatmap.2(scaled_cross_table[76:100,])
 heatmap.2(scaled_cross_table[101:125,])
 heatmap.2(scaled_cross_table[126:150,])
-heatmap.2(scaled_cross_table[151:175,])
-heatmap.2(scaled_cross_table[176:182,])
+heatmap.2(scaled_cross_table[151:178,])
+
 
 
 #=====================================================================================================================================================
@@ -477,13 +479,14 @@ fviz_dend(res.hc2, k = 3, # Cut in groups
 )
 
 #check correlation between ttr and F-score
-labels = c("blogs","books","brochures","discussion lists","e-magazines","guides manuals","legal texts","newsletters","newspapers","periodicals magazines","policy documents","press releases","proceedings","reports","subtitles","teletext","texts for the visually impaired","web sites","wikipedia","written assignments","tweets","chats","sms")
+labels = c('discussion lists', 'e-magazines', 'e-newsletters', 'press releases', 'subtitles', 'teletext pages', 'websites', 'wikipedia', 'blogs', 'books', 'brochures', 'newsletters', 'guides manuals', 'legal texts', 'newspapers', 'periodicals magazines', 'policy documents', 'proceedings', 'reports', 'written assignments','texts for the visually impaired','tweets','chats','sms')
 length(labels)
-f = c(66.95,62.76,70.90,50.02,53.94,66.18,77.05,63.87,62.56,63.61,63.12,73.15,66.61,66.11,40.52,58.31,58.32,73.18,70.46,64.34,54.36,47.78,43.48)
+f = c(50.01945724800984, 66.65475989056685, 73.02779864763335, 73.1523267854659, 40.52451228840621, 58.311562135295404, 73.18003543837753, 70.45651852836734, 66.94659427043234, 52.230419066220136, 70.9003326020955, 63.39527680991095, 66.1826968194983, 77.15642454427714, 62.55577194192853, 63.60886727578005, 63.11894123144769, 66.61448814509454, 66.98679742196146, 64.34370590192398, 58.321571417219445,54.36,47.78,43.48)
+
 
 fscores <- data.frame(labels,f)
 
-texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext","web sites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired","tweets","chats","sms")
+texttypes <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext pages","websites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired","tweets","chats","sms")
 length(texttypes)
 
 ttr_lemmafreqlist <- c(0.013303222135847852,0.026542478259377656,0.3813249869587898,0.057401703751558765,0.009689241125244002,0.055542312276519665,0.024249025176525562,0.03766366983543108,0.11896397524415984,0.010572668146432082,0.04049095832969337,0.11157505443049301,0.03752663077776695,0.014107998171320548,0.010236219490373278,0.01398963091384981,0.010867410407170893,0.04554732903431256,0.024833391412856145,0.01861169390999226,0.046154393095949826,0.04369887397239263,0.018766516914988537,0.04383623714558847)
@@ -517,7 +520,6 @@ ttrfabsFreq$logidiomfreq <- log(ttrfabsFreq$V1)
 
 dev.off()
 i=0
-i=i+1
 
 ggscatter(ttrfabsFreq, x = "V1", y = "f", 
           add = "reg.line", conf.int = TRUE, 
@@ -582,7 +584,7 @@ ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c
 ggscatter(ttrfabsFreq, x = "logidiomfreq", y = "ttr_wordfreqlist", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+          title= "Correlation between log Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
@@ -599,14 +601,21 @@ library(ggplot2)
 install.packages("randomcoloR")
 library(randomcoloR)
 
+My_Theme = theme(
+  axis.title.x = element_text(size = 16),
+  axis.text.x = element_text(size = 18),
+  axis.title.y = element_text(size = 16))
 
 ggplot(counts_per_idiom_collection,
        aes(y=freq, x=collection)) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection")
 
-ggplot(total_nr_idioms_prop, 
-       aes(y=propfreq, x=texttype)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection per 100 million words")
+
+total_nr_idioms_prop_f <- merge(total_nr_idioms_prop,fscores,by.x="texttype",by.y="labels")
+
+ggplot(total_nr_idioms_prop_f, 
+       aes(y=propfreq, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection per 100 million words") + labs(fill="f-score") + My_Theme
 
 library(randomcoloR)
 mycolors <- distinctColorPalette(26)
