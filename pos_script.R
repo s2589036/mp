@@ -2,9 +2,6 @@ pos=read.csv("G:\\Mijn Drive\\Studie informatiekunde\\master\\master project\\pr
 
 posprop <- as.data.frame(prop.table(as.matrix.data.frame(pos[-1]),1))
 
-pos$possum1 = pos$ZNW + pos$ADJ + pos$VZ + pos$LID + pos$VNW + pos$WW + pos$BW + pos$TSW
-pos$formality_orig = ((pos$ZNW/pos$possum1)*100 + (pos$ADJ/pos$possum1)*100 + (pos$VZ/pos$possum1)*100 + (pos$LID/pos$possum1)*100 - (pos$VNW/pos$possum1)*100 - (pos$WW/pos$possum1)*100 - (pos$BW/pos$possum1)*100 - (pos$TSW/pos$possum1)*100 +100)/2
-
 posprop$possum1 <- pos$possum1
 posprop$formality_orig <- pos$formality_orig
 posprop$collection <- pos$X
@@ -71,11 +68,11 @@ for(i in 1:23){
   dev.off()
 }
 
-colnames <- c("adj","adv","det","noun","interj","pron","prep","verb","names","num","conj") #punctuation not taken into account
-total_words <- rowSums(pos[,colnames]) #all pos-tags summed (empty pos tags not taken into account because those were not words)
-total_files <- c(708600,702091,7860,778,507,86,18699,12,9,176043,216,1053,18,81,8368,93,944,956,124124,188) #info from sonar documentation (folia files)
-coll_info <- data.frame(pos$collection,total_words,total_files)
-coll_info$avg_text_length <- round(coll_info$total_words/coll_info$total_files)
+#colnames <- c("adj","adv","det","noun","interj","pron","prep","verb","names","num","conj") #punctuation not taken into account
+#total_words <- rowSums(pos[,colnames]) #all pos-tags summed (empty pos tags not taken into account because those were not words)
+#total_files <- c(708600,702091,7860,778,507,86,18699,12,9,176043,216,1053,18,81,8368,93,944,956,124124,188) #info from sonar documentation (folia files)
+#coll_info <- data.frame(pos$collection,total_words,total_files)
+#coll_info$avg_text_length <- round(coll_info$total_words/coll_info$total_files)
 
 
 #--------------------------------------------CALCULATE CUSTOM FORMALITY SCORES -----------------------------------------------------#
@@ -87,7 +84,7 @@ coll_info$avg_text_length <- round(coll_info$total_words/coll_info$total_files)
 formalitydf <- data.frame(pos$collection)
 
 pos$possum1 = pos$ZNW + pos$ADJ + pos$VZ + pos$LID + pos$VNW + pos$WW + pos$BW + pos$TSW
-pos$formality_orig = ((pos$ZNW/pos$possum1)*100 + (pos$ADJ/pos$possum1)*100 + (pos$VZ/pos$possum1)*100 + (pos$LID/pos$possum1)*100 - (pos$VNW/pos$possum1)*100 - (pos$WW/pos$possum1)*100 - (pos$BW/pos$possum1)*100 - (pos$TSW/pos$possum1)*100 +100)/2
+
 
 
 
@@ -155,5 +152,3 @@ ggplot(data=posprop, aes(x=reorder(collection,formality_orig),y=formality_orig))
   geom_bar(position="dodge",stat="identity") + 
   coord_flip(ylim = c(30,80)) + ggtitle("Formality scores for all text types") +
   labs(x="Text type",y="F-score")
-
-
