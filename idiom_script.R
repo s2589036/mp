@@ -353,6 +353,34 @@ textfeats$propfreq <- c() #THIS WAS INCORRECT
 #PLOTS FOR PAPER/PRESENTATION
 #=========================================================================================================================================
 
+ggplot(data=textfeats, aes(x=reorder(texttype,f),y=f,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  geom_bar(position="dodge",stat="identity") + 
+  ggtitle("Formality scores for all text types") +
+  labs(x="Text type",y="F-score", fill="F-score") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
+
+ggplot(textfeats[textfeats$texttype!="written assignments",], 
+       aes(y=newprop, x=reorder(texttype, newprop))) + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+
+
+ggplot(textfeats[textfeats$texttype!="written assignments",], 
+       aes(y=newprop, x=reorder(texttype, f), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="TTR") +
+      theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+
+ggplot(textfeats[textfeats$texttype!="written assignments",], 
+       aes(y=newprop, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="F-score") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+
+ggplot(textfeats[textfeats$texttype!="written assignments",], 
+       aes(y=newprop, x=reorder(texttype, f), fill=tokenfreq)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="Collection Size") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+
+ggplot(textfeats, 
+       aes(y=V1, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Absolute freq.", fill="F-score") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection") + My_Theme
+
+
 library("ggpubr")
 i=0
 
@@ -447,8 +475,6 @@ ggscatter(textfeats, x = "V1", y = "tokenfreq",
           title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
 
 
-
-
 #======================================================
 
 library(ggplot2)
@@ -479,8 +505,15 @@ ggplot(textfeats[textfeats$texttype!="written assignments",],
 
 
 ggplot(textfeats[textfeats$texttype!="written assignments",], 
+       aes(y=newprop, x=reorder(texttype, f), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="ttr") + My_Theme
+
+ggplot(textfeats[textfeats$texttype!="written assignments",], 
        aes(y=newprop, x=reorder(texttype, ttr_wordfreqlist), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="ttr") + My_Theme
+
+
+
 
 #=========================================================================================================================================
 #GRAPHS FOR MYSELF
