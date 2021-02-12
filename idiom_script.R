@@ -4,15 +4,31 @@
 
 
 dev.off()
+#install.packages("spacyr", INSTALL_opts = '--no-lock')
+#install.packages("mgcv")
+#install.packages("itsadug")
+#install.packages("randomcoloR")
+#install.packages("factoextra")
 library(plyr)
 library(stringr)
 library(qdap)
-
-#install.packages("spacyr", INSTALL_opts = '--no-lock')
 library(spacyr)
+library(mgcv)
+library(itsadug)
+library(ggplot2)
+library(randomcoloR)
+library(ggpubr)
+library(tidyr)
+library(factoextra)
+library(dplyr)
+
 
 setwd("G:/Mijn Drive/Studie informatiekunde/master/master project/project")
 
+My_Theme = theme(
+  axis.title.x = element_text(size = 16),
+  axis.text.x = element_text(size = 16),
+  axis.title.y = element_text(size = 16))
 #=========================================================================================================================================
 #=========================================================================================================================================
 #=========================================================================================================================================
@@ -189,12 +205,9 @@ id_most_common <- unique(data.frame(idioms$idiom_id,idioms$most_common_lemma))
 
 counts_per_collection <- ddply(idioms, .(doc_type_name), nrow)
 counts_per_idiom <- ddply(idioms, .(idiom_id), nrow)
-counts_per_idiom_collection <- ddply(idioms, .(idiom_id, doc_type_name), nrow)
-counts_per_idiom_collection <- merge(counts_per_idiom_collection,id_most_common,by.x="idiom_id",by.y="idioms.idiom_id")
-colnames(counts_per_idiom_collection) <- c("idiom_id","collection","freq","lemma")
 
 #=====================================================================================================================================
-#=============================================================ADD TEXT LENGTHS========================================================
+#=============================================================ADD COLLECTION SIZES====================================================
 #=====================================================================================================================================
 
 texttype <- c("written assignments","policy documents","legal texts","books","subtitles","guides manuals","websites","reports","sms","chats","brochures","texts for the visually impaired","proceedings","press releases","discussion lists","teletext pages","e-magazines","newspapers","tweets","periodicals magazines","wikipedia","blogs","newsletters")
@@ -204,45 +217,50 @@ tfreqdf <- t(freqdf)
 colnames(tfreqdf) <- texttype
 
 #=====================================================================================================================================
+#=============================================================ADD AVG DOC LENGTHS ====================================================
+#=====================================================================================================================================
+avg_doc_length <- read.csv("results/avg_doc_length_new_media_correct.csv",header=TRUE,sep=";")
+
+#=====================================================================================================================================
 #==============================================================MAKE CROSS TABLES======================================================
 #====================================SOMETHING WENT WRONG WITH PROP IDIOM FREQS HERE, USE THE NEW ONES!===============================
 #=====================================================================================================================================
 
-#make cross table
-cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
-
-#add sums and write to file
-cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
-
-write.csv(cross_table_print,"results\\cross_table.csv")
-
-#add sizes of collections in order to calculate relative idiom frequencies 
-tcross_table <- as.data.frame(t(cross_table))
-tcross_table$texttype <- row.names(tcross_table)
-
-sort(tcross_table$texttype)
-sort(freqdf$texttype)
-
-prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
-#tcross_table <- tcross_table[-179]
-
-sort(prop_cross$texttype)
-
-#tpropcross: calculate relative idiom frequencies (per million words)
-#prop_cross_million <- (prop_cross[2:179]/prop_cross$tokenfreq)*100000000
-
-#tpropcross: calculate relative idiom frequencies (per 100 million words)
-prop_cross[2:179] <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
-str(prop_cross)
-
-tprop_cross <- t(prop_cross)
-
-colnames(tprop_cross) <- tprop_cross[1,]
-tprop_cross <- tprop_cross[-1,]
-
-tprop_cross[, c(1:23)] <- sapply(tprop_cross[, c(1:23)], as.numeric)
-
-write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
+# #make cross table
+# cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
+# 
+# #add sums and write to file
+# cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
+# 
+# write.csv(cross_table_print,"results\\cross_table.csv")
+# 
+# #add sizes of collections in order to calculate relative idiom frequencies 
+# tcross_table <- as.data.frame(t(cross_table))
+# tcross_table$texttype <- row.names(tcross_table)
+# 
+# sort(tcross_table$texttype)
+# sort(freqdf$texttype)
+# 
+# prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
+# #tcross_table <- tcross_table[-179]
+# 
+# sort(prop_cross$texttype)
+# 
+# #tpropcross: calculate relative idiom frequencies (per million words)
+# #prop_cross_million <- (prop_cross[2:179]/prop_cross$tokenfreq)*100000000
+# 
+# #tpropcross: calculate relative idiom frequencies (per 100 million words)
+# prop_cross[2:179] <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
+# str(prop_cross)
+# 
+# tprop_cross <- t(prop_cross)
+# 
+# colnames(tprop_cross) <- tprop_cross[1,]
+# tprop_cross <- tprop_cross[-1,]
+# 
+# tprop_cross[, c(1:23)] <- sapply(tprop_cross[, c(1:23)], as.numeric)
+# 
+# write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
 
 #=====================================================================================================================================
 #==============================================================ADD IDIOM FEATURES=====================================================
@@ -258,7 +276,6 @@ idiom_features <- merge(most_common, fixedness, by.x="idiom_id" ,by.y="V1")
 idiom_features$V2 <- c()
 idiom_features$V3 <- c()
 colnames(idiom_features) <- c("id","idiom","fixedness")
-str(tprop_cross)
 
 
 #idiom_features <- merge(idiom_features,tprop_cross,by.x="idiom",by.y=0)
@@ -281,40 +298,14 @@ qqnorm(idiom_features$est.link)
 qqline(idiom_features$est.link)
 
 
-str(idiom_features)
+#most_common_pos_head <- ddply(idioms, "idiom_id", summarise,
+#                              most_common_pos_head=paste(mostfreq(pos_head)))
 
-most_common_pos_head <- ddply(idioms, "idiom_id", summarise,
-                              most_common_pos_head=paste(mostfreq(pos_head)))
+#idiom_features <- merge(idiom_features,most_common_pos_head,by.x="id",by.y="idiom_id")
+#idiom_features$idiom_length <- sapply(strsplit(idiom_features$idiom, " "), length)
 
-
-idiom_features <- merge(idiom_features,most_common_pos_head,by.x="id",by.y="idiom_id")
-
-library(mgcv)
-
-#=====================================================================================================================================
-#======================================================FIND CORRELATIONS (ADD PCA HERE)===============================================
-#=====================================================================================================================================
-
-correlations <- data.frame(cor(idiom_features[,3:12], method = c("pearson", "kendall", "spearman")))
-
-#=====================================================================================================================================
-#==========================================================MAKE STATISTICAL MODELS====================================================
-#=====================================================================================================================================
-
-m1 <- gam(fixedness ~ s(est.link) + ti(id), data=idiom_features, family=gaussian()) 
-#m2 <- ...
-#anova(m1,m2)
-
-summary(m1)
-plot(m1)
-summary(m1)
-
-#=========================================================================================================================================
-#=========================================================================================================================================
 #=========================================================================================================================================
 #===============================================================TEXT TYPE ANALYSIS========================================================
-#=========================================================================================================================================
-#=========================================================================================================================================
 #=========================================================================================================================================
 
 texttype <- c("discussion lists","e-magazines","e-newsletters","press releases","subtitles","teletext pages","websites","wikipedia","blogs","books","brochures","newsletters","guides manuals","legal texts","newspapers","periodicals magazines","policy documents","proceedings","reports","written assignments","texts for the visually impaired","tweets","chats","sms")
@@ -324,70 +315,149 @@ ttr_lemmaposfreqlist <- c(0.017683684714840903,0.03366492593303601,0.42618675013
 ttr_wordfreqlist <- c(0.01503489926570883,0.03065284002963977,0.4298382889932186,0.07136525488664193,0.011863730131671048,0.07209071769908547,0.029865126788917173,0.03938271177692418,0.1471183772761421,0.01305071063989422,0.052791289140600405,0.1453666974857586,0.050038331377938915,0.016012825827075663,0.010854456159696471,0.01553254580936268,0.013587477132372868,0.060657590956134065,0.03182322065905908,0.024573470374105663,0.062094678868641145,0.04710152440308449,0.021423962098917636,0.053956755024341184)
 
 textfeats <- data.frame(texttype,f,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wordfreqlist)
-#textfeats <- merge(total_nr_idioms_prop,textfeats,by.x="texttype",by.y="texttype") 
-textfeats <- merge(counts_per_collection,textfeats,by.x="doc_type_name",by.y="texttype") 
-textfeats <- merge(freqdf,textfeats,by.x="texttype",by.y="doc_type_name") 
-textfeats$newprop <-  round((textfeats$V1/textfeats$tokenfreq)*100000000,0)
 
-plot(textfeats$f,textfeats$ttr_lemmafreqlist)
-plot(textfeats$f,textfeats$ttr_lemmaposfreqlist)
-plot(textfeats$f,textfeats$ttr_wordfreqlist)
 
-hist(textfeats$ttr_wordfreqlist)
-qqnorm(textfeats$ttr_wordfreqlist)
-qqline(textfeats$ttr_wordfreqlist)
+#=====================================================================================================================================
+#====================================================== NEW: CALCULATE PROPFREQIDIOMS ================================================
+#=====================================================================================================================================
 
-ggplot(data=textfeats, aes(x=reorder(texttype,f),y=ttr_wordfreqlist)) + 
+gooddata = ddply(idioms,.(idiom_id,doc_type_name),nrow)
+gooddata = merge(id_most_common,gooddata,by.x="idioms.idiom_id",by.y="idiom_id")
+colnames(gooddata)<-c("idiom_id","most_common_lemma","texttype","absfreq")
+gooddata = merge(gooddata,freqdf,by.x="texttype",by.y="texttype")
+names(gooddata)[names(gooddata) == 'tokenfreq'] <- 'collsize'
+gooddata$relfreq = (gooddata$absfreq/gooddata$collsize)*100000000
+
+gooddata<-merge(gooddata,sprenger_feat[,c("ID","est")],by.x="idiom_id",by.y="ID")
+gooddata<-merge(gooddata,textfeats[,c("texttype","f","ttr_wordfreqlist")],by.x="texttype",by.y="texttype")
+gooddata<-merge(gooddata,idiom_features[,c("id","fixedness")],by.x="idiom_id",by.y="id")
+gooddata<-merge(gooddata,avg_doc_length[,c("doc_type_name","meanlength")],by.x="texttype",by.y="doc_type_name")
+
+names(gooddata)[names(gooddata) == 'ttr_wordfreqlist'] <- 'ttr'
+
+ggplot(data=gooddata, aes(x=reorder(texttype,f),y=ttr, fill=f)) + 
   geom_bar(position="dodge",stat="identity") + 
-  coord_flip() + ggtitle("Type-token ratio for all text types") +
-  labs(x="Text type",y="Type-token ratio")
+  ggtitle("Type-token ratio for all text types") +
+  labs(x="Text type",y="Type-token ratio") + My_Theme +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) )
 
-hist(textfeats$V1)
-hist(textfeats$tokenfreq)
+#=========================================================================================================================================
+# MAKE TEXTFEATS DF
+#=========================================================================================================================================
 
+textfeats <- merge(textfeats,counts_per_collection,by.x="texttype",by.y="doc_type_name",all.x=TRUE)
+textfeats <- merge(textfeats,avg_doc_length,by.x="texttype",by.y="doc_type_name")
+textfeats$relfreq = (textfeats$V1/textfeats$collsize)*100000000
 textfeats$logabsfreq <- log(textfeats$V1)
-textfeats$logrelfreq <- log(textfeats$newprop)
-textfeats$propfreq <- c() #THIS WAS INCORRECT
+textfeats$tokenfreq <- textfeats$amountofword
+
+names(textfeats)[names(textfeats) == 'amountofwords'] <- 'collsize'
+
+#=========================================================================================================================================
+# PCA ATTEMPT
+#=========================================================================================================================================
+
+
+alldata.pca <- prcomp(alldata[,c(3:15,18:27,29,31)], center = TRUE,scale. = TRUE)
+alldata.pca2 <- princomp(alldata[,c(3:15,18:27,29,31)], cor = TRUE,scores = TRUE)
+
+summary(alldata.pca)
+fviz_eig(alldata.pca,label=TRUE)
+
+
+
+#=====================================================================================================================================
+#=========================================================== CLUSTER TEXT TYPES ======================================================
+#=====================================================================================================================================
+
+#TODO: ADD ALL FEATURES AGAIN
+
+fviz_nbclust(textfeats[,2:12], kmeans, method = "gap_stat")
+
+set.seed(123)
+km.res <- kmeans(textfeats[,2:12], 8, nstart = 100)
+# Visualize
+
+fviz_cluster(km.res, data = textfeats[,2:12],
+             ellipse.type = "convex",
+             palette = "jco",
+             ggtheme = theme_minimal())
+
+# Compute hierarchical clustering
+res.hc <- textfeats[,2:12] %>%
+  scale() %>%                    # Scale the data
+  dist(method = "euclidean") %>% # Compute dissimilarity matrix
+  hclust(method = "ward.D2")     # Compute hierachical clustering
+
+res.hc$labels <- textfeats$texttype
+
+# Visualize using factoextra
+# Cut in 4 groups and color by groups
+fviz_dend(res.hc, k = 8, # Cut in 8 groups (optimal # of clusters)
+          cex = 0.9, # label size
+          #k_colors = rainbow(11),
+          color_labels_by_k = TRUE # color labels by groups
+          #rect = TRUE, # Add rectangle around groups
+)
+
+#=====================================================================================================================================
+#=======================================================MAKE NEW STATISTICAL MODELS====================================================
+#=====================================================================================================================================
+
+gooddata$idiom_id <- as.factor(gooddata$idiom_id)
+gooddata$idiom <- as.factor(gooddata$most_common_lemma)
+gooddata$texttype <- as.factor(gooddata$texttype)
+
+qqnorm(gooddata$absfreq)
+
+gooddata$logfreq <- log(gooddata$relfreq)
+qqnorm(gooddata$logfreq)
+qqline(gooddata$logfreq)
+
+m0 <- bam(logfreq ~ s(f) + s(fixedness) + s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+
+plot(m0,scale=0)
+summary(m0)
+fvisgam(m0,view=c("f","est"),dec=1)
+plot_smooth(m0,view="f",cond=list(est=4))
+plot_smooth(m0,view="f",cond=list(est=2.5),add=TRUE,col=2)
+
+pvisgam(m0,select=4,view=c("f","est"),dec=1,too.far = 0.03)
+plot(m0,scale=0,select=4)
+summary(m0)
+
+gam.check(m0)
+
+m1 <- bam(logfreq ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m2 <- bam(logfreq ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m3 <- bam(logfreq ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=gooddata)
+m4 <- bam(logfreq ~ s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m5 <- bam(logfreq ~ s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m6 <- bam(logfreq ~ s(est) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m7 <- bam(logfreq ~ s(f) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m8 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+#m9 <- bam(logfreq ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
+m10 <- bam(logfreq ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+
+
+plot_smooth(m7, view="f")
+gam.check(m7)
+plot(resid(m7))
+hist(resid(m7))
+
+mean(gooddata[gooddata$f > 77 & gooddata$f < 78,]$relfreq,na.rm=TRUE)
+
+AIC(m0,m1,m2,m3,m4,m5,m6,m7,m8,m10)
 
 #=========================================================================================================================================
 #PLOTS FOR PAPER/PRESENTATION
 #=========================================================================================================================================
-
-ggplot(data=textfeats, aes(x=reorder(texttype,f),y=f,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  geom_bar(position="dodge",stat="identity") + 
-  ggtitle("Formality scores for all text types") +
-  labs(x="Text type",y="F-score", fill="F-score") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
-
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, newprop))) + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
-
-
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, f), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="TTR") +
-      theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
-
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="F-score") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
-
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, f), fill=tokenfreq)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="Collection Size") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
-
-ggplot(textfeats, 
-       aes(y=V1, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Absolute freq.", fill="F-score") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection") + My_Theme
-
-
-library("ggpubr")
 i=0
 
 ggscatter(textfeats, x = "V1", y = "f", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Formality Score \n(Pearson)", xlab = "Idiom Freq", ylab = "Formality Score")
+          title= "Correlation between Idiom Freq. and Formality Score \n(Pearson)", xlab = "Idiom Frequency", ylab = "Formality Score")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
@@ -395,7 +465,7 @@ ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c
 ggscatter(textfeats, x = "V1", y = "tokenfreq", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size \n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+          title= "Correlation between Idiom Freq. and Collection Size \n(Pearson)", xlab = "Idiom Frequency", ylab = "Collection Size")
 
 
 i=i+1
@@ -404,7 +474,7 @@ ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c
 ggscatter(textfeats, x = "V1", y = "ttr_wordfreqlist", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+          title= "Correlation between Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Frequency", ylab = "Type-token Ratio")
 
 
 i=i+1
@@ -418,10 +488,11 @@ ggscatter(textfeats, x = "f", y = "ttr_wordfreqlist",
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
 
+
 ggscatter(textfeats, x = "logabsfreq", y = "f", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between log Idiom Freq. and Formality Score \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Formality Score")
+          title= "Correlation between log Idiom Freq. and Formality Score \n(Pearson)", xlab = "Log Idiom Frequency", ylab = "Formality Score")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
@@ -429,17 +500,17 @@ ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c
 ggscatter(textfeats, x = "logabsfreq", y = "tokenfreq", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between log Idiom Freq. and Collection Size \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Collection Size")
+          title= "Correlation between log Idiom Freq. and Collection Size \n(Pearson)", xlab = "Log Idiom Frequency", ylab = "Collection Size")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
 
-textfeats$logtokenfreq <- log(textfeats$tokenfreq)
+textfeats$logcollsize <- log(textfeats$collsize)
 
-ggscatter(textfeats, x = "logabsfreq", y = "logtokenfreq", 
+ggscatter(textfeats, x = "logabsfreq", y = "logcollsize", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between log Idiom Freq. and log Collection Size \n(Pearson)", xlab = "Log Idiom Freq", ylab = "Log Collection Size")
+          title= "Correlation between log Idiom Freq. and log Collection Size \n(Pearson)", xlab = "Log Idiom Frequency", ylab = "Log Collection Size")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
@@ -447,7 +518,7 @@ ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c
 ggscatter(textfeats, x = "logabsfreq", y = "ttr_wordfreqlist", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between log Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Freq", ylab = "Type-token Ratio")
+          title= "Correlation between log Idiom Freq. and Type-token Ratio (word level) \n(Pearson)", xlab = "Idiom Frequency", ylab = "Type-token Ratio")
 
 i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
@@ -458,106 +529,87 @@ i=i+1
 ggsave(paste("results/correlations/",i,".png",sep=""),width=30,height=15,units=c("cm"))
 
 
-ggscatter(textfeats, x = "V1", y = "tokenfreq", 
+ggscatter(textfeats, x = "V1", y = "collsize", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Frequency", ylab = "Collection Size")
 
-ggscatter(textfeats[textfeats$texttype!="newspapers",], x = "V1", y = "tokenfreq", 
+ggscatter(textfeats[textfeats$texttype!="newspapers",], x = "V1", y = "collsize", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size\n (Pearson) -- Newspapers excluded", xlab = "Idiom Freq", ylab = "Collection Size")
+          title= "Correlation between Idiom Freq. and Collection Size\n (Pearson) -- Newspapers excluded", xlab = "Idiom Frequency", ylab = "Collection Size")
 
 
-ggscatter(textfeats, x = "V1", y = "tokenfreq", 
+ggscatter(textfeats, x = "V1", y = "collsize", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Freq", ylab = "Collection Size")
+          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Frequency", ylab = "Collection Size")
 
 
 #======================================================
 
-library(ggplot2)
-#install.packages("randomcoloR")
-library(randomcoloR)
+ggplot(data=textfeats, aes(x=reorder(texttype,f),y=f,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  geom_bar(position="dodge",stat="identity") + 
+  ggtitle("Formality scores for all text types") +
+  labs(x="Text type",y="F-score", fill="F-score") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
 
-My_Theme = theme(
-  axis.title.x = element_text(size = 16),
-  axis.text.x = element_text(size = 16),
-  axis.title.y = element_text(size = 16))
+ggplot(data=textfeats, aes(x=reorder(texttype,f),y=ttr_wordfreqlist,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  geom_bar(position="dodge",stat="identity") + 
+  ggtitle("Type-token ratios for all text types") +
+  labs(x="Text type",y="TTR", fill="F-score") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
 
 ggplot(textfeats,
-       aes(y=V1, x=texttype)) + geom_bar(stat="identity", width=0.7) + 
+       aes(y=log(meanlength), x=reorder(texttype, f),fill=f)) + geom_bar(stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Normalized average text size of each collection") + My_Theme
+
+ggplot(idiom_features[idiom_features$fixedness<1.60,],
+       aes(y=fixedness, x=reorder(idiom,fixedness))) + geom_bar(stat="identity", width=0.7) + 
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Lexical Fixedness") + 
+  coord_cartesian(ylim=c(-1.1,3.1)) + My_Theme
+
+ggplot(idiom_features[idiom_features$fixedness>1.60,],
+       aes(y=fixedness, x=reorder(idiom,fixedness))) + geom_bar(stat="identity", width=0.7) + 
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Lexical Fixedness") + 
+  coord_cartesian(ylim=c(-1.1,3.1)) 
+
+#==================================
+
+ggplot(gooddata,
+       aes(y=absfreq, x=reorder(texttype, f))) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection") + My_Theme
 
-ggplot(textfeats,
-       aes(y=newprop, x=texttype)) + geom_bar(stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=absfreq, x=reorder(texttype, f))) + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Absolute freq.") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
 
-ggplot(textfeats[textfeats$texttype!="written assignments",],
-       aes(y=newprop, x=texttype)) + geom_bar(stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, f), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="TTR") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
 
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="F-score") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
 
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="f-score") + My_Theme
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, relfreq,FUN = sum))) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="F-score") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
 
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, f))) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
 
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, f), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
+
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=relfreq, x=reorder(texttype, f), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="ttr") + My_Theme
 
-ggplot(textfeats[textfeats$texttype!="written assignments",], 
-       aes(y=newprop, x=reorder(texttype, ttr_wordfreqlist), fill=ttr_wordfreqlist)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="ttr") + My_Theme
-
-
-
-
-#=========================================================================================================================================
-#GRAPHS FOR MYSELF
-#CHECK THE PROPORTIONAL THINGS, CAN I DO THAT DIFFERENTLY NOW, THIS IS BASED ON THE INCORRECT FIRST VALUES
-#=========================================================================================================================================
-
-library(randomcoloR)
-mycolors <- distinctColorPalette(26)
-buildgraph <- function(begin,end){
-ggplot(counts_per_idiom_collection[counts_per_idiom_collection$idiom_id>=begin & counts_per_idiom_collection$idiom_id<=end,], 
-       aes(fill=collection, y=freq, x=lemma)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle(paste("Idiom frequencies", begin,"-",end,sep=" "))+
-  theme(legend.position="right") + guides(fill=guide_legend(ncol=2, bycol=TRUE)) + scale_fill_manual(values=mycolors) + My_Theme
-}
-
-buildgraph(1,50)
-ggsave("results/idiom_freq_plots_per_collection/absolute_1-50.png",width=30,height=15,units=c("cm"))
-buildgraph(51,100)
-ggsave("results/idiom_freq_plots_per_collection/absolute_51-100.png",width=30,height=15,units=c("cm"))
-buildgraph(101,150)
-ggsave("results/idiom_freq_plots_per_collection/absolute_101-150.png",width=30,height=15,units=c("cm"))
-buildgraph(151,185)
-ggsave("results/idiom_freq_plots_per_collection/absolute_151-185.png",width=30,height=15,units=c("cm"))
-
-
-
-library(tidyr)
-propfreqidioms <- pivot_longer(prop_cross[1:179], cols=2:179, names_to = "idiom", values_to = "freq")
-
-propfreqidioms <- merge(propfreqidioms,most_common,by.x="idiom",by.y="most_common_lemma")
-
-buildgraphprop <- function(begin,end){
-  ggplot(propfreqidioms[propfreqidioms$idiom_id>begin & propfreqidioms$idiom_id<=end,], aes(fill=texttype, y=freq, x=idiom)) + geom_bar(position="stack", stat="identity", width=0.7) + 
-    theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + 
-    ggtitle(paste("Relative idiom frequencies", begin + 1,"to",end,sep=" ")) + scale_fill_manual(values=mycolors)
-  }
-
-buildgraphprop(0,50)
-ggsave("results/idiom_freq_plots_per_collection/relative_1-50.png",width=30,height=15,units=c("cm"))
-buildgraphprop(51,100)
-ggsave("results/idiom_freq_plots_per_collection/relative_51-100.png",width=30,height=15,units=c("cm"))
-buildgraphprop(101,150)
-ggsave("results/idiom_freq_plots_per_collection/relative_101-150.png",width=30,height=15,units=c("cm"))
-buildgraphprop(151,185)
-ggsave("results/idiom_freq_plots_per_collection/relative_151-185.png",width=30,height=15,units=c("cm"))
+ggplot(gooddata[gooddata$texttype!="written assignments",], 
+       aes(y=log(relfreq), x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Normalized relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
 
 
