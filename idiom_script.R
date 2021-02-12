@@ -226,9 +226,9 @@ avg_doc_length <- read.csv("results/avg_doc_length_new_media_correct.csv",header
 #====================================SOMETHING WENT WRONG WITH PROP IDIOM FREQS HERE, USE THE NEW ONES!===============================
 #=====================================================================================================================================
 
-# #make cross table
-# cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
-# 
+#make cross table
+#cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
+
 # #add sums and write to file
 # cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
 # 
@@ -261,6 +261,7 @@ avg_doc_length <- read.csv("results/avg_doc_length_new_media_correct.csv",header
 # tprop_cross[, c(1:23)] <- sapply(tprop_cross[, c(1:23)], as.numeric)
 # 
 # write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
+
 
 #=====================================================================================================================================
 #==============================================================ADD IDIOM FEATURES=====================================================
@@ -318,7 +319,27 @@ textfeats <- data.frame(texttype,f,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wo
 
 
 #=====================================================================================================================================
-#====================================================== NEW: CALCULATE PROPFREQIDIOMS ================================================
+#============================================= NEW: CALCULATE PROPFREQIDIOMS (with zeros) =========================================
+#=====================================================================================================================================
+
+cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
+cross_table$idiom = row.names(cross_table)
+withzeros <- pivot_longer(cross_table[1:24], cols=1:23, names_to = "texttype", values_to = "freq")
+withzeros <- merge(withzeros,most_common,by.x="idiom",by.y="most_common_lemma")
+
+withzeros = merge(withzeros,freqdf,by.x="texttype",by.y="texttype")
+names(withzeros)[names(withzeros) == 'tokenfreq'] <- 'collsize'
+withzeros$relfreq = (withzeros$freq/withzeros$collsize)*100000000
+
+withzeros<-merge(withzeros,sprenger_feat[,c("ID","est")],by.x="idiom_id",by.y="ID")
+withzeros<-merge(withzeros,textfeats[,c("texttype","f","ttr_wordfreqlist")],by.x="texttype",by.y="texttype")
+withzeros<-merge(withzeros,idiom_features[,c("id","fixedness")],by.x="idiom_id",by.y="id")
+withzeros<-merge(withzeros,avg_doc_length[,c("doc_type_name","meanlength")],by.x="texttype",by.y="doc_type_name")
+
+names(withzeros)[names(withzeros) == 'ttr_wordfreqlist'] <- 'ttr'
+
+#=====================================================================================================================================
+#============================================= NEW: CALCULATE PROPFREQIDIOMS (without zeros) =========================================
 #=====================================================================================================================================
 
 gooddata = ddply(idioms,.(idiom_id,doc_type_name),nrow)
@@ -334,12 +355,6 @@ gooddata<-merge(gooddata,idiom_features[,c("id","fixedness")],by.x="idiom_id",by
 gooddata<-merge(gooddata,avg_doc_length[,c("doc_type_name","meanlength")],by.x="texttype",by.y="doc_type_name")
 
 names(gooddata)[names(gooddata) == 'ttr_wordfreqlist'] <- 'ttr'
-
-ggplot(data=gooddata, aes(x=reorder(texttype,f),y=ttr, fill=f)) + 
-  geom_bar(position="dodge",stat="identity") + 
-  ggtitle("Type-token ratio for all text types") +
-  labs(x="Text type",y="Type-token ratio") + My_Theme +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) )
 
 #=========================================================================================================================================
 # MAKE TEXTFEATS DF
@@ -553,6 +568,12 @@ ggplot(data=textfeats, aes(x=reorder(texttype,f),y=f,fill=f)) + scale_color_grad
   ggtitle("Formality scores for all text types") +
   labs(x="Text type",y="F-score", fill="F-score") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
+
+ggplot(data=gooddata, aes(x=reorder(texttype,f),y=ttr, fill=f)) + 
+  geom_bar(position="dodge",stat="identity") + 
+  ggtitle("Type-token ratio for all text types") +
+  labs(x="Text type",y="Type-token ratio") + My_Theme +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) )
 
 ggplot(data=textfeats, aes(x=reorder(texttype,f),y=ttr_wordfreqlist,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
   geom_bar(position="dodge",stat="identity") + 
