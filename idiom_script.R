@@ -345,6 +345,7 @@ names(withzeros)[names(withzeros) == 'ttr_wordfreqlist'] <- 'ttr'
 gooddata = ddply(idioms,.(idiom_id,doc_type_name),nrow)
 gooddata = merge(id_most_common,gooddata,by.x="idioms.idiom_id",by.y="idiom_id")
 colnames(gooddata)<-c("idiom_id","most_common_lemma","texttype","absfreq")
+
 gooddata = merge(gooddata,freqdf,by.x="texttype",by.y="texttype")
 names(gooddata)[names(gooddata) == 'tokenfreq'] <- 'collsize'
 gooddata$relfreq = (gooddata$absfreq/gooddata$collsize)*100000000
@@ -362,11 +363,11 @@ names(gooddata)[names(gooddata) == 'ttr_wordfreqlist'] <- 'ttr'
 
 textfeats <- merge(textfeats,counts_per_collection,by.x="texttype",by.y="doc_type_name",all.x=TRUE)
 textfeats <- merge(textfeats,avg_doc_length,by.x="texttype",by.y="doc_type_name")
-textfeats$relfreq = (textfeats$V1/textfeats$collsize)*100000000
-textfeats$logabsfreq <- log(textfeats$V1)
-textfeats$tokenfreq <- textfeats$amountofword
-
 names(textfeats)[names(textfeats) == 'amountofwords'] <- 'collsize'
+textfeats$totalrelfreq = (textfeats$V1/textfeats$collsize)*100000000
+textfeats$totallogabsfreq <- log(textfeats$V1)
+textfeats$totallogrelfreq = log(textfeats$totalrelfreq)
+textfeats$tokenfreq <- textfeats$amountofword
 
 #=========================================================================================================================================
 # PCA ATTEMPT
@@ -379,27 +380,25 @@ alldata.pca2 <- princomp(alldata[,c(3:15,18:27,29,31)], cor = TRUE,scores = TRUE
 summary(alldata.pca)
 fviz_eig(alldata.pca,label=TRUE)
 
-
-
 #=====================================================================================================================================
 #=========================================================== CLUSTER TEXT TYPES ======================================================
 #=====================================================================================================================================
 
 #TODO: ADD ALL FEATURES AGAIN
 
-fviz_nbclust(textfeats[,2:12], kmeans, method = "gap_stat")
+fviz_nbclust(textfeats[,c(2,5,7,9)], kmeans, method = "gap_stat")
 
 set.seed(123)
-km.res <- kmeans(textfeats[,2:12], 8, nstart = 100)
+km.res <- kmeans(textfeats[,c(2,5,7,9)], 5, nstart = 100)
 # Visualize
 
-fviz_cluster(km.res, data = textfeats[,2:12],
+fviz_cluster(km.res, data = textfeats[,c(2,5,7,9)],
              ellipse.type = "convex",
              palette = "jco",
              ggtheme = theme_minimal())
 
 # Compute hierarchical clustering
-res.hc <- textfeats[,2:12] %>%
+res.hc <- textfeats[,c(2,5,7,9)] %>%
   scale() %>%                    # Scale the data
   dist(method = "euclidean") %>% # Compute dissimilarity matrix
   hclust(method = "ward.D2")     # Compute hierachical clustering
@@ -408,15 +407,43 @@ res.hc$labels <- textfeats$texttype
 
 # Visualize using factoextra
 # Cut in 4 groups and color by groups
-fviz_dend(res.hc, k = 8, # Cut in 8 groups (optimal # of clusters)
+fviz_dend(res.hc, k = 5, # Cut in 8 groups (optimal # of clusters)
           cex = 0.9, # label size
           #k_colors = rainbow(11),
           color_labels_by_k = TRUE # color labels by groups
           #rect = TRUE, # Add rectangle around groups
 )
 
+
+
 #=====================================================================================================================================
-#=======================================================MAKE NEW STATISTICAL MODELS====================================================
+#====================================================== GET MEAN CLUSTER FEATURE VALUES ==============================================
+#=====================================================================================================================================
+
+# Cut tree into 4 groups
+sub_grp <- cutree(res.hc, k = 5)
+
+table(sub_grp)
+
+
+clusterinfo <- textfeats %>% mutate(cluster = sub_grp)
+meanclusterdata <- ddply(clusterinfo, .(cluster), numcolwise(mean))
+
+sub_grp <- data.frame(sub_grp)
+sub_grp$texttype <- rownames(sub_grp)
+
+meanclusterdata <- merge(meanclusterdata,sub_grp,by.x="cluster",by.y="sub_grp")
+
+meanclusterdata <- aggregate(texttype ~ ., meanclusterdata, toString)
+
+meanclusteroutput <- meanclusterdata[,c(1,2,5,7,9,16)]
+
+meanclusteroutput
+
+
+
+#=====================================================================================================================================
+#==============================================MAKE NEW STATISTICAL MODELS - normal====================================================
 #=====================================================================================================================================
 
 gooddata$idiom_id <- as.factor(gooddata$idiom_id)
@@ -440,8 +467,8 @@ plot_smooth(m0,view="f",cond=list(est=2.5),add=TRUE,col=2)
 pvisgam(m0,select=4,view=c("f","est"),dec=1,too.far = 0.03)
 plot(m0,scale=0,select=4)
 summary(m0)
-
 gam.check(m0)
+
 
 m1 <- bam(logfreq ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
 m2 <- bam(logfreq ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
@@ -453,7 +480,7 @@ m7 <- bam(logfreq ~ s(f) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data
 m8 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
 #m9 <- bam(logfreq ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
 m10 <- bam(logfreq ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-
+m11 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
 
 plot_smooth(m7, view="f")
 gam.check(m7)
@@ -464,6 +491,51 @@ mean(gooddata[gooddata$f > 77 & gooddata$f < 78,]$relfreq,na.rm=TRUE)
 
 AIC(m0,m1,m2,m3,m4,m5,m6,m7,m8,m10)
 
+#=====================================================================================================================================
+#============================================MAKE NEW STATISTICAL MODELS - binomial===================================================
+#=====================================================================================================================================
+
+
+withzeros$idiom_id <- as.factor(withzeros$idiom_id)
+withzeros$idiom <- as.factor(withzeros$idiom)
+withzeros$texttype <- as.factor(withzeros$texttype)
+
+withzeros$present <- ifelse(withzeros$relfreq>0,1,0)
+m0_logistic <- bam(present ~ s(f) + s(fixedness) + s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m1_logistic <- bam(present ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m2_logistic <- bam(present ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m3_logistic <- bam(present ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=withzeros, family="binomial")
+m4_logistic <- bam(present ~ s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m5_logistic <- bam(present ~ s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m6_logistic <- bam(present ~ s(est) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m7_logistic <- bam(present ~ s(f) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m8_logistic <- bam(present ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+#m9_logistic <- bam(present ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
+m10_logistic <- bam(present ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m11_logistic <- bam(present ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+
+
+plot(m0_logistic,scale=0)
+summary(m0_logistic)
+fvisgam(m0_logistic,view=c("f","est"),dec=1)
+plot_smooth(m0_logistic,view="f",cond=list(est=4))
+plot_smooth(m0_logistic,view="f",cond=list(est=2.5),add=TRUE,col=2)
+
+pvisgam(m0_logistic,select=4,view=c("f","est"),dec=1,too.far = 0.03)
+plot(m0_logistic,scale=0,select=4)
+summary(m0_logistic)
+gam.check(m0_logistic)
+
+plot(m11_logistic,scale=0)
+summary(m11_logistic)
+fvisgam(m11_logistic,view=c("f","est"),dec=1)
+plot_smooth(m11_logistic,view="f",cond=list(est=4))
+plot_smooth(m11_logistic,view="f",cond=list(est=2.5),add=TRUE,col=2)
+
+pvisgam(m11_logistic,select=4,view=c("f","ttr"),dec=1,too.far = 0.03)
+plot(m11_logistic,scale=0,select=4)
+summary(m11_logistic)
+gam.check(m11_logistic)
 #=========================================================================================================================================
 #PLOTS FOR PAPER/PRESENTATION
 #=========================================================================================================================================
