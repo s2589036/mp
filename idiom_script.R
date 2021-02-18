@@ -222,48 +222,6 @@ colnames(tfreqdf) <- texttype
 avg_doc_length <- read.csv("results/avg_doc_length_new_media_correct.csv",header=TRUE,sep=";")
 
 #=====================================================================================================================================
-#==============================================================MAKE CROSS TABLES======================================================
-#====================================SOMETHING WENT WRONG WITH PROP IDIOM FREQS HERE, USE THE NEW ONES!===============================
-#=====================================================================================================================================
-
-#make cross table
-#cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
-
-# #add sums and write to file
-# cross_table_print <- as.data.frame.matrix(addmargins(table(idioms$most_common_lemma,idioms$doc_type_name),))
-# 
-# write.csv(cross_table_print,"results\\cross_table.csv")
-# 
-# #add sizes of collections in order to calculate relative idiom frequencies 
-# tcross_table <- as.data.frame(t(cross_table))
-# tcross_table$texttype <- row.names(tcross_table)
-# 
-# sort(tcross_table$texttype)
-# sort(freqdf$texttype)
-# 
-# prop_cross <- merge(tcross_table, freqdf,by.x="texttype", by.y="texttype")
-# #tcross_table <- tcross_table[-179]
-# 
-# sort(prop_cross$texttype)
-# 
-# #tpropcross: calculate relative idiom frequencies (per million words)
-# #prop_cross_million <- (prop_cross[2:179]/prop_cross$tokenfreq)*100000000
-# 
-# #tpropcross: calculate relative idiom frequencies (per 100 million words)
-# prop_cross[2:179] <- round((prop_cross[2:179]/prop_cross$tokenfreq)*100000000) #rounded freq per 100,000,000 words
-# str(prop_cross)
-# 
-# tprop_cross <- t(prop_cross)
-# 
-# colnames(tprop_cross) <- tprop_cross[1,]
-# tprop_cross <- tprop_cross[-1,]
-# 
-# tprop_cross[, c(1:23)] <- sapply(tprop_cross[, c(1:23)], as.numeric)
-# 
-# write.csv(tprop_cross,"results\\cross_table_per_100_million_tokens_rounded.csv")
-
-
-#=====================================================================================================================================
 #==============================================================ADD IDIOM FEATURES=====================================================
 #=====================================================================================================================================
 
@@ -325,7 +283,7 @@ textfeats <- data.frame(texttype,f,ttr_lemmafreqlist,ttr_lemmaposfreqlist,ttr_wo
 cross_table <- as.data.frame.matrix(table(idioms$most_common_lemma,idioms$doc_type_name),)
 cross_table$idiom = row.names(cross_table)
 withzeros <- pivot_longer(cross_table[1:24], cols=1:23, names_to = "texttype", values_to = "freq")
-withzeros <- merge(withzeros,most_common,by.x="idiom",by.y="most_common_lemma")
+withzeros <- merge(withzeros,most_common,by.x="idiom",by.y="most_common_lemma") #add id's to dataframe
 
 withzeros = merge(withzeros,freqdf,by.x="texttype",by.y="texttype")
 names(withzeros)[names(withzeros) == 'tokenfreq'] <- 'collsize'
@@ -338,13 +296,22 @@ withzeros<-merge(withzeros,avg_doc_length[,c("doc_type_name","meanlength")],by.x
 
 names(withzeros)[names(withzeros) == 'ttr_wordfreqlist'] <- 'ttr'
 
+withzeros$idiom_id <- as.factor(withzeros$idiom_id)
+withzeros$idiom <- as.factor(withzeros$idiom)
+withzeros$texttype <- as.factor(withzeros$texttype)
+withzeros$present <- ifelse(withzeros$relfreq>0,1,0)
+withzeros$relfreq <- (withzeros$freq/withzeros$collsize)*100000000
+withzeros <- withzeros[withzeros$relfreq<50000,] # OUTLIERS REMOVED:
+withzeros$logfreq <- log(withzeros$relfreq) # THIS TAKES AWAY A LOT OF VALUES BECAUSE LOG(0) DOES NOT EXIST
+
+
 #=====================================================================================================================================
 #============================================= NEW: CALCULATE PROPFREQIDIOMS (without zeros) =========================================
 #=====================================================================================================================================
 
 gooddata = ddply(idioms,.(idiom_id,doc_type_name),nrow)
 gooddata = merge(id_most_common,gooddata,by.x="idioms.idiom_id",by.y="idiom_id")
-colnames(gooddata)<-c("idiom_id","most_common_lemma","texttype","absfreq")
+colnames(gooddata)<-c("idiom_id","idiom","texttype","absfreq")
 
 gooddata = merge(gooddata,freqdf,by.x="texttype",by.y="texttype")
 names(gooddata)[names(gooddata) == 'tokenfreq'] <- 'collsize'
@@ -356,6 +323,24 @@ gooddata<-merge(gooddata,idiom_features[,c("id","fixedness")],by.x="idiom_id",by
 gooddata<-merge(gooddata,avg_doc_length[,c("doc_type_name","meanlength")],by.x="texttype",by.y="doc_type_name")
 
 names(gooddata)[names(gooddata) == 'ttr_wordfreqlist'] <- 'ttr'
+
+gooddata$idiom_id <- as.factor(gooddata$idiom_id)
+gooddata$idiom <- as.factor(gooddata$idiom)
+gooddata$texttype <- as.factor(gooddata$texttype)
+
+qqnorm(gooddata$absfreq)
+plot(gooddata$relfreq)
+gooddata <- gooddata[gooddata$relfreq<50000,] # OUTLIERS REMOVED:
+gooddata$logfreq <- log(gooddata$relfreq)
+qqnorm(gooddata$logfreq)
+qqline(gooddata$logfreq)
+
+#gooddata$relfreq2 = (gooddata$absfreq/gooddata$collsize)
+#gooddata$logfreq2 <- log(gooddata$relfreq2)
+#tested whether the scaling influences the model / fvisgamplot, it does not
+
+#m0 <- bam(logfreq ~ s(f)+ s(est) + ti(f,est), bs="re", data=gooddata) #this shows frequencies in a 
+#more simplified way
 
 #=========================================================================================================================================
 # MAKE TEXTFEATS DF
@@ -369,16 +354,24 @@ textfeats$totallogabsfreq <- log(textfeats$V1)
 textfeats$totallogrelfreq = log(textfeats$totalrelfreq)
 textfeats$tokenfreq <- textfeats$amountofword
 
+
+#=========================================================================================================================================
+# cobine gooddata with withzeros to analyze logrelfreq of ALL idioms instead of just the idioms that exist
+#=========================================================================================================================================
+
+alldata <- merge(withzeros,gooddata,all.x=TRUE)
+alldata[alldata$freq==0,]$logfreq = log(((alldata[alldata$freq==0,]$freq+0.01)/alldata[alldata$freq==0,]$collsize)*100000000)
+alldata$absfreq <- ifelse(is.na(alldata$absfreq),0,alldata$absfreq)
+
+
 #=========================================================================================================================================
 # PCA ATTEMPT
 #=========================================================================================================================================
+#alldata.pca <- prcomp(alldata[,c(3:15,18:27,29,31)], center = TRUE,scale. = TRUE)
+#alldata.pca2 <- princomp(alldata[,c(3:15,18:27,29,31)], cor = TRUE,scores = TRUE)
 
-
-alldata.pca <- prcomp(alldata[,c(3:15,18:27,29,31)], center = TRUE,scale. = TRUE)
-alldata.pca2 <- princomp(alldata[,c(3:15,18:27,29,31)], cor = TRUE,scores = TRUE)
-
-summary(alldata.pca)
-fviz_eig(alldata.pca,label=TRUE)
+#summary(alldata.pca)
+#fviz_eig(alldata.pca,label=TRUE)
 
 #=====================================================================================================================================
 #=========================================================== CLUSTER TEXT TYPES ======================================================
@@ -436,31 +429,132 @@ meanclusterdata <- merge(meanclusterdata,sub_grp,by.x="cluster",by.y="sub_grp")
 
 meanclusterdata <- aggregate(texttype ~ ., meanclusterdata, toString)
 
-meanclusteroutput <- meanclusterdata[,c(1,2,5,7,9,16)]
+meanclusteroutput <- meanclusterdata[,c(1,2,5,7,9,15)]
 
 meanclusteroutput
 
 
-
 #=====================================================================================================================================
-#==============================================MAKE NEW STATISTICAL MODELS - normal====================================================
+#==============================================MAKE NEW STATISTICAL MODELS - zeros excluded ====================================================
 #=====================================================================================================================================
 
-gooddata$idiom_id <- as.factor(gooddata$idiom_id)
-gooddata$idiom <- as.factor(gooddata$most_common_lemma)
-gooddata$texttype <- as.factor(gooddata$texttype)
+m0_without_zeros <- bam(logfreq ~ s(f)+ s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+hist(resid(m0_without_zeros))
 
-qqnorm(gooddata$absfreq)
 
-gooddata$logfreq <- log(gooddata$relfreq)
-qqnorm(gooddata$logfreq)
-qqline(gooddata$logfreq)
+plot(m0_without_zeros,scale=0)
+summary(m0_without_zeros)
+library(mgcv)
 
-m0 <- bam(logfreq ~ s(f) + s(fixedness) + s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m0_without_zeros,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability")
+
+
+par(mar=oldmar) # restore to default settings
+
+plot_smooth(m0_without_zeros,view="f",cond=list(est=4))
+plot_smooth(m0_without_zeros,view="f",cond=list(est=2.5),add=TRUE,col=2)
+
+pvisgam(m0_without_zeros,select=4,view=c("f","est"),dec=1,too.far = 0.03)
+plot(m0_without_zeros,scale=0,select=4)
+summary(m0_without_zeros)
+gam.check(m0_without_zeros)
+
+#m1_norand <- bam(logfreq ~ s(est), data=gooddata)
+#m2_norand <- bam(logfreq ~ s(f), data=gooddata)
+#m3_norand <- bam(logfreq ~ s(f)+s(est), data=gooddata)
+#m4_norand <- bam(logfreq ~ s(f,est),data=gooddata)
+#m5_norand <- bam(logfreq ~ s(meanlength),data=gooddata)
+#summary(m3_norand)
+#AIC(m1_norand,m2_norand,m3_norand,m4_norand,m5_norand)
+
+#plot_smooth(m1_norand,view="est")
+#plot_smooth(m2_norand,view="f")
+#plot_smooth(m3_norand,view=c("f","est"),add=TRUE,col=2)
+#plot_smooth(m4_norand,view=c("f","est"))
+#plot_smooth(m5_norand,view=c("meanlength"),add=TRUE,col=3)
+
+
+m1_without_zeros <- bam(logfreq ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+
+m2_without_zeros <- bam(logfreq ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m3_without_zeros <- bam(logfreq ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=gooddata)
+m4_without_zeros <- bam(logfreq ~ s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m5_without_zeros <- bam(logfreq ~ s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m6_without_zeros <- bam(logfreq ~ s(est) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m7_without_zeros <- bam(logfreq ~ s(f) + s(ttr) + s(idiom, bs="re") +s(texttype, bs="re"), data=gooddata) #+ s(idiom, bs="re")
+m8_without_zeros <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+#m9_without_zeros <- bam(logfreq ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
+m10_without_zeros <- bam(logfreq ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+m11_without_zeros <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+
+gooddata$logcollsize_without_zeros <- log(gooddata$collsize)
+m12_without_zeros <- bam(logfreq ~ s(logcollsize) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m0_without_zeros,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability")
+par(mar=oldmar) # restore to default settings
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m6_without_zeros,view=c("ttr","est"),dec=1,xlab="Type-Token Ratio",ylab="Estimated decomposability")
+par(mar=oldmar) # restore to default settings
+
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m8_without_zeros,view=c("meanlength","est"),dec=1,xlab="Type-Token Ratio",ylab="Estimated decomposability")
+par(mar=oldmar) # restore to default settings
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,3) ) # add one line to the right
+fvisgam(m12_without_zeros,view=c("logcollsize","est"),dec=1,xlab="Collection Size",ylab="Estimated decomposability")
+par(mar=oldmar) # restore to default settings
+
+AIC(m0_without_zeros,m1_without_zeros,m2_without_zeros,m3_without_zeros,m4_without_zeros,m5_without_zeros,
+    m6_without_zeros,m7_without_zeros,m8_without_zeros,m10_without_zeros,m11_without_zeros)
+
+
+pvisgam(m0_without_zeros,select=4,view=c("f","est"),dec=1,too.far = 0.3)
+summary(m0_without_zeros,) #ttr is more informative than f in this case
+
+plot_smooth(m0_without_zeros, view="f")
+plot_smooth(m0_without_zeros, view="est")
+pvisgam(m0_without_zeros,select=4,view=c("f","est"),dec=1,too.far = 0.1)
+fvisgam(m0_without_zeros,view=c("f","est"),dec=1)
+
+gam.check(m0_without_zeros,)
+plot(resid(m0_without_zeros,))
+
+mean(gooddata[gooddata$f>65 &gooddata$f<70&gooddata$est>2&gooddata$est <2.5,]$logfreq) #test plot output with real data
+
+#plot(gooddata$logfreq,predict(m7)) #this is part of gam.check in a better way
+
+plot(gooddata$relfreq,gooddata$f)
+
+
+#=========================================================================================================================================
+# RELFREQ INCLUDING ZEROS
+#=========================================================================================================================================
+
+m0 <- bam(logfreq ~ s(f)+ s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+hist(resid(m0))
+
 
 plot(m0,scale=0)
 summary(m0)
-fvisgam(m0,view=c("f","est"),dec=1)
+library(mgcv)
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m0,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability")
+#fvisgam(m0,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability",rm.ranef=FALSE)
+#including the random effects does not make much of a difference
+
+par(mar=oldmar) # restore to default settings
+
 plot_smooth(m0,view="f",cond=list(est=4))
 plot_smooth(m0,view="f",cond=list(est=2.5),add=TRUE,col=2)
 
@@ -469,39 +563,79 @@ plot(m0,scale=0,select=4)
 summary(m0)
 gam.check(m0)
 
+#m1_norand <- bam(logfreq ~ s(est), data=alldata)
+#m2_norand <- bam(logfreq ~ s(f), data=alldata)
+#m3_norand <- bam(logfreq ~ s(f)+s(est), data=alldata)
+#m4_norand <- bam(logfreq ~ s(f,est),data=alldata)
+#m5_norand <- bam(logfreq ~ s(meanlength),data=alldata)
+#summary(m3_norand)
+#AIC(m1_norand,m2_norand,m3_norand,m4_norand,m5_norand)
 
-m1 <- bam(logfreq ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m2 <- bam(logfreq ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m3 <- bam(logfreq ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=gooddata)
-m4 <- bam(logfreq ~ s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m5 <- bam(logfreq ~ s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m6 <- bam(logfreq ~ s(est) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m7 <- bam(logfreq ~ s(f) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m8 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-#m9 <- bam(logfreq ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
-m10 <- bam(logfreq ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
-m11 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+#plot_smooth(m1_norand,view="est")
+#plot_smooth(m2_norand,view="f")
+#plot_smooth(m3_norand,view=c("f","est"),add=TRUE,col=2)
+#plot_smooth(m4_norand,view=c("f","est"))
+#plot_smooth(m5_norand,view=c("meanlength"),add=TRUE,col=3)
 
-plot_smooth(m7, view="f")
-gam.check(m7)
-plot(resid(m7))
-hist(resid(m7))
 
-mean(gooddata[gooddata$f > 77 & gooddata$f < 78,]$relfreq,na.rm=TRUE)
+m1 <- bam(logfreq ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
 
-AIC(m0,m1,m2,m3,m4,m5,m6,m7,m8,m10)
+m2 <- bam(logfreq ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+m3 <- bam(logfreq ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=alldata)
+m4 <- bam(logfreq ~ s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+m5 <- bam(logfreq ~ s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+m6 <- bam(logfreq ~ s(est) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+m7 <- bam(logfreq ~ s(f) + s(ttr) + s(idiom, bs="re") +s(texttype, bs="re"), data=alldata) #+ s(idiom, bs="re")
+m8 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+#m9 <- bam(logfreq ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata[alldata$doc_type_name!="tweets"&&alldata$doc_type_name!="chats"&&alldata$doc_type_name!="sms",])
+m10 <- bam(logfreq ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+m11 <- bam(logfreq ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+
+alldata$logcollsize <- log(alldata$collsize)
+m12 <- bam(logfreq ~ s(logcollsize) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=alldata)
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m0,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability",main="Log relative frequency of idioms - zeros included")
+par(mar=oldmar) # restore to default settings
+
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,3) ) # add one line to the right
+
+summary(m11)
+fvisgam(m11,view=c("f","ttr"),dec=1,xlab="Formality Score",ylab="Type-token Ratio")
+par(mar=oldmar) # restore to default settings
+
+AIC(m0,m1,m2,m3,m4,m5,m6,m7,m8,m10,m11)
+
+#pvisgam(m0,select=4,view=c("f","est"),dec=1,too.far = 0.3)
+summary(m11)
+
+plot_smooth(m11, view="f")
+plot_smooth(m11, view="est")
+#pvisgam(m11,select=4,view=c("f","est"),dec=1,too.far = 0.1)
+fvisgam(m11,view=c("f","est"),dec=1)
+
+gam.check(m11)
+plot(resid(m11))
+
+qqnorm(resid(m11))
+qqline(resid(m11))
 
 #=====================================================================================================================================
 #============================================MAKE NEW STATISTICAL MODELS - binomial===================================================
 #=====================================================================================================================================
 
+m0_logistic <- bam(present ~ s(f) + s(fixedness) + s(est) + te(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
 
-withzeros$idiom_id <- as.factor(withzeros$idiom_id)
-withzeros$idiom <- as.factor(withzeros$idiom)
-withzeros$texttype <- as.factor(withzeros$texttype)
 
-withzeros$present <- ifelse(withzeros$relfreq>0,1,0)
-m0_logistic <- bam(present ~ s(f) + s(fixedness) + s(est) + ti(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+oldmar <- par()$mar
+par(mar=oldmar + c(0,0,0,2) ) # add one line to the right
+fvisgam(m0_logistic,view=c("f","est"),dec=1,xlab="Formality Score",ylab="Estimated decomposability")
+par(mar=oldmar) # restore to default settings
+
+summary(m0_logistic)
+
 m1_logistic <- bam(present ~ s(f) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
 m2_logistic <- bam(present ~ s(f) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
 m3_logistic <- bam(present ~ s(est) + s(fixedness) + s(idiom, bs="re")+s(texttype, bs="re"),data=withzeros, family="binomial")
@@ -512,8 +646,20 @@ m7_logistic <- bam(present ~ s(f) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="r
 m8_logistic <- bam(present ~ s(f) + s(est) + s(meanlength) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
 #m9_logistic <- bam(present ~ s(f) + s(est) + + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata[gooddata$doc_type_name!="tweets"&&gooddata$doc_type_name!="chats"&&gooddata$doc_type_name!="sms",])
 m10_logistic <- bam(present ~ s(ttr) + s(est) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
-m11_logistic <- bam(present ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re"), data=withzeros, family="binomial")
+m11_logistic <- bam(present ~ s(f) + s(est) + s(meanlength) + s(ttr) + s(idiom, bs="re")+s(texttype, bs="re")+ ti(ttr,f), data=withzeros, family="binomial")
 
+summary(m11_logistic)
+
+AIC(m0_logistic,m1_logistic,m2_logistic,m3_logistic,m4_logistic,m5_logistic,m6_logistic,m7_logistic,m8_logistic,m10_logistic,m11_logistic)
+fvisgam(m11_logistic,view=c("ttr","f"),dec=1)
+fvisgam(m0_logistic,view=c("f","est"),dec=1)
+
+m1 <- bam(logfreq ~ te(f,est) + s(idiom, bs="re")+s(texttype, bs="re"), data=gooddata)
+fvisgam(m1,view=c("f","est"),dec=1)
+summary(m1)
+
+qqnorm(resid(m0_logistic))
+qqline(resid(m0_logistic))
 
 plot(m0_logistic,scale=0)
 summary(m0_logistic)
@@ -536,6 +682,31 @@ pvisgam(m11_logistic,select=4,view=c("f","ttr"),dec=1,too.far = 0.03)
 plot(m11_logistic,scale=0,select=4)
 summary(m11_logistic)
 gam.check(m11_logistic)
+
+
+str(withzeros)
+lme1 <- lme(logfreq ~ f + ttr + est + (1|idiom_id) + (1|texttype), data=gooddata)
+str(gooddata)
+
+
+summary(lme1)
+
+lm2 <- lm(present ~ f + ttr, data=withzeros)
+
+summary(lm2)
+
+
+hist(resid(lm2))
+
+
+
+
+#=========================================================================================================================================
+#STATISTICAL ANALYSIS BASED ON CLUSTER VALUES
+#=========================================================================================================================================
+lm(logfreq~cluster)
+
+
 #=========================================================================================================================================
 #PLOTS FOR PAPER/PRESENTATION
 #=========================================================================================================================================
@@ -621,24 +792,12 @@ ggscatter(textfeats, x = "V1", y = "collsize",
           cor.coef = TRUE, cor.method = "pearson",
           title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Frequency", ylab = "Collection Size")
 
-ggscatter(textfeats[textfeats$texttype!="newspapers",], x = "V1", y = "collsize", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size\n (Pearson) -- Newspapers excluded", xlab = "Idiom Frequency", ylab = "Collection Size")
-
-
-ggscatter(textfeats, x = "V1", y = "collsize", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          title= "Correlation between Idiom Freq. and Collection Size\n(Pearson)", xlab = "Idiom Frequency", ylab = "Collection Size")
-
-
 #======================================================
 
 ggplot(data=textfeats, aes(x=reorder(texttype,f),y=f,fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
   geom_bar(position="dodge",stat="identity") + 
   ggtitle("Formality scores for all text types") +
-  labs(x="Text type",y="F-score", fill="F-score") +
+  labs(x="Text type",y="Formality score", fill="Formality\nscore") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + My_Theme
 
 ggplot(data=gooddata, aes(x=reorder(texttype,f),y=ttr, fill=f)) + 
@@ -657,6 +816,11 @@ ggplot(textfeats,
        aes(y=log(meanlength), x=reorder(texttype, f),fill=f)) + geom_bar(stat="identity", width=0.7) + xlab("Text type") +
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Normalized average text size of each collection") + My_Theme
 
+ggplot(textfeats,
+       aes(y=log(collsize), x=reorder(texttype, f),fill=f)) + geom_bar(stat="identity", width=0.7) + xlab("Text type") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Normalized collection size") + My_Theme
+
+
 ggplot(idiom_features[idiom_features$fixedness<1.60,],
        aes(y=fixedness, x=reorder(idiom,fixedness))) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Lexical Fixedness") + 
@@ -669,40 +833,51 @@ ggplot(idiom_features[idiom_features$fixedness>1.60,],
 
 #==================================
 
+plot(gooddata$ttr,gooddata$relfreq)
+
 ggplot(gooddata,
        aes(y=absfreq, x=reorder(texttype, f))) + geom_bar(stat="identity", width=0.7) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2)) + ggtitle("Absolute total frequency of idioms per collection") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=absfreq, x=reorder(texttype, f))) + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Absolute freq.") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Absolute total frequency of idioms per collection") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
+       aes(y=relfreq, x=reorder(texttype, f), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative idiom frequency", fill ="TTR") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
+
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, f), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="TTR") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
+       aes(y=relfreq, x=reorder(texttype, ttr), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="TTR") +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
+
+
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill="F-score") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, relfreq,FUN = sum))) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + labs(x="Text Type",y="Relative freq.", fill ="F-score") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, f))) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + labs(fill="F-score") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + labs(fill="F-score") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=relfreq, x=reorder(texttype, f), fill=ttr)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="ttr") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Relative total frequency of idioms per collection") + labs(fill="ttr") + My_Theme
 
-ggplot(gooddata[gooddata$texttype!="written assignments",], 
+ggplot(gooddata, 
        aes(y=log(relfreq), x=reorder(texttype, f), fill=f)) + scale_color_gradient() + geom_bar(position="stack", stat="identity", width=0.7) + xlab("Text type") +
-  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Normalized relative total frequency of idioms per collection\nWritten Assignments excluded") + labs(fill="F-score") + My_Theme
+  theme(axis.text.x=element_text(angle = -90, hjust = 0, vjust=0.2) ) + ggtitle("Normalized relative total frequency of idioms per collection") + labs(fill="F-score") + My_Theme
 
 
